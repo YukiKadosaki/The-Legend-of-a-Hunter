@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerSample : MonoBehaviour
 {
     //[SerializeField] private Animator m_Animator;
+    [Header("移動速度")]
     [SerializeField] private float m_MoveSpeed = 10;
+    [Header("ジャンプ力")]
     [SerializeField] private float m_JumpForce = 10;
     private Vector3 m_Startpos;
     private Rigidbody m_RigidBody;

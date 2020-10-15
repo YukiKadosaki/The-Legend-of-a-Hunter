@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraSample : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
+    [Header("カメラが追従するオブジェクト")]
+    [SerializeField] private GameObject target;//カメラが追従するオブジェクト
     private Vector3 target_to_camera;
 
     // Start is called before the first frame update
