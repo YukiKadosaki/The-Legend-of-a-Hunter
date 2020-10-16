@@ -35,7 +35,6 @@ public class PlayerSample : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_OnLand);
         Debug.DrawRay(this.transform.position + new Vector3(0, 0.5f)
             , Vector3.down, Color.red, 3, false);
         //プレイヤーの移動
