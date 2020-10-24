@@ -692,8 +692,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHp: 200
-  m_defaultAtk: 200
-  m_MoveSpeed: 10
+  m_defaultAtk: 203
+  m_defaultMoveSpeed: 100
   dest: {x: 6, y: 0, z: 0}
 --- !u!65 &1175116043
 BoxCollider:

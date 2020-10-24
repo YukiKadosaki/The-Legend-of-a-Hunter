@@ -16,11 +16,23 @@ public abstract class Boss : MonoBehaviour
     [SerializeField] private float m_maxHp;//最大hp
     private float m_Hp;//現在のhp
     [SerializeField] private float m_defaultAtk;//初期攻撃力
-    private int m_Atk;//現在の攻撃力
-    [SerializeField] private float m_MoveSpeed;
+    private float m_Atk;//現在の攻撃力
+    [SerializeField] private float m_defaultMoveSpeed;//初期速度
+    private float m_MoveSpeed;//現在の移動速度
 
+    //初期化
+    //Awake()はStart()よりも先に実行されます。
+    private void Awake()
+    {
+        m_Hp = m_maxHp;
+        m_Atk = m_defaultAtk;
+        m_MoveSpeed = m_defaultMoveSpeed;
+    }
 
     //アクセサ
+    //※下のgetの設定により、 float a = Hp と書いたとき、aに代入される値はm_Hpとなります
+    //get => は get { }と同じです
+    //※下のsetの設定により、 Hp = -100 と書いたとき、m_Hpに0が代入されます
     public float Hp
     {
         get => m_Hp;
@@ -39,7 +51,7 @@ public abstract class Boss : MonoBehaviour
             }
         }
     }
-    public int Atk
+    public float Atk
     {
         get => m_Atk;
         set
@@ -76,9 +88,7 @@ public abstract class Boss : MonoBehaviour
         Vector3 direction = (destination - this.transform.localPosition);
         //自分の現在地から目的地までの距離
         float distance = direction.magnitude;
-        //移動にかかる時間
-        int time = (int)Mathf.Floor(distance / m_MoveSpeed);
-        Debug.Log("time : " + time);
+        
 
         while (true)
         {
