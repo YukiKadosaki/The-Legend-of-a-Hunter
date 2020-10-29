@@ -17,7 +17,7 @@ public class Dhurahan : Boss
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //目的地（destination）に障害物などを避けながら移動する 
