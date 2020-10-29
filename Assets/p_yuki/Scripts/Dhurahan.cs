@@ -9,24 +9,15 @@ public class Dhurahan : Boss
     // Start is called before the first frame update
     void Start()
     {
-        /*Debug.Log("Start");
+        Debug.Log("Start");
         StartCoroutine(MoveLiner(dest));
         Debug.Log("End");
-        */
-
-        
-
-        Debug.Log("HP = " + Hp);
-        Debug.Log("ATK = " + Atk);
-        Debug.Log("MoveSpeed = " + MoveSpeed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("HP = " + Hp);
-        Debug.Log("ATK = " + Atk);
-        Debug.Log("MoveSpeed = " + MoveSpeed);
+
     }
 
     //目的地（destination）に障害物などを避けながら移動する 

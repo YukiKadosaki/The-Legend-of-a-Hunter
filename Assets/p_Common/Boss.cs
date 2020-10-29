@@ -82,16 +82,13 @@ public abstract class Boss : MonoBehaviour
     //目的地(destination）に直線移動する
     public virtual IEnumerator MoveLiner(Vector3 destination)
     {
-
-
-        //自分の現在地から目的地までの方向
-        Vector3 direction = (destination - this.transform.localPosition);
-        //自分の現在地から目的地までの距離
-        float distance = direction.magnitude;
-        
-
         while (true)
         {
+            float y = this.transform.localPosition.y;
+            //自分の現在地から目的地までの方向
+            Vector3 direction = (destination - this.transform.localPosition);
+            direction.y = y;
+
             this.transform.localPosition += Time.deltaTime * m_MoveSpeed * direction.normalized;
 
             yield return null;
