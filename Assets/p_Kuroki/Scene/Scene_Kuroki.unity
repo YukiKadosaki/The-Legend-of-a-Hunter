@@ -623,7 +623,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133025551}
-  m_LocalRotation: {x: -0.000000002074227, y: 0.9925076, z: -0.12218327, w: -0.00000001684917}
+  m_LocalRotation: {x: -0.0000000021023314, y: 0.9925076, z: -0.12218327, w: -0.000000017077463}
   m_LocalPosition: {x: 0, y: 2.5, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -710,8 +710,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHp: 100
   m_defaultAtk: 50
-  m_defaultMoveSpeed: 5
-  dest: {x: 0, y: 0, z: 0}
+  m_defaultMoveSpeed: 1
+  dest: {x: 1, y: 1, z: 1}
 --- !u!65 &1290428573
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024512575}
-  m_LocalRotation: {x: -0.000000002074227, y: 0.9925076, z: -0.12218327, w: -0.00000001684917}
+  m_LocalRotation: {x: -0.0000000021023314, y: 0.9925076, z: -0.12218327, w: -0.000000017077463}
   m_LocalPosition: {x: 0, y: 2.5, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -864,6 +864,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911124074521223972, guid: 9e4544a6227d34844a303daf75e3baa1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3911124074521526020, guid: 9e4544a6227d34844a303daf75e3baa1,
         type: 3}
