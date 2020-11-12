@@ -84,10 +84,9 @@ public abstract class Boss : MonoBehaviour
     {
         while (true)
         {
-            float y = this.transform.localPosition.y;
             //自分の現在地から目的地までの方向
             Vector3 direction = (destination - this.transform.localPosition);
-            direction.y = y;
+            direction.y = 0;
 
             this.transform.localPosition += Time.deltaTime * m_MoveSpeed * direction.normalized;
 
