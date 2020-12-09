@@ -7,7 +7,10 @@ public class Robot : Boss
     public static int COLUMN = 23;
     public static int ROW = 13;
     public GameObject player;
+    public Vector3 pos;
     private int[,] terrainInfo = new int[COLUMN, ROW];
+    private bool isGrasp = false;
+    private bool isRunning = false;
 
     void Start()
     {
@@ -15,6 +18,33 @@ public class Robot : Boss
 
     void Update()
     {
+        StartCoroutine(MoveToDestination(player.transform.position));
+        // if(!isGrasp){
+        //     Terrain_grasp();
+        // }else{
+
+        // }
+    }
+    //目的地（destination）に障害物などを避けながら移動する 
+    public override IEnumerator MoveToDestination(Vector3 destination)
+    {
+        if(isRunning){
+            yield break;
+        }
+        isRunning = true;
+
+        //自分の現在地から目的地までの方向
+        Vector3 direction = (destination - this.transform.localPosition);
+        direction.y = 0;
+
+        this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
+
+        yield return null;
+
+        isRunning = false;
+    }
+
+    public void Terrain_grasp(){
         for(int j = 0; j < ROW; j++)
         {
             for(int i = 0; i < COLUMN; i++)
@@ -45,11 +75,5 @@ public class Robot : Boss
             text += "\n";
         }
         Debug.Log(text);
-
-    }
-    //目的地（destination）に障害物などを避けながら移動する 
-    public override IEnumerator MoveToDestination(Vector3 destination)
-    {
-        yield return null;
     }
 }
