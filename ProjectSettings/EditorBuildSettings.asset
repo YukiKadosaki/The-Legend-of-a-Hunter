@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Player_Yuki.unity
+    guid: b815223fc6d21be42b892fa2348d5839
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Scene_Yuki.unity
+    guid: abd6bd4bf8801684c9355a4fc2cf45d2
   m_configObjects: {}

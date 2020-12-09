@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] float m_runSpeed;//走る速度
     Rigidbody m_rigidBody;
     Transform m_transform;
-    float m_Theta;//カメラからプレイヤーのベクトルとプレイヤーの移動方向とのベクトルのなす角
+    float m_ThetaSum;//カメラからプレイヤーのベクトルとプレイヤーの移動方向とのベクトルのなす角
     float m_ThetaBefore;//theta計算用
     float m_ThetaAfter;//theta計算用
     Vector3 m_cameraToPlayer;//カメラからプレイヤーへの方向を表すベクトルの単位ベクトル
@@ -48,10 +48,13 @@ public class Player : MonoBehaviour
         Vector3 moveDirection = Vector3.zero; //移動方向
         bool pushLeft = false;
         bool pushRight = false;
+        bool pushUp = false;
+        bool pushDown = false;
 
         //前
         if (Input.GetKey(KeyCode.UpArrow))
         {
+            pushUp = true;
             moveDirection += Vector3.forward;
         }
         //右
@@ -69,6 +72,7 @@ public class Player : MonoBehaviour
         //下
         if (Input.GetKey(KeyCode.DownArrow))
         {
+            pushDown = true;
             moveDirection += Vector3.back;
         }
         //移動方向を単位ベクトルへ
@@ -96,17 +100,19 @@ public class Player : MonoBehaviour
 
             if (pushLeft)
             {
-                m_Theta -= thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
+                m_ThetaSum -= thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
 
             }
             if (pushRight)
             {
-                m_Theta += thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
+                m_ThetaSum += thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
             }
 
+            //ThetaSumを使って、正面とカメラからプレイヤーのベクトルとの角度を計算する
+            float theta = Vector3.Angle(Vector3.forward, m_cameraToPlayer);
 
             Quaternion rotator;//進行方向のベクトルを回転させる
-            rotator = Quaternion.Euler(0, m_Theta, 0);
+            rotator = Quaternion.Euler(0, m_ThetaSum, 0);
 
 
             //進行方向を向く
@@ -116,15 +122,17 @@ public class Player : MonoBehaviour
             m_transform.localPosition += rotator * moveDirection * m_walkSpeed * Time.deltaTime;
 
 
-            //m_Thetaのオーバーフロー対策
-            if (m_Theta > 360)
+            //m_ThetaSumのオーバーフロー対策
+            if (m_ThetaSum > 360)
             {
-                m_Theta -= 360;
+                m_ThetaSum -= 360;
             }
-            if (m_Theta < -360)
+            if (m_ThetaSum < -360)
             {
-                m_Theta -= 360;
+                m_ThetaSum += 360;
             }
+
+            Debug.Log(Vector3.Angle(Vector3.forward, m_cameraToPlayer));
         }
     }
     //移動に必要な変数の計算
@@ -135,7 +143,7 @@ public class Player : MonoBehaviour
         m_cameraToPlayer.y = 0;
         m_cameraToPlayer = m_cameraToPlayer.normalized;
         m_ThetaBefore = Vector3.Angle(Vector3.forward, m_cameraToPlayer);//プレイヤーの移動に使用
-        m_Theta = m_ThetaBefore;
+        m_ThetaSum = m_ThetaBefore;
     }
 
 }

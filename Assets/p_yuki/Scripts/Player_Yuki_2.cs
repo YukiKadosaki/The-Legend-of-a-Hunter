@@ -15,7 +15,8 @@ public class Player_Yuki_2 : MonoBehaviour
     [SerializeField] float m_rotSpeed;//回転速度
     Rigidbody m_rigidBody;
     Transform m_transform;
-    float m_Theta;//カメラからプレイヤーのベクトルとプレイヤーの移動方向とのベクトルのなす角
+    const float Epsilon = 1;//小さい値
+    float m_ThetaSum;//カメラからプレイヤーのベクトルとプレイヤーの移動方向とのベクトルのなす角
     float m_ThetaBefore;//theta計算用
     float m_ThetaAfter;//theta計算用
     Vector3 m_cameraToPlayer;//カメラからプレイヤーへの方向を表すベクトルの単位ベクトル
@@ -89,25 +90,44 @@ public class Player_Yuki_2 : MonoBehaviour
             float thetaSub;//前フレームと今フレームのthetaの差
             thetaSub = Mathf.Abs(m_ThetaBefore - m_ThetaAfter);
             //誤差を除去
-            if (thetaSub < 0.05)
+            /*if (thetaSub < 0.05)
             {
                 thetaSub = 0;
-            }
+            }*/
             m_ThetaBefore = m_ThetaAfter;//今のafterは次のbefore
 
             if (pushLeft)
             {
-                m_Theta -= thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
+                m_ThetaSum -= thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
 
             }
             if (pushRight)
             {
-                m_Theta += thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
+                m_ThetaSum += thetaSub;//カメラからプレイヤーへのベクトルと移動方向とのなす角
             }
 
 
+
+            //m_ThetaSumのオーバーフロー対策
+            if (m_ThetaSum > 360)
+            {
+                m_ThetaSum -= 360;
+            }
+            if (m_ThetaSum < -360)
+            {
+                m_ThetaSum -= 360;
+            }
+
+
+            float theta = Vector3.Angle(Vector3.forward, m_cameraToPlayer);
+            //Thetaの正負を判定
+            if(Approximately(360 - theta, m_ThetaSum, Epsilon))
+            {
+                theta = -theta;
+            }
+
             Quaternion rotator;//進行方向のベクトルを回転させる
-            rotator = Quaternion.Euler(0, m_Theta, 0);
+            rotator = Quaternion.Euler(0, theta, 0);
 
 
             //進行方向を向く
@@ -115,17 +135,6 @@ public class Player_Yuki_2 : MonoBehaviour
 
             //動く
             m_transform.localPosition += rotator * moveDirection * m_walkSpeed * Time.deltaTime;
-
-
-            //m_Thetaのオーバーフロー対策
-            if (m_Theta > 360)
-            {
-                m_Theta -= 360;
-            }
-            if (m_Theta < -360)
-            {
-                m_Theta -= 360;
-            }
         }
     }
     //移動に必要な変数の計算
@@ -136,7 +145,17 @@ public class Player_Yuki_2 : MonoBehaviour
         m_cameraToPlayer.y = 0;
         m_cameraToPlayer = m_cameraToPlayer.normalized;
         m_ThetaBefore = Vector3.Angle(Vector3.forward, m_cameraToPlayer);//プレイヤーの移動に使用
-        m_Theta = m_ThetaBefore;
+        m_ThetaSum = m_ThetaBefore;
+    }
+
+    //2つの数が近い値を取るかどうかの計算
+    private bool Approximately(float a, float b, float epsilon)
+    {
+        if(Mathf.Abs(a - b) < epsilon)
+        {
+            return true;
+        }
+        return false;
     }
 
 }
