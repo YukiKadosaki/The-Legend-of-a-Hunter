@@ -68,14 +68,14 @@ public class testPlayer3 : MonoBehaviour
             cameraVec2 -= velocityVec2;
             vec2list.Add(-velocityVec2);
         }
-        if((go_left && !go_backward) || (go_right && go_backward))
+        if(go_left){
             playerVec2 += lotateVec2;
-        if((go_left && go_backward) || (go_right && !go_backward))
-            playerVec2 -= lotateVec2;
-        if(go_left)
             vec2list.Add(lotateVec2);
-        if(go_right)
+        }
+        if(go_right){
+            playerVec2 -= lotateVec2;
             vec2list.Add(-lotateVec2);
+        }
 
 
         Vector2 moveVec2 = Vector2.zero;
