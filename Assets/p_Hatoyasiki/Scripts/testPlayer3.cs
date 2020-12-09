@@ -38,6 +38,8 @@ public class testPlayer3 : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
+        camera.transform.LookAt(this.transform);
+
         // 無効入力をスルー
         if (!((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))))
             return;
@@ -92,11 +94,7 @@ public class testPlayer3 : MonoBehaviour
         this.transform.position = new Vector3(playerVec2.x, this.transform.position.y, playerVec2.y);
         camera.transform.position = new Vector3(cameraVec2.x, camera.transform.position.y, cameraVec2.y);
 
-
-
         camera.transform.LookAt(this.transform);
         this.transform.LookAt(this.transform.position + moveVec3);
-
-
     }
 }
