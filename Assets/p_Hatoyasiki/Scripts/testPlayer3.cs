@@ -48,35 +48,55 @@ public class testPlayer3 : MonoBehaviour
         Vector2 criteriaVec2 = playerVec2 - cameraVec2;
 
         Vector2 velocityVec2 = m_MoveSpeed * criteriaVec2.normalized;
-
         var vec = velocityVec2;
-        var result = Quaternion.Euler( 0, 0, 90 ) * vec;
-        Vector2 lotateVec2 = result;
+        Vector2 lotateVec2 = Quaternion.Euler( 0, 0, 90 ) * vec / 2;
 
-        if(Input.GetKey(KeyCode.W)){
+        List<Vector2> vec2list = new List<Vector2>();
+
+        bool go_forward     = Input.GetKey(KeyCode.W);
+        bool go_backward    = Input.GetKey(KeyCode.S);
+        bool go_left        = Input.GetKey(KeyCode.A);
+        bool go_right       = Input.GetKey(KeyCode.D);
+
+        if(go_forward){
             playerVec2 += velocityVec2;
             cameraVec2 += velocityVec2;
+            vec2list.Add(velocityVec2);
         }
-        if(Input.GetKey(KeyCode.S)){
+        if(go_backward){
             playerVec2 -= velocityVec2;
             cameraVec2 -= velocityVec2;
+            vec2list.Add(-velocityVec2);
         }
-        if(Input.GetKey(KeyCode.D))
-            playerVec2 -= lotateVec2;
-        if(Input.GetKey(KeyCode.A))
+        if((go_left && !go_backward) || (go_right && go_backward))
             playerVec2 += lotateVec2;
+        if((go_left && go_backward) || (go_right && !go_backward))
+            playerVec2 -= lotateVec2;
+        if(go_left)
+            vec2list.Add(lotateVec2);
+        if(go_right)
+            vec2list.Add(-lotateVec2);
+
+
+        Vector2 moveVec2 = Vector2.zero;
+        foreach (Vector2 v in vec2list){
+            moveVec2 += v;
+        }
+        Vector3 moveVec3 = new Vector3(moveVec2.x, 0, moveVec2.y);
 
         Vector2 new_criteriaVec2 = playerVec2 - cameraVec2;
         float difference = new_criteriaVec2.magnitude - criteriaVec2.magnitude;
         Vector2 diffeVec2 = difference * new_criteriaVec2.normalized;
         playerVec2 -= diffeVec2;
 
-
-
-        var naiseki = Vector2.Dot(new_criteriaVec2, criteriaVec2);
-
-
         this.transform.position = new Vector3(playerVec2.x, this.transform.position.y, playerVec2.y);
         camera.transform.position = new Vector3(cameraVec2.x, camera.transform.position.y, cameraVec2.y);
+
+
+
+        camera.transform.LookAt(this.transform);
+        this.transform.LookAt(this.transform.position + moveVec3);
+
+
     }
 }
