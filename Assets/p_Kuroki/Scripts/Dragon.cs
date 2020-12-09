@@ -9,6 +9,7 @@ public class Dragon : Boss
     private GameObject player; //プレイヤーオブジェクト
     private Vector3 PlayerPosition; //プレイヤーの位置情報
     private Vector3 EnemyPosition; //敵の位置情報
+    private float distance;  //プレイヤーと敵の距離
     private float targetTime = 1.0f;
     private float currentTime = 0;
 
@@ -32,6 +33,7 @@ public class Dragon : Boss
         //{
 
         //InvokeRepeating("Move", 2f, 10f);   //2秒後に関数Moveを実行し、3秒間隔で続ける
+        distance = Vector3.Distance(PlayerPosition, transform.position);
         Invoke("Move", 2f);
         //}
         //yield break;  //コルーチン終了
@@ -40,27 +42,27 @@ public class Dragon : Boss
     void Move()
     {
         this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
-        StartCoroutine("Stop");
-        
-        float step = MoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, PlayerPosition, step);
+        StartCoroutine("Stop");  //コルーチン"Stop"を起動
 
-        Invoke("Turn", 2f);
-        //自機のオブジェクトを見つける
-        //player = GameObject.Find("PlayerSample");
-        //Debug.Log("target = " + player.name);
-        //PlayerPosition = player.transform.position;
-        //EnemyPosition = this.transform.position;
+        if (distance > 2.0) 
+        {
+            float step = MoveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, PlayerPosition, step);
+        }      
+        else{
+            Invoke("Turn", 2f);
+        }
+        
     }
 
     void Turn()
     {
         //自機のオブジェクトを見つける
-        //player = GameObject.Find("PlayerSample");
-        //Debug.Log("target = " + player.name);
-        PlayerPosition = player.transform.position;
-        EnemyPosition = this.transform.position;
-        Invoke("Turn", 2f);
+        
+        ///PlayerPosition = player.transform.position;
+        //EnemyPosition = this.transform.position;
+       
+        Invoke("Move", 10f);
     }
 
     IEnumerator Stop()
