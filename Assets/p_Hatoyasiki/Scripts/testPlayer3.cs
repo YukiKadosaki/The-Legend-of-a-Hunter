@@ -17,6 +17,10 @@ public class testPlayer3 : MonoBehaviour
     private Vector3 m_Startpos;
     private Rigidbody m_RigidBody;
     private Transform m_Transform;
+    private Vector2 playerVec2;
+    private Vector2 cameraVec2;
+    private Vector2 criteriaVec2;
+    private float const_distance;
     private bool m_OnLand
     {
         //RaycastNonAllocを使うので複雑になっている
@@ -31,9 +35,13 @@ public class testPlayer3 : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        m_Startpos = transform.position;
+        m_Startpos  = transform.position;
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();
+        playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
+        cameraVec2 = new Vector2(camera.transform.position.x, camera.transform.position.z);
+        criteriaVec2 = playerVec2 - cameraVec2;
+        const_distance = criteriaVec2.magnitude;
     }
 
     // Update is called once per frame
@@ -45,13 +53,13 @@ public class testPlayer3 : MonoBehaviour
             return;
 
         // 基準ベクトルの取得
-        Vector2 playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
-        Vector2 cameraVec2 = new Vector2(camera.transform.position.x, camera.transform.position.z);
-        Vector2 criteriaVec2 = playerVec2 - cameraVec2;
+        playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
+        cameraVec2 = new Vector2(camera.transform.position.x, camera.transform.position.z);
+        criteriaVec2 = playerVec2 - cameraVec2;
 
         Vector2 velocityVec2 = m_MoveSpeed * criteriaVec2.normalized;
         var vec = velocityVec2;
-        Vector2 lotateVec2 = Quaternion.Euler( 0, 0, 90 ) * vec / 2;
+        Vector2 lotateVec2 = Quaternion.Euler( 0, 0, 90 ) * vec;
 
         List<Vector2> vec2list = new List<Vector2>();
 
@@ -90,6 +98,10 @@ public class testPlayer3 : MonoBehaviour
         float difference = new_criteriaVec2.magnitude - criteriaVec2.magnitude;
         Vector2 diffeVec2 = difference * new_criteriaVec2.normalized;
         playerVec2 -= diffeVec2;
+
+        Vector2 neo_criteriaVec2 = playerVec2 - cameraVec2;
+        float distance_difference = neo_criteriaVec2.magnitude - const_distance;
+        cameraVec2 += distance_difference * neo_criteriaVec2.normalized;
 
         this.transform.position = new Vector3(playerVec2.x, this.transform.position.y, playerVec2.y);
         camera.transform.position = new Vector3(cameraVec2.x, camera.transform.position.y, cameraVec2.y);
