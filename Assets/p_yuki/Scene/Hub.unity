@@ -189,6 +189,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSample
       objectReference: {fileID: 0}
+    - target: {fileID: 5064844731443772037, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279,
         type: 3}
       propertyPath: camera
@@ -199,7 +204,8 @@ PrefabInstance:
       propertyPath: m_MoveSpeed
       value: 0.05
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 31ee11fced0f62d44945d8be63118279, type: 3}
 --- !u!1 &175369565
 GameObject:
@@ -1494,6 +1500,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535825861}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1570468164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5064844731443609228, guid: 31ee11fced0f62d44945d8be63118279,
+    type: 3}
+  m_PrefabInstance: {fileID: 78478296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1570468165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570468164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417b051c23f498a429aee62a78dace73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 481249993}
+  rotateSpeed: 0
+  m_MoveSpeed: 0.1
+  m_JumpForce: 10
 --- !u!1 &1748069628
 GameObject:
   m_ObjectHideFlags: 0
