@@ -10,8 +10,9 @@ public class Dragon : Boss
     private Vector3 PlayerPosition; //プレイヤーの位置情報
     private Vector3 EnemyPosition; //敵の位置情報
     private float distance;  //プレイヤーと敵の距離
+    private float rotSpeed = 60;  //回転攻撃の速度
     //private float targetTime = 1.0f;
-    //private float currentTime = 0;
+    private float currentTime;
 
     void Start()
     {
@@ -74,10 +75,28 @@ public class Dragon : Boss
     void Turn()
     {
         Debug.Log("Turn Mode");
-        distance = 0;
-        StartCoroutine("Stop");  //コルーチン"Stop"を起動
+        distance = 0;     
+        //StartCoroutine("Stop");  //コルーチン"Stop"を起動
+        for(currentTime = 0; currentTime <= 5; currentTime++)
+        {
+            transform.Rotate(new Vector3(0, 0, this.rotSpeed)); //回転させる
+            //currentTime += Time.deltaTime;
+            Debug.Log("Turn" + currentTime);
+        }
+        //if(currentTime <= 10)
+        //{
+            
+        //}
+        //else
+        //{
+        currentTime = 0;
         CancelInvoke();
-        Invoke("Move", 10f);
+        StartCoroutine("Stop");
+        Move();
+        //}
+        
+        //CancelInvoke();
+        //Invoke("Move", 10f);
         //StartCoroutine("Move");
         //yield break;
     }
