@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dhurahan : Boss
 {
-    public GameObject point;
+    public GameObject point;//後で消す
     private const int BIGVALUE = 10000;
     private const int COLUMN = 200;
     private const int ROW = 200;
