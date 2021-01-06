@@ -8,6 +8,7 @@ public class testPlayer3 : MonoBehaviour
     //[SerializeField] private Animator m_Animator;
     public GameObject camera;
     public float rotateSpeed;
+    public int cameraMoveTime = 0;
     [Header("移動速度")]
     [SerializeField] private float m_MoveSpeed = 10;
     [Header("ジャンプ力")]
@@ -23,6 +24,7 @@ public class testPlayer3 : MonoBehaviour
     private Vector2 moveVec2;
     private Vector3 moveVec3;
     private float const_distance;
+    private bool isMovingCamera = false;
     private bool m_OnLand
     {
         //RaycastNonAllocを使うので複雑になっている
@@ -44,10 +46,10 @@ public class testPlayer3 : MonoBehaviour
         criteriaVec2 = playerVec2 - cameraVec2;
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
+        camera.transform.LookAt(this.transform);
     }
 
     void Update(){
-        camera.transform.LookAt(this.transform);
 
         // 無効入力をスルー
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
@@ -111,9 +113,25 @@ public class testPlayer3 : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.K)){
+            if(!isMovingCamera){
+                StartCoroutine(MoveCamera());
+                isMovingCamera = true;
+            }
+            // Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
+            // camera.transform.position = new Vector3(newCameraVector3.x, camera.transform.position.y, newCameraVector3.z);
+            // camera.transform.LookAt(this.transform);
+        }
+
+        IEnumerator MoveCamera(){
             Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
-            camera.transform.position = new Vector3(newCameraVector3.x, camera.transform.position.y, newCameraVector3.z);
-            camera.transform.LookAt(this.transform);
+            Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
+            for(int i = 0; i < cameraMoveTime; i++){
+                camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
+                camera.transform.LookAt(this.transform); 
+                yield return null;
+            }
+            isMovingCamera = false;
+            yield break;
         }
     }
 }

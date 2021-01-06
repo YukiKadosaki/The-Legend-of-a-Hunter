@@ -936,5 +936,10 @@ PrefabInstance:
       propertyPath: m_MoveSpeed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: cameraMoveTime
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ee11fced0f62d44945d8be63118279, type: 3}
