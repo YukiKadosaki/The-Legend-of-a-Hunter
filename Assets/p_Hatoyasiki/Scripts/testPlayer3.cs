@@ -35,7 +35,6 @@ public class testPlayer3 : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start(){
         m_Startpos  = transform.position;
         m_Transform = this.transform;
@@ -47,8 +46,6 @@ public class testPlayer3 : MonoBehaviour
         moveVec2 = Vector2.zero;
     }
 
-    // Update is called once per frame
-
     void Update(){
         camera.transform.LookAt(this.transform);
 
@@ -59,56 +56,56 @@ public class testPlayer3 : MonoBehaviour
             cameraVec2 = new Vector2(camera.transform.position.x, camera.transform.position.z);
             criteriaVec2 = playerVec2 - cameraVec2;
 
-            // ここ見直す
+            // 前方向と横方向のベクトル取得
             Vector2 velocityVec2 = m_MoveSpeed * criteriaVec2.normalized * Time.deltaTime;
-            var vec = velocityVec2;
-            Vector2 lotateVec2 = Quaternion.Euler( 0, 0, 90 ) * vec;
+            Vector2 lotateVec2 = new Vector2(-velocityVec2.y, velocityVec2.x);
 
+            // 入力した方向のベクトルを格納するリスト
             List<Vector2> vec2list = new List<Vector2>();
 
-            bool go_forward     = Input.GetKey(KeyCode.W);
-            bool go_backward    = Input.GetKey(KeyCode.S);
-            bool go_left        = Input.GetKey(KeyCode.A);
-            bool go_right       = Input.GetKey(KeyCode.D);
-
-            if(go_forward){
+            // プレイヤーとカメラの移動とリストへの格納
+            if(Input.GetKey(KeyCode.W)){
                 playerVec2 += velocityVec2;
                 cameraVec2 += velocityVec2;
                 vec2list.Add(velocityVec2);
             }
-            if(go_backward){
+            if(Input.GetKey(KeyCode.S)){
                 playerVec2 -= velocityVec2;
                 cameraVec2 -= velocityVec2;
                 vec2list.Add(-velocityVec2);
             }
-            if(go_left){
+            if(Input.GetKey(KeyCode.A)){
                 playerVec2 += lotateVec2;
                 vec2list.Add(lotateVec2);
             }
-            if(go_right){
+            if(Input.GetKey(KeyCode.D)){
                 playerVec2 -= lotateVec2;
                 vec2list.Add(-lotateVec2);
             }
 
-
+            // 進行方向のベクトルの取得
             moveVec2 = Vector2.zero;
             foreach (Vector2 v in vec2list){
                 moveVec2 += v;
             }
             moveVec3 = new Vector3(moveVec2.x, 0, moveVec2.y);
 
+            // 円運動によるズレの修正(カメラとの距離の固定のため)
             Vector2 new_criteriaVec2 = playerVec2 - cameraVec2;
             float difference = new_criteriaVec2.magnitude - criteriaVec2.magnitude;
             Vector2 diffeVec2 = difference * new_criteriaVec2.normalized * Time.deltaTime;
             playerVec2 -= diffeVec2;
 
+            // オブジェクトにぶつかった際のズレの修正
             Vector2 neo_criteriaVec2 = playerVec2 - cameraVec2;
             float distance_difference = neo_criteriaVec2.magnitude - const_distance;
             cameraVec2 += distance_difference * neo_criteriaVec2.normalized;
 
+            // 移動した2次元ベクトルをプレイヤーとカメラの3次元座標に代入
             this.transform.position = new Vector3(playerVec2.x, this.transform.position.y, playerVec2.y);
             camera.transform.position = new Vector3(cameraVec2.x, camera.transform.position.y, cameraVec2.y);
 
+            // 向きの修正
             camera.transform.LookAt(this.transform);
             this.transform.LookAt(this.transform.position + moveVec3);
         }
