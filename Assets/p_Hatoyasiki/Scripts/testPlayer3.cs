@@ -49,7 +49,6 @@ public class testPlayer3 : MonoBehaviour
 
     // Update is called once per frame
 
-    // time.deltatimeを追加することを考える．
     void Update(){
         camera.transform.LookAt(this.transform);
 
@@ -61,7 +60,7 @@ public class testPlayer3 : MonoBehaviour
             criteriaVec2 = playerVec2 - cameraVec2;
 
             // ここ見直す
-            Vector2 velocityVec2 = m_MoveSpeed * criteriaVec2.normalized;
+            Vector2 velocityVec2 = m_MoveSpeed * criteriaVec2.normalized * Time.deltaTime;
             var vec = velocityVec2;
             Vector2 lotateVec2 = Quaternion.Euler( 0, 0, 90 ) * vec;
 
@@ -100,7 +99,7 @@ public class testPlayer3 : MonoBehaviour
 
             Vector2 new_criteriaVec2 = playerVec2 - cameraVec2;
             float difference = new_criteriaVec2.magnitude - criteriaVec2.magnitude;
-            Vector2 diffeVec2 = difference * new_criteriaVec2.normalized;
+            Vector2 diffeVec2 = difference * new_criteriaVec2.normalized * Time.deltaTime;
             playerVec2 -= diffeVec2;
 
             Vector2 neo_criteriaVec2 = playerVec2 - cameraVec2;
