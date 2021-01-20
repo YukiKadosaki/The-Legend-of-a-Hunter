@@ -24,7 +24,7 @@ public class Dragon : Boss
         Debug.Log("target = " + player.name);
 
         PlayerPosition = player.transform.position;
-        EnemyPosition = this.transform.position;       
+        EnemyPosition = this.transform.position;
     }
 
     void Update()
@@ -33,6 +33,7 @@ public class Dragon : Boss
         //{
         //InvokeRepeating("Move", 2f, 10f);   //2秒後に関数Moveを実行し、3秒間隔で続ける
         //distance = Vector3.Distance(PlayerPosition, transform.position);
+        //Rigidbody rb = this.transform.GetComponent<Rigidbody>();
         Invoke("Move", 2f);
         //StartCoroutine("Move");
         //}
@@ -81,24 +82,29 @@ public class Dragon : Boss
         {
             transform.Rotate(new Vector3(0, 0, this.rotSpeed)); //回転させる
             //currentTime += Time.deltaTime;
-            Debug.Log("Turn" + currentTime);
+            //Debug.Log("Turn" + currentTime);
         }
-        //if(currentTime <= 10)
-        //{
-            
-        //}
-        //else
-        //{
+        
         currentTime = 0;
         CancelInvoke();
         StartCoroutine("Stop");
-        Move();
+        Attack();
+        //Move();
         //}
+    }
+
+    void Attack()
+    {
+        Debug.Log("Attack Mode");
+        for (currentTime = 0; currentTime <= 5; currentTime++)
+        {
+            Vector3 velocity = this.transform.rotation * new Vector3(MoveSpeed, 0, 0);
+            this.transform.position += velocity * Time.deltaTime;
+        }
         
-        //CancelInvoke();
-        //Invoke("Move", 10f);
-        //StartCoroutine("Move");
-        //yield break;
+        currentTime = 0;
+        CancelInvoke();
+        Move();
     }
 
     IEnumerator Stop()
