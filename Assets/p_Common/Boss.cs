@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class Boss : MonoBehaviour
 {
     //定数
-    private const float delta = 0.1f;
+    private const float delta = 1;
 
     //メンバ変数にはm_をつけてます
     //アクセサにはm_は付いていません
@@ -82,13 +82,14 @@ public abstract class Boss : MonoBehaviour
     //目的地(destination）に直線移動する
     public virtual IEnumerator MoveLiner(Vector3 destination)
     {
+
+        //自分の現在地から目的地までの方向
+        Vector3 direction = (destination - this.transform.localPosition);
         while (true)
         {
-            //自分の現在地から目的地までの方向
-            Vector3 direction = (destination - this.transform.localPosition);
             direction.y = 0;
 
-            this.transform.localPosition += Time.deltaTime * m_MoveSpeed * direction.normalized;
+            this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
 
             yield return null;
             if(Vector3.Distance(this.transform.localPosition, destination) <= delta){
