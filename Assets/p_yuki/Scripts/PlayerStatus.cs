@@ -10,6 +10,7 @@ public abstract class PlayerStatus : MonoBehaviour
     private float m_Atk;//現在の攻撃力
     [SerializeField] private float m_defaultMoveSpeed;//初期速度
     private float m_MoveSpeed;//現在の移動速度
+    private bool m_IsAttackable;//攻撃できるかどうか
 
     //初期化
     //Awake()はStart()よりも先に実行されます。
@@ -64,6 +65,11 @@ public abstract class PlayerStatus : MonoBehaviour
                 m_MoveSpeed = 0;
             }
         }
+    }
+    public bool IsAttackable
+    {
+        get => m_IsAttackable;
+        set { m_IsAttackable = value; }
     }
 
 
