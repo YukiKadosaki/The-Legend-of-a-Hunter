@@ -53,18 +53,18 @@ public class testPlayer3 : MonoBehaviour
         moveVec2 = Vector2.zero;
         camera.transform.LookAt(this.transform);
 
-        PlayerWP = serchTag(gameObject, "WP");
-        PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
+        //PlayerWP = serchTag(gameObject, "WP");
+        //PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
     }
 
     void Update(){
         WPReloadTime += Time.deltaTime;
-        if(WPReloadTime >= 0.5f){
+        /*if(WPReloadTime >= 0.5f){
             PlayerWP.GetComponent<Renderer>().material.color = WPColor.color;
             PlayerWP = serchTag(gameObject, "WP");
             PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
             WPReloadTime = 0f;
-        }
+        }*/
 
         // 無効入力をスルー
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
