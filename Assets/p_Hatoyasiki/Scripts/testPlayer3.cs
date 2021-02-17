@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class testPlayer3 : MonoBehaviour
+public class testPlayer3 : MobStatus
 {
     //[SerializeField] private Animator m_Animator;
     public GameObject camera;
