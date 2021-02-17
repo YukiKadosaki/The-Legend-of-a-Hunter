@@ -13,6 +13,7 @@ public class Dragon : Boss
     private float rotSpeed = 60;  //回転攻撃の速度
     //private float targetTime = 1.0f;
     private float currentTime;
+    private float MoveTime;
 
     void Start()
     {
@@ -46,6 +47,9 @@ public class Dragon : Boss
         PlayerPosition = player.transform.position;
         EnemyPosition = this.transform.position;
         distance = Vector3.Distance(PlayerPosition, transform.position);
+
+        Debug.Log("Move Mode");
+
         //Debug.Log("distance = " + distance);
         this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
         StartCoroutine("Stop");  //コルーチン"Stop"を起動
@@ -78,14 +82,16 @@ public class Dragon : Boss
         Debug.Log("Turn Mode");
         distance = 0;     
         //StartCoroutine("Stop");  //コルーチン"Stop"を起動
-        for(currentTime = 0; currentTime <= 5; currentTime++)
+        //for(currentTime = 0; currentTime <= 5; currentTime++)
+        for(MoveTime = 0f; MoveTime <= 10f; MoveTime += Time.deltaTime)
         {
             transform.Rotate(new Vector3(0, 0, this.rotSpeed)); //回転させる
-            //currentTime += Time.deltaTime;
             //Debug.Log("Turn" + currentTime);
+            Debug.Log("Turn" + MoveTime);
         }
-        
-        currentTime = 0;
+
+        //currentTime = 0;
+        MoveTime = 0;
         CancelInvoke();
         StartCoroutine("Stop");
         Attack();
@@ -96,16 +102,25 @@ public class Dragon : Boss
     void Attack()
     {
         Debug.Log("Attack Mode");
-        for (currentTime = 0; currentTime <= 5; currentTime++)
+        this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
+        //for (currentTime = 0; currentTime <= 5; currentTime++)
+        for (MoveTime = 0f; MoveTime <= 2f; MoveTime += Time.deltaTime)
         {
-            Vector3 velocity = this.transform.rotation * new Vector3(MoveSpeed, 0, 0);
-            this.transform.position += velocity * Time.deltaTime;
+            //Vector3 velocity = this.transform.rotation * new Vector3(MoveSpeed, 0, 0);
+            //this.transform.position += velocity * Time.deltaTime;
+            transform.position += transform.forward * MoveSpeed * Time.deltaTime;
         }
-        
-        currentTime = 0;
+
+        //currentTime = 0;
+        MoveTime = 0;
         CancelInvoke();
         Move();
     }
+
+    //void Fire()
+    //{
+
+    //}
 
     IEnumerator Stop()
     {

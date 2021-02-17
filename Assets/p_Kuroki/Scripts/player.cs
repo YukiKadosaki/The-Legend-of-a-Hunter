@@ -55,7 +55,7 @@ public class player : MonoBehaviour
         camera.transform.LookAt(this.transform);
 
         PlayerWP = serchTag(gameObject, "WP");
-        PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
+        //PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
     }
 
     void Update()
