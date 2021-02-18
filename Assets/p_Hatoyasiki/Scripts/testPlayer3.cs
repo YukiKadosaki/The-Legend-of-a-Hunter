@@ -42,7 +42,7 @@ public class testPlayer3 : MobStatus
     }
 
     void Start(){
-        Debug.Log("Life???:" + Life);
+        base.Start();
         m_Startpos  = transform.position;
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();

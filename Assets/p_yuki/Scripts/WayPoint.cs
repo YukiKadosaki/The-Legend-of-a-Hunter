@@ -37,7 +37,7 @@ public class WayPoint : MonoBehaviour
                 return m_NextPoints[i % m_NextPoints.Length];
             }
             i++;
-            Debug.Log("Skip");
+            //Debug.Log("Skip");
         }
 
         return m_NextPoints[0];
