@@ -6,6 +6,7 @@ public class Hati_Yuki : MobStatus
 {
     private Animator _anim;
     float time = 0;
+    float theta = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -31,5 +32,7 @@ public class Hati_Yuki : MobStatus
         }
 
         time += Time.deltaTime;
+        
+
     }
 }

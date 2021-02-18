@@ -42,6 +42,7 @@ public class testPlayer3 : MobStatus
     }
 
     void Start(){
+        Debug.Log("Life???:" + Life);
         m_Startpos  = transform.position;
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();
@@ -58,6 +59,7 @@ public class testPlayer3 : MobStatus
     }
 
     void Update(){
+        Debug.Log("Life?:" + Life);
         WPReloadTime += Time.deltaTime;
         /*if(WPReloadTime >= 0.5f){
             PlayerWP.GetComponent<Renderer>().material.color = WPColor.color;
