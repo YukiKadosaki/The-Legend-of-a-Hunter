@@ -41,7 +41,7 @@ public class testPlayer3 : MobStatus
         }
     }
 
-    void Start(){
+    protected override void Start(){
         base.Start();
         m_Startpos  = transform.position;
         m_Transform = this.transform;
