@@ -23,12 +23,17 @@ public class Speaker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_Audio.Play();
-            //音の範囲を設定
-            m_SoundRange.enabled = true;
+            //コライダーをオンにして音の聞こえる範囲を表示
+            StartCoroutine(AudioColliderOn());
         }
     }
 
-
+    private IEnumerator AudioColliderOn()
+    {
+        m_SoundRange.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        m_SoundRange.enabled = false;
+    }
 
 
 }
