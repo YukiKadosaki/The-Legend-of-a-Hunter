@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Speakerと関連
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +35,14 @@ public class Dhurahan1 : Boss
         //探索（Search）状態の時
         if(m_State == State.Search)
         {
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Speaker"))
+        {
+            Debug.Log("Destination :" + other.transform.position);
         }
     }
 
