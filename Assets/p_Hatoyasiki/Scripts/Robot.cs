@@ -1,44 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class Robot : Boss
-{
-    public static int COLUMN = 23;
-    public static int ROW = 13;
+public class Robot : Boss {
     public GameObject player;
-    public Vector3 pos;
-    public Material BossColor;
-    public Material WPColor;
-    private int[,] terrainInfo = new int[COLUMN, ROW];
-    private bool isGrasp = false;
+    private static float WPMaxTime = 2f;
     private bool isRunning = false;
-    private GameObject PlayerWP;
-    private float WPReloadTime = 0;
+    private float WPReloadTime = 0f;
+    private List<GameObject> RouteList;
 
     void Start() {
-        PlayerWP = serchTag(gameObject, "WP");
-        PlayerWP.GetComponent<Renderer>().material.color = BossColor.color;
+        AStar(serchTag(gameObject, "WP"), player.GetComponent<testPlayer3>().PlayerWP);
     }
 
     void Update() {
         WPReloadTime += Time.deltaTime;
-        if(WPReloadTime >= 0.5f){
-            PlayerWP.GetComponent<Renderer>().material.color = WPColor.color;
-            PlayerWP = serchTag(gameObject, "WP");
-            PlayerWP.GetComponent<Renderer>().material.color = BossColor.color;
+        if(WPReloadTime >= WPMaxTime){
+            AStar(serchTag(gameObject, "WP"), player.GetComponent<testPlayer3>().PlayerWP);
             WPReloadTime = 0f;
         }
-        StartCoroutine(MoveToDestination(player.transform.position));
-        if(!isGrasp){
-            Terrain_grasp();
-        }else{
-            ;
-        }
+        StartCoroutine("MoveToDestination", GetNextPoint());
     }
+
     //目的地（destination）に障害物などを避けながら移動する 
-    public override IEnumerator MoveToDestination(Vector3 destination)
-    {
+    public override IEnumerator MoveToDestination(Vector3 destination){
         if(isRunning){
             yield break;
         }
@@ -47,54 +33,30 @@ public class Robot : Boss
         //自分の現在地から目的地までの方向
         Vector3 direction = (destination - this.transform.localPosition);
         direction.y = 0;
-
         this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
 
         yield return null;
 
         isRunning = false;
     }
-
-    public void Terrain_grasp(){
-        for(int j = 0; j < ROW; j++)
-        {
-            for(int i = 0; i < COLUMN; i++)
-            {
-                Vector3 origin = new Vector3(-22f + 2 * i, 20f, -12f + 2 * j);
-                Ray terRay = new Ray(origin, Vector3.down);
-                RaycastHit hit;
-                if (Physics.Raycast(terRay, out hit, 25f))
-                {
-                    if (hit.collider.gameObject.layer == 8)
-                        terrainInfo[i, j] = 1;
-                    else
-                        terrainInfo[i, j] = 0;
-                }
-            }
+    Vector3 GetNextPoint(){
+        // 次目的地までの距離が近ければ目的地を次に移す
+        Vector3 moveDist = this.transform.position - RouteList[0].transform.position;
+        moveDist.y = 0;
+        if(moveDist.magnitude < 1f){
+            RouteList.Remove(RouteList[0]);
         }
-
-        int plcol = ((int)player.transform.position.x + 23) / 2;
-        int plrow = ((int)player.transform.position.z + 13) / 2;
-        terrainInfo[plcol, plrow] = 2;
-
-        // コンソール表示用(運用する際は消す)
-        string text = "";
-        for(int j = 0; j < ROW; j++){
-            for(int i = 0; i < COLUMN; i++){
-                text += terrainInfo[i, ROW-j-1].ToString() + " ";
-            }
-            text += "\n";
-        }
-        Debug.Log(text);
+        // 次目的地を返す
+        return RouteList[0].transform.position;
     }
+
     GameObject serchTag(GameObject nowObj,string tagName){
         float tmpDis = 0;           //距離用一時変数
         float nearDis = 0;          //最も近いオブジェクトの距離
-        //string nearObjName = "";    //オブジェクト名称
         GameObject targetObj = null; //オブジェクト
 
         //タグ指定されたオブジェクトを配列で取得する
-        foreach (GameObject obs in  GameObject.FindGameObjectsWithTag(tagName)){
+        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName)){
             //自身と取得したオブジェクトの距離を取得
             tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
 
@@ -102,13 +64,104 @@ public class Robot : Boss
             //一時変数に距離を格納
             if (nearDis == 0 || nearDis > tmpDis){
                 nearDis = tmpDis;
-                //nearObjName = obs.name;
                 targetObj = obs;
             }
 
         }
         //最も近かったオブジェクトを返す
-        //return GameObject.Find(nearObjName);
         return targetObj;
+    }
+
+    // A*アルゴリズム関係
+    void AStar(GameObject startWP, GameObject goalWP){
+        // リストの初期化
+        List<GameObject> OpenNodeList = new List<GameObject>();
+        List<GameObject> ClosedNodeList = new List<GameObject>();
+        // スタート(ボス)ウェイポイントをOPリストに追加
+        OpenNodeList.Add(startWP);
+        // 全ウェイポイントの初期化
+        InitWayPoint(goalWP);
+        // 先に宣言(使用メモリ減らす用．意味ある？)
+        GameObject checkNode;
+        WP checkNodeClass;
+        // OPリストに何か入っていたらループ
+        while(OpenNodeList.Any()){
+            // OPリスト内で一番スコアの低いウェイポイントの取得
+            checkNode = ChoiseCheckPoint(OpenNodeList);
+            // GameObject内のスクリプト(自作)の取得
+            checkNodeClass = checkNode.GetComponent<WP>();
+            // チェックノードに隣り合うウェイポイントの調査
+            for(int i=0; i<checkNodeClass.WPValue; i++){
+                // 隣のウェイポイント(CLリストにいれば調べない)
+                GameObject neighbor = checkNodeClass.neighborWP[i];
+                if(ClosedNodeList.IndexOf(neighbor) >= 0)
+                    continue;
+                // OPリストに追加
+                OpenNodeList.Add(neighbor);
+                // スクリプトの取得
+                WP neighborClass = neighbor.GetComponent<WP>();
+                // 実コストの測定
+                neighborClass.consumptionCost = checkNodeClass.consumptionCost + ObjDist(checkNode, neighbor);
+                // 経路のツリー作成
+                neighborClass.ParentPoint = checkNode;
+                // ゴールしたら経路を追ってリスト作成
+                if(neighbor == goalWP){
+                    RouteList = GetRoute(startWP, goalWP);
+                    return;
+                }
+            }
+            // OPリストから削除してCLリストに追加
+            OpenNodeList.Remove(checkNode);
+            ClosedNodeList.Add(checkNode);
+        }
+    }
+    void InitWayPoint(GameObject goalPoint){
+        // 全ウェイポイント取得
+        GameObject[] WPList = GameObject.FindGameObjectsWithTag("WP");
+        // 先に宣言
+        WP WPClass;
+        foreach(GameObject WP in WPList){
+            WPClass = WP.GetComponent<WP>();
+            // 実コスト．親ノードの削除
+            WPClass.consumptionCost = 0;
+            WPClass.ParentPoint = null;
+            // ゴールWPから予測コスト設定(直線距離)
+            WPClass.forecastCost = ObjDist(WP, goalPoint);
+        }
+    }
+    // 二点間距離の取得
+    float ObjDist(GameObject objA, GameObject objB) {
+        Vector3 aLocate = objA.transform.position;
+        Vector3 bLocate = objB.transform.position;
+        return Vector3.Distance(aLocate, bLocate);
+    }
+
+    GameObject ChoiseCheckPoint(List<GameObject> OpList){
+        // returnするウェイポイント
+        GameObject checkPoint = null;
+        // 最小値格納する変数
+        float minScore = Mathf.Infinity;
+        // 先に宣言
+        float score;
+        // リスト内全点のスコア測定&最小スコアのオブジェクト捜査
+        foreach(GameObject OpWP in OpList){
+            WP OpWPClass = OpWP.GetComponent<WP>();
+            score = OpWPClass.forecastCost + OpWPClass.consumptionCost;
+            if(score < minScore){
+                checkPoint = OpWP;
+                minScore = score;
+            }
+        }
+        return checkPoint;
+    }
+    // 設定された親ノードを追ってルートリストの取得
+    List<GameObject> GetRoute(GameObject SWP, GameObject CWP){
+        if(SWP == CWP){
+            return new List<GameObject>();
+        }else{
+            List<GameObject> returnRoute = GetRoute(SWP, CWP.GetComponent<WP>().ParentPoint);
+            returnRoute.Add(CWP);
+            return returnRoute;
+        }
     }
 }

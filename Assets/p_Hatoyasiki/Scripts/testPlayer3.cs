@@ -9,8 +9,6 @@ public class testPlayer3 : MonoBehaviour
     public GameObject camera;
     public float rotateSpeed;
     public int cameraMoveTime = 0;
-    public Material PlayerColor;
-    public Material WPColor;
     [Header("移動速度")]
     [SerializeField] private float m_MoveSpeed = 10;
     [Header("ジャンプ力")]
@@ -27,7 +25,7 @@ public class testPlayer3 : MonoBehaviour
     private Vector3 moveVec3;
     private float const_distance;
     private bool isMovingCamera = false;
-    private GameObject PlayerWP;
+    public GameObject PlayerWP;
     private float WPReloadTime = 0;
     private bool m_OnLand
     {
@@ -54,15 +52,12 @@ public class testPlayer3 : MonoBehaviour
         camera.transform.LookAt(this.transform);
 
         PlayerWP = serchTag(gameObject, "WP");
-        PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
     }
 
     void Update(){
         WPReloadTime += Time.deltaTime;
         if(WPReloadTime >= 0.5f){
-            PlayerWP.GetComponent<Renderer>().material.color = WPColor.color;
             PlayerWP = serchTag(gameObject, "WP");
-            PlayerWP.GetComponent<Renderer>().material.color = PlayerColor.color;
             WPReloadTime = 0f;
         }
 
@@ -153,7 +148,6 @@ public class testPlayer3 : MonoBehaviour
     GameObject serchTag(GameObject nowObj,string tagName){
         float tmpDis = 0;           //距離用一時変数
         float nearDis = 0;          //最も近いオブジェクトの距離
-        //string nearObjName = "";    //オブジェクト名称
         GameObject targetObj = null; //オブジェクト
 
         //タグ指定されたオブジェクトを配列で取得する
@@ -165,13 +159,11 @@ public class testPlayer3 : MonoBehaviour
             //一時変数に距離を格納
             if (nearDis == 0 || nearDis > tmpDis){
                 nearDis = tmpDis;
-                //nearObjName = obs.name;
                 targetObj = obs;
             }
 
         }
         //最も近かったオブジェクトを返す
-        //return GameObject.Find(nearObjName);
         return targetObj;
     }
 
