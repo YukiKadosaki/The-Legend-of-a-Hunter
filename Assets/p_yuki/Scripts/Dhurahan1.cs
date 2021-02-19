@@ -43,6 +43,7 @@ public class Dhurahan1 : Boss
         if (other.CompareTag("Speaker"))
         {
             Debug.Log("Destination :" + other.transform.position);
+            m_State = State.Find;
         }
     }
 
