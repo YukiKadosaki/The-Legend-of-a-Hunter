@@ -11,13 +11,13 @@ public class Robot : Boss {
     private List<GameObject> RouteList;
 
     void Start() {
-        AStar(serchTag(gameObject, "WP"), player.GetComponent<testPlayer3>().PlayerWP);
+        AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().PlayerWP);
     }
 
     void Update() {
         WPReloadTime += Time.deltaTime;
         if(WPReloadTime >= WPMaxTime){
-            AStar(serchTag(gameObject, "WP"), player.GetComponent<testPlayer3>().PlayerWP);
+            AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().PlayerWP);
             WPReloadTime = 0f;
         }
         StartCoroutine("MoveToDestination", GetNextPoint());

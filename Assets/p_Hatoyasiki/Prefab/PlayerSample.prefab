@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 5064844731444911672}
   - component: {fileID: 5064844731443772037}
   - component: {fileID: 5064844731443772038}
-  - component: {fileID: 8074650585120822188}
+  - component: {fileID: 6424169038837180478}
   m_Layer: 9
   m_Name: PlayerSample
   m_TagString: Player
@@ -330,7 +330,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.7, z: 0.5}
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!114 &8074650585120822188
+--- !u!114 &6424169038837180478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,14 +339,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5064844731443609228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 417b051c23f498a429aee62a78dace73, type: 3}
+  m_Script: {fileID: 11500000, guid: 596ab9f11c4a25b4d94bf363c1ce6721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifeMax: 10
   camera: {fileID: 0}
-  rotateSpeed: 0
+  rotateSpeed: 30
   cameraMoveTime: 0
-  m_MoveSpeed: 0.1
+  m_MoveSpeed: 4
   m_JumpForce: 10
   PlayerWP: {fileID: 0}
 --- !u!1 &5064844731443609232
