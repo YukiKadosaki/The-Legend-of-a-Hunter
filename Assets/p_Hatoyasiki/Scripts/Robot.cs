@@ -40,10 +40,14 @@ public class Robot : Boss {
         isRunning = false;
     }
     Vector3 GetNextPoint(){
+        if(RouteList[0] == player){
+            // 次目的地を返す
+            return RouteList[0].transform.position;
+        }
         // 次目的地までの距離が近ければ目的地を次に移す
         Vector3 moveDist = this.transform.position - RouteList[0].transform.position;
         moveDist.y = 0;
-        if(moveDist.magnitude < 1f){
+        if(moveDist.magnitude < 0.5f){
             RouteList.Remove(RouteList[0]);
         }
         // 次目的地を返す
@@ -74,6 +78,10 @@ public class Robot : Boss {
 
     // A*アルゴリズム関係
     void AStar(GameObject startWP, GameObject goalWP){
+        if(startWP == goalWP){
+            RouteList = new List<GameObject>(){player};
+            return;
+        }
         // リストの初期化
         List<GameObject> OpenNodeList = new List<GameObject>();
         List<GameObject> ClosedNodeList = new List<GameObject>();
