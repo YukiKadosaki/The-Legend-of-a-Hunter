@@ -51,17 +51,18 @@ public class testPlayer3 : MobStatus
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
         camera.transform.LookAt(this.transform);
-
-        //PlayerWP = serchTag(gameObject, "WP");
+        if(serchTag(gameObject, "WP"))
+            PlayerWP = serchTag(gameObject, "WP");
     }
 
     void Update(){
         Debug.Log("Life:" + Life);
         WPReloadTime += Time.deltaTime;
-        /* if(WPReloadTime >= 0.5f){
-            PlayerWP = serchTag(gameObject, "WP");
+        if(WPReloadTime >= 0.5f){
+            if(serchTag(gameObject, "WP"))
+                PlayerWP = serchTag(gameObject, "WP");
             WPReloadTime = 0f;
-        }*/
+        }
 
         // 無効入力をスルー
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
