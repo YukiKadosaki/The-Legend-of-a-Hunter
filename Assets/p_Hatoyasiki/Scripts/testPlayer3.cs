@@ -23,6 +23,7 @@ public class testPlayer3 : MobStatus
     private Vector2 criteriaVec2;
     private Vector2 moveVec2;
     private Vector3 moveVec3;
+    private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
     public GameObject PlayerWP;
@@ -45,8 +46,9 @@ public class testPlayer3 : MobStatus
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();
 
+        dummyCameraVec3 = camera.transform.position;
         playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
-        cameraVec2 = new Vector2(camera.transform.position.x, camera.transform.position.z);
+        cameraVec2 = new Vector2(dummyCameraVec3.x, dummyCameraVec3.z);
         criteriaVec2 = playerVec2 - cameraVec2;
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
@@ -68,7 +70,7 @@ public class testPlayer3 : MobStatus
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
             // 基準ベクトルの取得
             playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
-            cameraVec2 = new Vector2(camera.transform.position.x, camera.transform.position.z);
+            cameraVec2 = new Vector2(dummyCameraVec3.x, dummyCameraVec3.z);
             criteriaVec2 = playerVec2 - cameraVec2;
 
             // 前方向と横方向のベクトル取得
@@ -118,11 +120,21 @@ public class testPlayer3 : MobStatus
 
             // 移動した2次元ベクトルをプレイヤーとカメラの3次元座標に代入
             this.transform.position = new Vector3(playerVec2.x, this.transform.position.y, playerVec2.y);
-            camera.transform.position = new Vector3(cameraVec2.x, camera.transform.position.y, cameraVec2.y);
+            dummyCameraVec3 = new Vector3(cameraVec2.x, dummyCameraVec3.y, cameraVec2.y);
 
             // 向きの修正
             camera.transform.LookAt(this.transform);
             this.transform.LookAt(this.transform.position + moveVec3);
+
+            // 障害物の捜査
+            Vector3 playerVec3 = this.transform.position;
+            RaycastHit hit;
+            int layerMask = ~(1 << 9);
+            if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
+                camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
+            }else{
+                camera.transform.position = dummyCameraVec3;
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.K)){
@@ -141,6 +153,16 @@ public class testPlayer3 : MobStatus
             for(int i = 0; i < cameraMoveTime; i++){
                 camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
                 camera.transform.LookAt(this.transform); 
+                dummyCameraVec3 = camera.transform.position;
+                // 障害物の捜査
+                Vector3 playerVec3 = this.transform.position;
+                RaycastHit hit;
+                int layerMask = ~(1 << 9);
+                if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
+                    camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
+                }else{
+                    camera.transform.position = dummyCameraVec3;
+                }
                 yield return null;
             }
             isMovingCamera = false;
