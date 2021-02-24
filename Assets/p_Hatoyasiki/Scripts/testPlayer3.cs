@@ -58,7 +58,7 @@ public class testPlayer3 : MobStatus
     }
 
     void Update(){
-        Debug.Log("Life:" + Life);
+        Debug.Log("Life:" + Hp);
         WPReloadTime += Time.deltaTime;
         if(WPReloadTime >= 0.5f){
             if(serchTag(gameObject, "WP"))

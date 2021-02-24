@@ -25,42 +25,83 @@ public abstract class MobStatus : MonoBehaviour
     /// </summary>
     public bool IsAttackable => StateEnum.Normal == _state;
 
-    /// <summary>
-    /// ライフ最大値を返します
-    /// </summary>
-    public float LifeMax => lifeMax;
+
+    //定数
+    protected const float delta = 1;
+
+    //メンバ変数にはm_をつけてます
+    //アクセサにはm_は付いていません
+    //メンバ変数への入力はアクセサを介して行いましょう
+
+    [SerializeField] private float m_maxHp;//最大hp
+    private float m_Hp;//現在のhp
+    [SerializeField] private float m_defaultAtk;//初期攻撃力
+    private float m_Atk;//現在の攻撃力
+    [SerializeField] private float m_defaultMoveSpeed;//初期速度
+    private float m_MoveSpeed;//現在の移動速度
+    protected Animator _animator;
+    protected StateEnum _state = StateEnum.Normal; // Mob状態
 
     /// <summary>
     /// ライフの値を返します
     /// </summary>
-    public float Life
+    //アクセサ
+    //※下のgetの設定により、 float a = Hp と書いたとき、aに代入される値はm_Hpとなります
+    //get => は get { }と同じです
+    //※下のsetの設定により、 Hp = -100 と書いたとき、m_Hpに0が代入されます
+    public float Hp
     {
-        get => _life;
+        get => m_Hp;
         set
         {
-            _life = value;
+            m_Hp = value;
 
-            if (_life >= lifeMax)
+            if (m_Hp >= m_maxHp)
             {
-                _life = lifeMax;
+                m_Hp = m_maxHp;
             }
 
-            if (_life < 0)
+            if (m_Hp < 0)
             {
-                Debug.Log("Die");
-                _life = 0;
+                m_Hp = 0;
+            }
+        }
+    }
+    public float Atk
+    {
+        get => m_Atk;
+        set
+        {
+            m_Atk = value;
+
+            if (m_Atk < 0)
+            {
+                m_Atk = 0;
+            }
+        }
+    }
+    public float MoveSpeed
+    {
+        get => m_MoveSpeed;
+        set
+        {
+            m_MoveSpeed = value;
+
+            if (m_MoveSpeed < 0)
+            {
+                m_MoveSpeed = 0;
             }
         }
     }
 
-    [SerializeField] private float lifeMax = 10; // ライフ最大値
-    protected Animator _animator;
-    protected StateEnum _state = StateEnum.Normal; // Mob状態
-    private float _life; // 現在のライフ値（ヒットポイント）
+    
 
     protected virtual void Start()
     {
-        Life = lifeMax; // 初期状態はライフ満タン
+        //ステータスの初期設定
+        m_Hp = m_maxHp;
+        m_Atk = m_defaultAtk;
+        m_MoveSpeed = m_defaultMoveSpeed;
         _animator = GetComponentInChildren<Animator>();
 
         // ライフゲージの表示開始
@@ -84,8 +125,8 @@ public abstract class MobStatus : MonoBehaviour
     {
         if (_state == StateEnum.Die) return;
 
-        Life -= damage;
-        if (_life > 0) return;
+        Hp -= damage;
+        if (Hp > 0) return;
 
         _state = StateEnum.Die;
         //_animator.SetTrigger("Die");

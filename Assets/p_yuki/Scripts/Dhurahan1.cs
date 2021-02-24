@@ -21,8 +21,9 @@ public class Dhurahan1 : Boss
 
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         m_WayPoint = m_StartWayPoint;
 
         //プレイヤーを捜索
