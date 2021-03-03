@@ -7,7 +7,6 @@ public class Player : MobStatus
 {
     //[SerializeField] private Animator m_Animator;
     public GameObject camera;
-    public float rotateSpeed;
     public int cameraMoveTime = 0;
     [Header("移動速度")]
     [SerializeField] private float m_MoveSpeed = 10;
@@ -26,7 +25,7 @@ public class Player : MobStatus
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
-    public GameObject PlayerWP;
+    private GameObject PlayerWP;
     private float WPReloadTime = 0;
     private bool m_OnLand
     {
@@ -58,7 +57,7 @@ public class Player : MobStatus
     }
 
     void Update(){
-        Debug.Log("Life:" + Life);
+        // Debug.Log("Life:" + Life);
         WPReloadTime += Time.deltaTime;
         if(WPReloadTime >= 0.5f){
             if(serchTag(gameObject, "WP"))
