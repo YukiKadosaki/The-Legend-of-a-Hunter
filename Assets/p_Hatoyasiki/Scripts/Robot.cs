@@ -4,22 +4,24 @@ using UnityEngine;
 using System.Linq;
 
 public class Robot : Boss {
-    public GameObject player;
+    private GameObject player;
     private static float WPMaxTime = 2f;
     private bool isRunning = false;
     private float WPReloadTime = 0f;
     private List<GameObject> RouteList;
 
     void Start() {
-        AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().PlayerWP);
+        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().getPlayerWP());
     }
 
     void Update() {
         WPReloadTime += Time.deltaTime;
         if(WPReloadTime >= WPMaxTime){
-            AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().PlayerWP);
+            AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().getPlayerWP());
             WPReloadTime = 0f;
         }
+        // Debug.Log(isRunning);
         StartCoroutine("MoveToDestination", GetNextPoint());
     }
 
@@ -115,6 +117,9 @@ public class Robot : Boss {
                 // ゴールしたら経路を追ってリスト作成
                 if(neighbor == goalWP){
                     RouteList = GetRoute(startWP, goalWP);
+                    // foreach (GameObject RouteNode in RouteList) {
+                    //     Debug.Log(RouteNode);
+                    // }
                     return;
                 }
             }

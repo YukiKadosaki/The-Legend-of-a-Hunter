@@ -39,6 +39,10 @@ public class Player : MobStatus
         }
     }
 
+    public GameObject getPlayerWP(){
+        return PlayerWP;
+    }
+
     protected override void Start(){
         base.Start();
         m_Startpos  = transform.position;
