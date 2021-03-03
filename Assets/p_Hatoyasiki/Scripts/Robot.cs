@@ -11,13 +11,14 @@ public class Robot : Boss {
     private List<GameObject> RouteList;
 
     void Start() {
+        MoveSpeed = 10f;
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().getPlayerWP());
     }
 
     void Update() {
         WPReloadTime += Time.deltaTime;
-        if(WPReloadTime >= WPMaxTime){
+        if(WPReloadTime >= WPMaxTime || RouteList.Count == 0){
             AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().getPlayerWP());
             WPReloadTime = 0f;
         }
@@ -42,6 +43,8 @@ public class Robot : Boss {
         isRunning = false;
     }
     Vector3 GetNextPoint(){
+        if(RouteList.Count == 0)
+            return this.transform.position;
         if(RouteList[0] == player){
             // 次目的地を返す
             return RouteList[0].transform.position;
@@ -52,6 +55,8 @@ public class Robot : Boss {
         if(moveDist.magnitude < 0.5f){
             RouteList.Remove(RouteList[0]);
         }
+        if(RouteList.Count == 0)
+            return this.transform.position;
         // 次目的地を返す
         return RouteList[0].transform.position;
     }
