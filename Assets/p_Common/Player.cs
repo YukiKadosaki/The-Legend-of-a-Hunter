@@ -58,7 +58,6 @@ public class Player : MobStatus
     }
 
     void Update(){
-        Debug.Log("Life:" + Life);
         WPReloadTime += Time.deltaTime;
         if(WPReloadTime >= 0.5f){
             if(serchTag(gameObject, "WP"))

@@ -1512,7 +1512,7 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054971620}
+      - m_Target: {fileID: 0}
         m_MethodName: Damage
         m_Mode: 3
         m_Arguments:
@@ -4683,7 +4683,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c79d68331accd141bf6a1ad486c265f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeMax: 10
+  m_maxHp: 0
+  m_defaultAtk: 0
+  m_defaultMoveSpeed: 0
 --- !u!114 &1370597506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5145,7 +5147,7 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054971620}
+      - m_Target: {fileID: 0}
         m_MethodName: Damage
         m_Mode: 3
         m_Arguments:
@@ -6666,18 +6668,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2054971620 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279,
-    type: 3}
-  m_PrefabInstance: {fileID: 2057104926}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054971618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 417b051c23f498a429aee62a78dace73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2057104926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6755,6 +6745,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6424169038837180478, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 413078155}
     - target: {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279,
         type: 3}
       propertyPath: camera
