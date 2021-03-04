@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 193018372}
   - component: {fileID: 193018371}
   - component: {fileID: 193018370}
+  - component: {fileID: 193018373}
   m_Layer: 10
   m_Name: Post-process Volume
   m_TagString: Untagged
@@ -558,6 +559,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &193018373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193018369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a8c7ae23ed85340ac62f0625e28f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &194845312
 PrefabInstance:
   m_ObjectHideFlags: 0

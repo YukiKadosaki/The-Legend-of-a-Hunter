@@ -41,7 +41,7 @@ public class PostProcessDhurahan : MonoBehaviour
             grain.enabled.Override(true);
 
             float d;
-            d = 0.1f + 3 / Vector3.Distance(m_Player.localPosition, m_Boss.localPosition);
+            d = 5 / Vector3.Distance(m_Player.localPosition, m_Boss.localPosition);
             
             grain.intensity.Override(d);
             Debug.Log(d);
