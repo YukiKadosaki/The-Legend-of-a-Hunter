@@ -50,6 +50,7 @@ public abstract class MobStatus : MonoBehaviour
     private float m_MoveSpeed;//現在の移動速度
     protected Animator _animator;
     protected StateEnum _state = StateEnum.Normal; // Mob状態
+    [Header("ボスの名前　セーブに使う")]
     [SerializeField] protected BossNameEnum _name;
 
     /// <summary>
@@ -125,6 +126,8 @@ public abstract class MobStatus : MonoBehaviour
     {
         // ライフゲージの表示終了
         //LifeGaugeContainer.Instance.Remove(this);
+
+        //ボスの名前によって撃破判定を保存する。1なら死亡
         switch (_name)
         {
             case BossNameEnum.Bee:
