@@ -17,11 +17,11 @@ public abstract class MobStatus : MonoBehaviour
 
     protected enum BossNameEnum
     {
+        Other,
         Bee,
         Dragon,
         Dhurahan,
-        Robot,
-        Other
+        Robot
     }
 
     /// <summary>

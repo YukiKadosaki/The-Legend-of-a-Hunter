@@ -5601,7 +5601,7 @@ MonoBehaviour:
   m_maxHp: 10
   m_defaultAtk: 10
   m_defaultMoveSpeed: 10
-  _name: 0
+  _name: 1
 --- !u!114 &1370597506
 MonoBehaviour:
   m_ObjectHideFlags: 0
