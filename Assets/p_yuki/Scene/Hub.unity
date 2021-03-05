@@ -194,6 +194,16 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6424169038837180478, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 481249993}
+    - target: {fileID: 6424169038837180478, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: _name
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279,
         type: 3}
       propertyPath: camera
@@ -552,7 +562,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709589579}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -617,7 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b65b5b9df4a79b4b94409b831e1bc03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NextStage: Scene_Yuki
+  m_NextStage: Dhurahan
+  m_BossName: 0
 --- !u!1 &783712784
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +857,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019423690}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -911,7 +922,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b65b5b9df4a79b4b94409b831e1bc03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NextStage: Bug
+  m_NextStage: Bee
+  m_BossName: 0
 --- !u!1 &1197615742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1152,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318618595}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -1206,6 +1218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NextStage: Robot
+  m_BossName: 3
 --- !u!1 &1391507135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1261,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391507135}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -1314,6 +1327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NextStage: Dragon
+  m_BossName: 1
 --- !u!1 &1500255674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,10 +1532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417b051c23f498a429aee62a78dace73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 481249993}
-  rotateSpeed: 0
-  m_MoveSpeed: 0.1
-  m_JumpForce: 10
 --- !u!1 &1748069628
 GameObject:
   m_ObjectHideFlags: 0

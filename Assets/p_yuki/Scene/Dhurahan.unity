@@ -4677,6 +4677,7 @@ MonoBehaviour:
   m_maxHp: 10
   m_defaultAtk: 10
   m_defaultMoveSpeed: 10
+  _name: 0
   m_StartWayPoint: {fileID: 1669094433}
 --- !u!54 &1351747785
 Rigidbody:
@@ -5597,9 +5598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c79d68331accd141bf6a1ad486c265f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 0
-  m_defaultAtk: 0
-  m_defaultMoveSpeed: 0
+  m_maxHp: 10
+  m_defaultAtk: 10
+  m_defaultMoveSpeed: 10
+  _name: 0
 --- !u!114 &1370597506
 MonoBehaviour:
   m_ObjectHideFlags: 0
