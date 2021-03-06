@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WayPoint : MonoBehaviour
+public class WayPoint : WP
 {
-    [Header("隣接するポイント")]
-    [SerializeField] private WayPoint[] m_NextPoints;
+    private WayPoint[] m_NextPoints;
     private bool m_Freezed = false;//一度通った点をしばらくの間通らないようにさせるため、
     private const float FREEZE_TIME = 5f;
 
@@ -17,6 +16,18 @@ public class WayPoint : MonoBehaviour
         }
         get => m_Freezed;
     }
+
+
+    //WPクラスをWayPointクラスに合わせるための変換
+    private void Start()
+    {
+        m_NextPoints = new WayPoint[neighborWP.Length];
+        for (int i = 0;i < neighborWP.Length;i++)
+        {
+            m_NextPoints[i] = neighborWP[i].GetComponent<WayPoint>();
+        }
+    }
+
 
     //隣り合うウェイポイントの個数を返す
     public int ReturnNextPointNum()
