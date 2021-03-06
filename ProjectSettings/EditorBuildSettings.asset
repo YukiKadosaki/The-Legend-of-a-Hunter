@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/p_yuki/Scene/Title.unity
+    guid: a0ebb98eb990f7d47826df542dcef525
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Hub.unity
+    guid: 5fd72521a9a210149a6af268fca175db
+  - enabled: 1
     path: Assets/p_yuki/Scene/Player_Yuki.unity
     guid: b815223fc6d21be42b892fa2348d5839
   - enabled: 1
     path: Assets/p_yuki/Scene/Scene_Yuki.unity
     guid: abd6bd4bf8801684c9355a4fc2cf45d2
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Dhurahan.unity
+    guid: d2900b94db14de345818fc7d88ad77c4
   m_configObjects: {}

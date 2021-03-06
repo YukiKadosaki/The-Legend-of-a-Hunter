@@ -15,6 +15,15 @@ public abstract class MobStatus : MonoBehaviour
         Die // 死亡
     }
 
+    protected enum BossNameEnum
+    {
+        Other,
+        Bee,
+        Dragon,
+        Dhurahan,
+        Robot
+    }
+
     /// <summary>
     /// 移動可能かどうか
     /// </summary>
@@ -41,6 +50,8 @@ public abstract class MobStatus : MonoBehaviour
     private float m_MoveSpeed;//現在の移動速度
     protected Animator _animator;
     protected StateEnum _state = StateEnum.Normal; // Mob状態
+    [Header("ボスの名前　セーブに使う")]
+    [SerializeField] protected BossNameEnum _name;
 
     /// <summary>
     /// ライフの値を返します
@@ -115,6 +126,27 @@ public abstract class MobStatus : MonoBehaviour
     {
         // ライフゲージの表示終了
         //LifeGaugeContainer.Instance.Remove(this);
+
+        //ボスの名前によって撃破判定を保存する。1なら死亡
+        switch (_name)
+        {
+            case BossNameEnum.Bee:
+                PlayerPrefs.SetInt("Bee", 1);
+                break;
+            case BossNameEnum.Dragon:
+                PlayerPrefs.SetInt("Dragon", 1);
+                break;
+            case BossNameEnum.Dhurahan:
+                PlayerPrefs.SetInt("Dhurahan", 1);
+                break;
+            case BossNameEnum.Robot:
+                PlayerPrefs.SetInt("Robot", 1);
+                break;
+        }
+
+        PlayerPrefs.Save();
+        Debug.Log(_name.ToString() + " : " + PlayerPrefs.GetInt("Bee"));
+
     }
 
     /// <summary>
