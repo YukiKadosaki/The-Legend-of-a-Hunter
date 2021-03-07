@@ -7,7 +7,7 @@ using UnityEngine;
 public class Dhurahan1 : Boss
 {
     //ボスの状態を表す
-    private enum State
+    private enum DhurahanState
     {
         Search,
         Find
@@ -15,8 +15,7 @@ public class Dhurahan1 : Boss
 
     [Header("開始地点のウェイポイント")]
     [SerializeField] WayPoint m_StartWayPoint;
-    private const float delta = 1;//小さい値
-    private State m_State = State.Search; //ボスの状態
+    private DhurahanState m_State = DhurahanState.Search; //ボスの状態
     private WayPoint m_WayPoint;//現在の移動先
 
 
@@ -27,14 +26,14 @@ public class Dhurahan1 : Boss
         m_WayPoint = m_StartWayPoint;
 
         //プレイヤーを捜索
-        StartCoroutine("SearchMove");
+        StartCoroutine(SearchMove());
     }
 
     // Update is called once per frame
     void Update()
     {
         //探索（Search）状態の時
-        if(m_State == State.Search)
+        if(m_State == DhurahanState.Search)
         {
         }
     }
@@ -44,7 +43,7 @@ public class Dhurahan1 : Boss
         if (other.CompareTag("Speaker"))
         {
             Debug.Log("Destination :" + other.transform.position);
-            m_State = State.Find;
+            m_State = DhurahanState.Find;
         }
     }
 
@@ -62,7 +61,7 @@ public class Dhurahan1 : Boss
                 m_WayPoint.FreezeAndDefrost();
                 ChooseNextPoint(m_WayPoint);
             }
-            if(m_State != State.Search)
+            if(m_State != DhurahanState.Search)
             {
                 yield break;
             }
