@@ -10,8 +10,8 @@ public class Dragon : Boss
     private Vector3 PlayerPosition; //プレイヤーの位置情報
     private Vector3 EnemyPosition; //敵の位置情報
     private float distance;  //プレイヤーと敵の距離
-    private float rotSpeed = 60;  //回転攻撃の速度
-   
+    private float rotSpeed = 20;  //回転攻撃の速度
+
     private float currentTime;
     private float MoveTime;
     private bool Switch, Switch1;
@@ -26,28 +26,29 @@ public class Dragon : Boss
         PlayerPosition = player.transform.position;
         EnemyPosition = this.transform.position;
 
-        Switch = false;
+        Switch = true;
         Switch1 = false;
 
-        //Invoke("Move", 2f);
-        //StartCoroutine("Move");  //コルーチン(Move)を実行
+        FlameStream = GetComponent<ParticleSystem>();
+
+        //Invoke("Turn", 2f);
+        StartCoroutine("Stop");  //コルーチン(Move)を実行
     }
 
     void Update()
     {
-        //while(Hp > 0)
-        //{
         //InvokeRepeating("Move", 2f, 10f);   //2秒後に関数Moveを実行し、3秒間隔で続ける
         //Rigidbody rb = this.transform.GetComponent<Rigidbody>();
-        Invoke("Fire", 2f);
+        //Invoke("Turn", 2f);
 
-        if(Switch == true)
-        {
-            EnemyPosition += new Vector3(0.1f, 0f, 0f);
-        }
+        //if(Switch == true)
+        //{
+            //EnemyPosition += new Vector3(0.1f, 0f, 0f);
+        //}
 
-        /*if (Switch1 == true)
+        if (Switch == true && Switch1 == false)
         {
+            Debug.Log("Move Mode");
             PlayerPosition = player.transform.position;
             EnemyPosition = this.transform.position;
             distance = Vector3.Distance(PlayerPosition, transform.position);
@@ -61,10 +62,35 @@ public class Dragon : Boss
             }
             else
             {
-                Switch1 = false;
+                Switch = false;
+                Switch1 = true;
+                //Invoke("Fire", 2f);
+            }                
+        }
+
+        if(Switch == false && Switch1 == true)
+        {
+            Debug.Log("Turn Mode");
+            distance = 0;
+            StartCoroutine("Stop");  //コルーチン"Stop"を起動
+
+            //Invoke("Turn");
+            StartCoroutine("Turn");
+            //currentTime = 0;
+            /*if(currentTime <= 10.0)
+            {
+                Debug.Log("Time = " + currentTime);
+                transform.Rotate(new Vector3(0, this.rotSpeed, 0)); //回転させる
+                currentTime++;
             }
-                
-        }*/
+            else
+            {
+                currentTime = 0;
+                Switch = true;
+                Switch1 = false;
+            }*/
+
+        }
 
         //StartCoroutine("Move");
         //}
@@ -113,8 +139,8 @@ public class Dragon : Boss
     }
 
 
-    //IEnumerator Turn()
-    void Turn()
+    IEnumerator Turn()
+    //void Turn()
     {
         Debug.Log("Turn Mode");
         distance = 0;     
@@ -122,18 +148,22 @@ public class Dragon : Boss
         //for(currentTime = 0; currentTime <= 5; currentTime++)
         for(MoveTime = 0f; MoveTime <= 10f; MoveTime += Time.deltaTime)
         {
-            transform.Rotate(new Vector3(0, 0, this.rotSpeed)); //回転させる
-            //Debug.Log("Turn" + currentTime);
-            //Debug.Log("Turn" + MoveTime);
+            //transform.Rotate(new Vector3(0, this.rotSpeed, 0)); //回転させる
+            transform.Rotate(new Vector3(0, this.rotSpeed*Time.deltaTime, 0));
+            
+            //Debug.Log("Time" + MoveTime);
         }
 
         //currentTime = 0;
         MoveTime = 0;
-        CancelInvoke();
+        Switch = true;
+        Switch1 = false;
+        //Invoke("Update");
+        //CancelInvoke();
         //StartCoroutine("Stop");
         //StartCoroutine("Attack");
-        //yield break;
-        Attack();
+        yield break;
+        //Attack();
         //}
     }
 
