@@ -18,6 +18,11 @@ public abstract class Boss : MobStatus
         get => m_RouteList;
     }
     
+    void Start(){
+        base.Start();
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     //コルーチン　継承先でオーバーライドして使う
     //目的地(destination）に直線移動する
     public virtual IEnumerator MoveLiner(Vector3 destination)

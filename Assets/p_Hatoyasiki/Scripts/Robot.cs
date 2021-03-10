@@ -5,8 +5,8 @@ using System.Linq;
 
 public class Robot : Boss {
     void Start() {
+        base.Start();
         MoveSpeed = 10f;
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
     }
 
     void Update() {
