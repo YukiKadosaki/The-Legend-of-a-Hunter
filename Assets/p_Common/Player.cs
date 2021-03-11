@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Player : MobStatus
@@ -12,8 +13,6 @@ public class Player : MobStatus
     [SerializeField] private float m_MoveSpeed = 10;
     [Header("ジャンプ力")]
     [SerializeField] private float m_JumpForce = 10;
-    private float moveSpeed;
-    private Vector2 originPoint;
     private Vector3 m_Startpos;
     private Rigidbody m_RigidBody;
     private Transform m_Transform;
@@ -25,7 +24,9 @@ public class Player : MobStatus
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
-    private float WPReloadTime = 0;
+    private float HP;
+    private float MaxHp;
+    private Slider slider;
     private bool m_OnLand
     {
         //RaycastNonAllocを使うので複雑になっている
@@ -44,6 +45,10 @@ public class Player : MobStatus
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();
 
+        Hp = 20f;
+        MaxHp = Hp;
+        slider = this.transform.Find("Canvas").gameObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
+
         dummyCameraVec3 = camera.transform.position;
         playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
         cameraVec2 = new Vector2(dummyCameraVec3.x, dummyCameraVec3.z);
@@ -54,6 +59,9 @@ public class Player : MobStatus
     }
 
     void Update(){
+        float HpPercent = Hp / MaxHp;
+        slider.value = HpPercent;
+
         MoveLikeZelda();
 
         if(Input.GetKeyDown(KeyCode.K)){
