@@ -6,23 +6,13 @@ using System.Linq;
 //abstract（抽象）クラスです。各ボスに継承して使ってください
 public abstract class Boss : MobStatus
 {
-    private GameObject m_player;
     private List<GameObject> m_RouteList;
     private bool isRunning = false;
 
-    public GameObject player{
-        get => m_player;
-        set => m_player;
-    }
     public List<GameObject> RouteList{
         get => m_RouteList;
     }
     
-    void Start(){
-        base.Start();
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     //コルーチン　継承先でオーバーライドして使う
     //目的地(destination）に直線移動する
     public virtual IEnumerator MoveLiner(Vector3 destination)
@@ -44,17 +34,20 @@ public abstract class Boss : MobStatus
     }
         
     //目的地（destination）に障害物などを避けながら移動する 
-    public virtual IEnumerator MoveToDestination() {
+    public virtual IEnumerator MoveToDestination(Vector3 goalPoint) {
         if(isRunning)
             yield break;
         isRunning = true;
-        AStar(serchTag(gameObject, "WP"), player.GetComponent<Player>().getPlayerWP());
+
+        AStar(serchPointTag(gameObject.transform.position, "WP"), serchPointTag(goalPoint, "WP"));
         while (true) {
-            if (RouteList.Count == 0)
+            if (RouteList.Count == 0){
                 isRunning = false;
                 yield break;
-            destination = RouteList[0].transform.position;
-            Vector3 moveDist = this.transform.position - RouteList[0].transform.position;
+            }
+            Vector3 destination = RouteList[0].transform.position;
+            Vector3 moveDist = this.transform.position - destination;
+            moveDist.y = 0;
             while (moveDist.magnitude >= delta) {
                 //自分の現在地から目的地までの方向
                 Vector3 direction = (destination - this.transform.localPosition);
@@ -62,7 +55,8 @@ public abstract class Boss : MobStatus
                 this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
                 this.transform.LookAt(this.transform.position+direction);
                 yield return null;
-                moveDist = this.transform.position - RouteList[0].transform.position;
+                moveDist = this.transform.position - destination;
+                moveDist.y = 0;
             }
             RouteList.Remove(RouteList[0]);
         }
@@ -164,7 +158,7 @@ public abstract class Boss : MobStatus
         }
     }
 
-    GameObject serchTag(GameObject nowObj,string tagName){
+    GameObject serchPointTag(Vector3 objPos,string tagName){
         float tmpDis = 0;           //距離用一時変数
         float nearDis = 0;          //最も近いオブジェクトの距離
         GameObject targetObj = null; //オブジェクト
@@ -172,7 +166,7 @@ public abstract class Boss : MobStatus
         //タグ指定されたオブジェクトを配列で取得する
         foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName)){
             //自身と取得したオブジェクトの距離を取得
-            tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
+            tmpDis = Vector3.Distance(obs.transform.position, objPos);
 
             //オブジェクトの距離が近いか、距離0であればオブジェクト名を取得
             //一時変数に距離を格納

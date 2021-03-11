@@ -25,7 +25,6 @@ public class Player : MobStatus
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
-    private GameObject PlayerWP;
     private float WPReloadTime = 0;
     private bool m_OnLand
     {
@@ -37,10 +36,6 @@ public class Player : MobStatus
             int hitCount = Physics.RaycastNonAlloc(ray, raycastHits, 0.5f);
             return hitCount >= 1;
         }
-    }
-
-    public GameObject getPlayerWP(){
-        return PlayerWP;
     }
 
     protected override void Start(){
@@ -56,18 +51,20 @@ public class Player : MobStatus
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
         camera.transform.LookAt(this.transform);
-        if(serchTag(gameObject, "WP"))
-            PlayerWP = serchTag(gameObject, "WP");
     }
 
     void Update(){
-        WPReloadTime += Time.deltaTime;
-        if(WPReloadTime >= 0.5f){
-            if(serchTag(gameObject, "WP"))
-                PlayerWP = serchTag(gameObject, "WP");
-            WPReloadTime = 0f;
-        }
+        MoveLikeZelda();
 
+        if(Input.GetKeyDown(KeyCode.K)){
+            if(!isMovingCamera){
+                StartCoroutine(MoveCamera());
+                isMovingCamera = true;
+            }
+        }
+    }
+
+    void MoveLikeZelda(){
         // 無効入力をスルー
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
             // 基準ベクトルの取得
@@ -138,38 +135,28 @@ public class Player : MobStatus
                 camera.transform.position = dummyCameraVec3;
             }
         }
+    }
 
-        if(Input.GetKeyDown(KeyCode.K)){
-            if(!isMovingCamera){
-                StartCoroutine(MoveCamera());
-                isMovingCamera = true;
+    private IEnumerator MoveCamera(){
+        Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
+        Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
+        for(int i = 0; i < cameraMoveTime; i++){
+            camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
+            camera.transform.LookAt(this.transform); 
+            dummyCameraVec3 = camera.transform.position;
+            // 障害物の捜査
+            Vector3 playerVec3 = this.transform.position;
+            RaycastHit hit;
+            int layerMask = ~(1 << 9);
+            if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
+                camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
+            }else{
+                camera.transform.position = dummyCameraVec3;
             }
-            // Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
-            // camera.transform.position = new Vector3(newCameraVector3.x, camera.transform.position.y, newCameraVector3.z);
-            // camera.transform.LookAt(this.transform);
+            yield return null;
         }
-
-        IEnumerator MoveCamera(){
-            Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
-            Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
-            for(int i = 0; i < cameraMoveTime; i++){
-                camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
-                camera.transform.LookAt(this.transform); 
-                dummyCameraVec3 = camera.transform.position;
-                // 障害物の捜査
-                Vector3 playerVec3 = this.transform.position;
-                RaycastHit hit;
-                int layerMask = ~(1 << 9);
-                if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
-                    camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
-                }else{
-                    camera.transform.position = dummyCameraVec3;
-                }
-                yield return null;
-            }
-            isMovingCamera = false;
-            yield break;
-        }
+        isMovingCamera = false;
+        yield break;
     }
 
     GameObject serchTag(GameObject nowObj,string tagName){
