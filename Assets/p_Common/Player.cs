@@ -45,9 +45,8 @@ public class Player : MobStatus
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();
 
-        Hp = 20f;
-        MaxHp = Hp;
         slider = this.transform.Find("Canvas").gameObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
+        slider.maxValue = Hp;
 
         dummyCameraVec3 = camera.transform.position;
         playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
@@ -59,8 +58,7 @@ public class Player : MobStatus
     }
 
     void Update(){
-        float HpPercent = Hp / MaxHp;
-        slider.value = HpPercent;
+        slider.value = Hp;
 
         MoveLikeZelda();
 
