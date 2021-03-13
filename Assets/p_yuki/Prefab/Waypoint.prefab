@@ -119,5 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e861245fc463dd45ae17c878994f310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_N: 0
-  m_NextPoints: []
+  neighborWP: []

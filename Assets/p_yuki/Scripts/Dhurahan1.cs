@@ -1,4 +1,5 @@
 ﻿//Speakerと関連
+//Updateで状態遷移を制御
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,44 +8,89 @@ using UnityEngine;
 public class Dhurahan1 : Boss
 {
     //ボスの状態を表す
-    private enum State
+    public enum DhurahanState
     {
         Search,
-        Find
+        Find,
     }
 
     [Header("開始地点のウェイポイント")]
-    [SerializeField] WayPoint m_StartWayPoint;
-    private const float delta = 1;//小さい値
-    private State m_State = State.Search; //ボスの状態
-    private WayPoint m_WayPoint;//現在の移動先
+    [SerializeField] private WayPoint m_StartWayPoint;
+    private DhurahanState m_BossState = DhurahanState.Search; //ボスの状態
+    private WayPoint m_NextWayPoint;//現在の移動先
+    private bool m_IsStateChanging = false;//状態の遷移中はtrue
+    private Vector3 m_Destination;//目的地
+
+    public DhurahanState BossState {
+        get => m_BossState;
+        set { m_BossState = value; }
+    }
+
+    public WayPoint NextWayPoint
+    {
+        get => m_NextWayPoint;
+        set { m_NextWayPoint = value; }
+    }
+
+    public bool IsStateChanging
+    {
+        get => m_IsStateChanging;
+        set { m_IsStateChanging = value; }
+    }
+
+    public Vector3 Destination
+    {
+        get => m_Destination;
+        set { m_Destination = value; }
+    }
+
+
 
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        m_WayPoint = m_StartWayPoint;
+        NextWayPoint = m_StartWayPoint;
+
 
         //プレイヤーを捜索
-        StartCoroutine("SearchMove");
+        StartCoroutine(SearchMove());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //探索（Search）状態の時
-        if(m_State == State.Search)
+
+        //状態遷移中
+        if (IsStateChanging)
         {
+            //探索（Search）状態の時
+            if (BossState == DhurahanState.Search)
+            {
+                //プレイヤーを捜索
+                StartCoroutine(SearchMove());
+            }
+            else if(BossState == DhurahanState.Find)
+            {
+                //目的地へ移動
+                StartCoroutine("MoveToDestination", Destination);
+            }
+
+            IsStateChanging = false;
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //音が聞こえたらFindステートへ
         if (other.CompareTag("Speaker"))
         {
-            Debug.Log("Destination :" + other.transform.position);
-            m_State = State.Find;
+            //Debug.Log("Destination :" + other.transform.position);
+            Destination = other.transform.position;
+            IsStateChanging = true;
+            BossState = DhurahanState.Find;
         }
     }
 
@@ -52,17 +98,17 @@ public class Dhurahan1 : Boss
     {
         while (true)
         {
-            yield return StartCoroutine("MoveLiner", m_WayPoint.transform.localPosition);
+            yield return StartCoroutine("MoveLiner", NextWayPoint.transform.localPosition);
 
 
             //目的地へ到達したら、次の目的地へ
-            if (Vector3.Distance(m_WayPoint.transform.localPosition, this.transform.localPosition) <= delta * 10)
+            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.transform.localPosition) <= delta * 10)
             {
                 //見つけたウェイポイントを一時的に凍らせる
-                m_WayPoint.FreezeAndDefrost();
-                ChooseNextPoint(m_WayPoint);
+                NextWayPoint.FreezeAndDefrost();
+                ChooseNextPoint(NextWayPoint);
             }
-            if(m_State != State.Search)
+            if(m_BossState != DhurahanState.Search)
             {
                 yield break;
             }
@@ -72,11 +118,7 @@ public class Dhurahan1 : Boss
     private void ChooseNextPoint(WayPoint point)
     {
         int random = Random.Range(0, point.ReturnNextPointNum());
-        m_WayPoint = point.ReturnWayPoint(random);
+        NextWayPoint = point.ReturnWayPoint(random);
     }
 
-    public override IEnumerator MoveToDestination(Vector3 destination)
-    {
-        yield return null;
-    }
 }

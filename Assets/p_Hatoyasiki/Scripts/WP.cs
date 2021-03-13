@@ -45,7 +45,7 @@ public class WP : MonoBehaviour {
 
 
 
-    void Start() {
+    public virtual void Start() {
         WPValue = neighborWP.Length;
         for (int i=0; i<maxWPValue; i++) {
             if(neighborWP.Length < i){
