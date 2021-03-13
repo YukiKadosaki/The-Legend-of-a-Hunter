@@ -9,12 +9,9 @@ public class Player : MobStatus
     //[SerializeField] private Animator m_Animator;
     public GameObject camera;
     public int cameraMoveTime = 0;
-    [Header("移動速度")]
-    [SerializeField] private float m_MoveSpeed = 10;
     [Header("ジャンプ力")]
     [SerializeField] private float m_JumpForce = 10;
-    private Vector3 m_Startpos;
-    private Rigidbody m_RigidBody;
+    [SerializeField] private GameObject Canvas;
     private Transform m_Transform;
     private Vector2 playerVec2;
     private Vector2 cameraVec2;
@@ -24,37 +21,24 @@ public class Player : MobStatus
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
-    private float HP;
-    private float MaxHp;
     private Slider slider;
-    private bool m_OnLand
-    {
-        //RaycastNonAllocを使うので複雑になっている
-        get
-        {
-            Ray ray = new Ray(this.transform.position + new Vector3(0, 0.5f), Vector3.down);
-            RaycastHit[] raycastHits = new RaycastHit[1];
-            int hitCount = Physics.RaycastNonAlloc(ray, raycastHits, 0.5f);
-            return hitCount >= 1;
-        }
-    }
 
     protected override void Start(){
         base.Start();
-        m_Startpos  = transform.position;
         m_Transform = this.transform;
-        m_RigidBody = this.GetComponent<Rigidbody>();
-
-        slider = this.transform.Find("Canvas").gameObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
-        slider.maxValue = Hp;
 
         dummyCameraVec3 = camera.transform.position;
-        playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
+        playerVec2 = new Vector2(m_Transform.position.x, m_Transform.position.z);
         cameraVec2 = new Vector2(dummyCameraVec3.x, dummyCameraVec3.z);
         criteriaVec2 = playerVec2 - cameraVec2;
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
-        camera.transform.LookAt(this.transform);
+        camera.transform.LookAt(m_Transform);
+
+        GameObject canvasObject = Instantiate(Canvas, Vector3.zero, Quaternion.identity);
+
+        slider = canvasObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
+        slider.maxValue = Hp;
     }
 
     void Update(){
@@ -74,12 +58,12 @@ public class Player : MobStatus
         // 無効入力をスルー
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
             // 基準ベクトルの取得
-            playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
+            playerVec2 = new Vector2(m_Transform.position.x, m_Transform.position.z);
             cameraVec2 = new Vector2(dummyCameraVec3.x, dummyCameraVec3.z);
             criteriaVec2 = playerVec2 - cameraVec2;
 
             // 前方向と横方向のベクトル取得
-            Vector2 velocityVec2 = m_MoveSpeed * criteriaVec2.normalized * Time.deltaTime;
+            Vector2 velocityVec2 = MoveSpeed * criteriaVec2.normalized * Time.deltaTime;
             Vector2 lotateVec2 = new Vector2(-velocityVec2.y, velocityVec2.x);
 
             // 入力した方向のベクトルを格納するリスト
@@ -124,15 +108,15 @@ public class Player : MobStatus
             cameraVec2 += distance_difference * neo_criteriaVec2.normalized;
 
             // 移動した2次元ベクトルをプレイヤーとカメラの3次元座標に代入
-            this.transform.position = new Vector3(playerVec2.x, this.transform.position.y, playerVec2.y);
+            m_Transform.position = new Vector3(playerVec2.x, m_Transform.position.y, playerVec2.y);
             dummyCameraVec3 = new Vector3(cameraVec2.x, dummyCameraVec3.y, cameraVec2.y);
 
             // 向きの修正
-            camera.transform.LookAt(this.transform);
-            this.transform.LookAt(this.transform.position + moveVec3);
+            camera.transform.LookAt(m_Transform);
+            m_Transform.LookAt(m_Transform.position + moveVec3);
 
             // 障害物の捜査
-            Vector3 playerVec3 = this.transform.position;
+            Vector3 playerVec3 = m_Transform.position;
             RaycastHit hit;
             int layerMask = ~(1 << 9);
             if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
@@ -144,14 +128,14 @@ public class Player : MobStatus
     }
 
     private IEnumerator MoveCamera(){
-        Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
+        Vector3 newCameraVector3 = m_Transform.position - moveVec3.normalized * const_distance;
         Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
         for(int i = 0; i < cameraMoveTime; i++){
             camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
-            camera.transform.LookAt(this.transform); 
+            camera.transform.LookAt(m_Transform); 
             dummyCameraVec3 = camera.transform.position;
             // 障害物の捜査
-            Vector3 playerVec3 = this.transform.position;
+            Vector3 playerVec3 = m_Transform.position;
             RaycastHit hit;
             int layerMask = ~(1 << 9);
             if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
