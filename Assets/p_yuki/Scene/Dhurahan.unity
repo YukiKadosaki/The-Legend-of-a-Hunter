@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.22478154, g: 0.2512765, b: 0.32197466, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -925,6 +925,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -2137,6 +2142,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -2246,6 +2256,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -2363,6 +2378,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -2455,7 +2475,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 40
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &699846933 stripped
 MonoBehaviour:
@@ -2659,6 +2679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -3215,6 +3240,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -3438,6 +3468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -4189,6 +4224,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -4419,6 +4459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -4692,6 +4737,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -4907,7 +4957,7 @@ MonoBehaviour:
   m_maxHp: 10
   m_defaultAtk: 10
   m_defaultMoveSpeed: 10
-  _name: 0
+  _name: 3
   m_StartWayPoint: {fileID: 1669094433}
 --- !u!54 &1351747785
 Rigidbody:
@@ -6080,6 +6130,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -6984,6 +7039,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -7200,6 +7260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -7512,6 +7577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
@@ -8094,6 +8164,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
+      objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}
       propertyPath: m_NextPoints.Array.size
@@ -8511,6 +8586,16 @@ PrefabInstance:
       propertyPath: cameraMoveTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8025689248812331832, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025689248812331832, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8074650585120822188, guid: 31ee11fced0f62d44945d8be63118279,
         type: 3}
       propertyPath: camera
@@ -8772,6 +8857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379171906961089888, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
+        type: 3}
+      propertyPath: m_TagString
+      value: WP
       objectReference: {fileID: 0}
     - target: {fileID: 6227657329853452655, guid: eecae7cdf0c42b14ea70cd4dd3374b46,
         type: 3}

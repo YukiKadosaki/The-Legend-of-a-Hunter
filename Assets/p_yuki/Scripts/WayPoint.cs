@@ -19,8 +19,9 @@ public class WayPoint : WP
 
 
     //WPクラスをWayPointクラスに合わせるための変換
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         m_NextPoints = new WayPoint[neighborWP.Length];
         for (int i = 0;i < neighborWP.Length;i++)
         {
