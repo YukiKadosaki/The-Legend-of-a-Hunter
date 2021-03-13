@@ -42,8 +42,16 @@ public class PostProcessDhurahan : MonoBehaviour
 
             float d;
             d = 5 / Vector3.Distance(m_Player.localPosition, m_Boss.localPosition);
-            
-            grain.intensity.Override(d);
+
+            //急にモザイクをかける
+            if (d >= 0.3f)
+            {
+                grain.intensity.Override(d);
+            }
+            else
+            {
+                grain.intensity.Override(0);
+            }
 
         }
     }
