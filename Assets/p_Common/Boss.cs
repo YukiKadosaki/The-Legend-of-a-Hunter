@@ -34,22 +34,33 @@ public abstract class Boss : MobStatus
     }
         
     //目的地（destination）に障害物などを避けながら移動する 
-    public virtual IEnumerator MoveToDestination(Vector3 destination){
-        if(isRunning){
+    public virtual IEnumerator MoveToDestination(Vector3 goalPoint) {
+        if(isRunning)
             yield break;
-        }
         isRunning = true;
 
-        //自分の現在地から目的地までの方向
-        Vector3 direction = (destination - this.transform.localPosition);
-        direction.y = 0;
-        this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
-        this.transform.LookAt(this.transform.position+direction);
-        yield return null;
-
-        isRunning = false;
+        AStar(serchPointTag(gameObject.transform.position, "WP"), serchPointTag(goalPoint, "WP"));
+        while (true) {
+            if (RouteList.Count == 0){
+                isRunning = false;
+                yield break;
+            }
+            Vector3 destination = RouteList[0].transform.position;
+            Vector3 moveDist = this.transform.position - destination;
+            moveDist.y = 0;
+            while (moveDist.magnitude >= delta) {
+                //自分の現在地から目的地までの方向
+                Vector3 direction = (destination - this.transform.localPosition);
+                direction.y = 0;
+                this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
+                this.transform.LookAt(this.transform.position+direction);
+                yield return null;
+                moveDist = this.transform.position - destination;
+                moveDist.y = 0;
+            }
+            RouteList.Remove(RouteList[0]);
+        }
     }
-
 
     // A*アルゴリズム関係
     public void AStar(GameObject startWP, GameObject goalWP){
@@ -145,5 +156,27 @@ public abstract class Boss : MobStatus
             returnRoute.Add(CWP);
             return returnRoute;
         }
+    }
+
+    GameObject serchPointTag(Vector3 objPos,string tagName){
+        float tmpDis = 0;           //距離用一時変数
+        float nearDis = 0;          //最も近いオブジェクトの距離
+        GameObject targetObj = null; //オブジェクト
+
+        //タグ指定されたオブジェクトを配列で取得する
+        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName)){
+            //自身と取得したオブジェクトの距離を取得
+            tmpDis = Vector3.Distance(obs.transform.position, objPos);
+
+            //オブジェクトの距離が近いか、距離0であればオブジェクト名を取得
+            //一時変数に距離を格納
+            if (nearDis == 0 || nearDis > tmpDis){
+                nearDis = tmpDis;
+                targetObj = obs;
+            }
+
+        }
+        //最も近かったオブジェクトを返す
+        return targetObj;
     }
 }

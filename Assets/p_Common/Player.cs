@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Player : MobStatus
@@ -12,8 +13,6 @@ public class Player : MobStatus
     [SerializeField] private float m_MoveSpeed = 10;
     [Header("ジャンプ力")]
     [SerializeField] private float m_JumpForce = 10;
-    private float moveSpeed;
-    private Vector2 originPoint;
     private Vector3 m_Startpos;
     private Rigidbody m_RigidBody;
     private Transform m_Transform;
@@ -25,8 +24,9 @@ public class Player : MobStatus
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
-    private GameObject PlayerWP;
-    private float WPReloadTime = 0;
+    private float HP;
+    private float MaxHp;
+    private Slider slider;
     private bool m_OnLand
     {
         //RaycastNonAllocを使うので複雑になっている
@@ -39,15 +39,15 @@ public class Player : MobStatus
         }
     }
 
-    public GameObject getPlayerWP(){
-        return PlayerWP;
-    }
-
     protected override void Start(){
         base.Start();
         m_Startpos  = transform.position;
         m_Transform = this.transform;
         m_RigidBody = this.GetComponent<Rigidbody>();
+
+        Hp = 20f;
+        slider = this.transform.Find("Canvas").gameObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
+        slider.maxValue = Hp;
 
         dummyCameraVec3 = camera.transform.position;
         playerVec2 = new Vector2(this.transform.position.x, this.transform.position.z);
@@ -56,18 +56,22 @@ public class Player : MobStatus
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
         camera.transform.LookAt(this.transform);
-        if(serchTag(gameObject, "WP"))
-            PlayerWP = serchTag(gameObject, "WP");
     }
 
     void Update(){
-        WPReloadTime += Time.deltaTime;
-        if(WPReloadTime >= 0.5f){
-            if(serchTag(gameObject, "WP"))
-                PlayerWP = serchTag(gameObject, "WP");
-            WPReloadTime = 0f;
-        }
+        slider.value = Hp;
 
+        MoveLikeZelda();
+
+        if(Input.GetKeyDown(KeyCode.K)){
+            if(!isMovingCamera){
+                StartCoroutine(MoveCamera());
+                isMovingCamera = true;
+            }
+        }
+    }
+
+    void MoveLikeZelda(){
         // 無効入力をスルー
         if ((Input.GetKey(KeyCode.W) ^ Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))){
             // 基準ベクトルの取得
@@ -138,38 +142,28 @@ public class Player : MobStatus
                 camera.transform.position = dummyCameraVec3;
             }
         }
+    }
 
-        if(Input.GetKeyDown(KeyCode.K)){
-            if(!isMovingCamera){
-                StartCoroutine(MoveCamera());
-                isMovingCamera = true;
+    private IEnumerator MoveCamera(){
+        Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
+        Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
+        for(int i = 0; i < cameraMoveTime; i++){
+            camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
+            camera.transform.LookAt(this.transform); 
+            dummyCameraVec3 = camera.transform.position;
+            // 障害物の捜査
+            Vector3 playerVec3 = this.transform.position;
+            RaycastHit hit;
+            int layerMask = ~(1 << 9);
+            if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
+                camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
+            }else{
+                camera.transform.position = dummyCameraVec3;
             }
-            // Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
-            // camera.transform.position = new Vector3(newCameraVector3.x, camera.transform.position.y, newCameraVector3.z);
-            // camera.transform.LookAt(this.transform);
+            yield return null;
         }
-
-        IEnumerator MoveCamera(){
-            Vector3 newCameraVector3 = this.transform.position - moveVec3.normalized * const_distance;
-            Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
-            for(int i = 0; i < cameraMoveTime; i++){
-                camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
-                camera.transform.LookAt(this.transform); 
-                dummyCameraVec3 = camera.transform.position;
-                // 障害物の捜査
-                Vector3 playerVec3 = this.transform.position;
-                RaycastHit hit;
-                int layerMask = ~(1 << 9);
-                if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
-                    camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
-                }else{
-                    camera.transform.position = dummyCameraVec3;
-                }
-                yield return null;
-            }
-            isMovingCamera = false;
-            yield break;
-        }
+        isMovingCamera = false;
+        yield break;
     }
 
     GameObject serchTag(GameObject nowObj,string tagName){
