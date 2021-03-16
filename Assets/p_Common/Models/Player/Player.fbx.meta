@@ -1,0 +1,277 @@
+fileFormatVersion: 2
+guid: 5f53aa0bbc522c14d98c5369f2831b8a
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: 453350418248776828
+    second: metarigAction.002
+  - first:
+      74: 2119728182461742815
+    second: "belt.002|\u653B\u64831"
+  - first:
+      74: -6427150733052536370
+    second: "belt.002|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -2574442929153445637
+    second: "belt.002|\u8D70\u308B"
+  - first:
+      74: -5442302609178019336
+    second: "clothes.002|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: 1778051484209966302
+    second: "clothes.002|\u8D70\u308B"
+  - first:
+      74: 3066099166140170731
+    second: "Pouch|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -4015794536691849574
+    second: "Pouch|\u898B\u6E21\u3059"
+  - first:
+      74: -6326774425995257528
+    second: "Pouch|\u8D70\u308B"
+  - first:
+      74: -7531456058074232998
+    second: "metarig|\u30A2\u30A4\u30C6\u30E0"
+  - first:
+      74: -6734548369948387518
+    second: "metarig|\u30C0\u30C3\u30B7\u30E5"
+  - first:
+      74: 1309855524981513374
+    second: "metarig|\u30C0\u30E1\u30FC\u30B8 1"
+  - first:
+      74: -3317741331395031271
+    second: "metarig|\u30C0\u30E1\u30FC\u30B8 2"
+  - first:
+      74: -3305477329613490229
+    second: "metarig|\u56DE\u907F"
+  - first:
+      74: -7416678488571136349
+    second: "metarig|\u653B\u64831"
+  - first:
+      74: 133429079760038135
+    second: "metarig|\u653B\u64832"
+  - first:
+      74: 2447712777845750839
+    second: "metarig|\u6B69\u884C_\u5927\u5263"
+  - first:
+      74: 7944952434917986456
+    second: "metarig|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -9025148030530768206
+    second: "metarig|\u6B69\u884C_\u624B\u3076\u3089"
+  - first:
+      74: 8560490687986565178
+    second: "metarig|\u7D0D\u5200"
+  - first:
+      74: 3914391841773520846
+    second: "metarig|\u898B\u6E21\u3059"
+  - first:
+      74: 7690941237555572507
+    second: "metarig|\u8D70\u308B"
+  - first:
+      74: -8029632506119446622
+    second: "\u7ACB\u65B9\u4F53|\u6B69\u884C_\u5927\u5263"
+  - first:
+      74: -7976306359239796621
+    second: "\u7ACB\u65B9\u4F53|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -9073000520770639513
+    second: "\u7ACB\u65B9\u4F53|\u8D70\u308B"
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 67ecd55bb7eb89b4685be0ff04fc513a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: bc5bc4a422e4b1e4f98ad491fb7a99db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 0fc25665b4f4cc74b991508b80d252f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 3f6be74026a069e479f4a6adb338c86d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: fcde82927f07f0a4c81823bead2460c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: 12fc87251a66a2b48a0bd2f5271e070a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: a36aad4f41a846f42b71691e132692f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.007
+    second: {fileID: 2100000, guid: b6f73bba774804a4a8f5ab51507c1360, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.008
+    second: {fileID: 2100000, guid: 0baa612d779a6764e99927664bad0f29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.009
+    second: {fileID: 2100000, guid: 3dbc56c1edd59124d8d1ff44c9f1445e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cloth in
+    second: {fileID: 2100000, guid: 3455e360988def246945dba60c2d33ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grobe
+    second: {fileID: 2100000, guid: 4513c063ebfc23e4d82a1862b236aca1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lower_arm
+    second: {fileID: 2100000, guid: a6532376441009944b13786d801d0d0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: nee
+    second: {fileID: 2100000, guid: 8de8541fc800c9f4592e46d8ac142545, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: outer
+    second: {fileID: 2100000, guid: f80b3ed7fc97cc54cb04545784b280c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoe
+    second: {fileID: 2100000, guid: 61d182993bb050647b9535472c25b15a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoulder.001
+    second: {fileID: 2100000, guid: c458e5181025b8d4fbd52b9b99d958c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoulder_belt
+    second: {fileID: 2100000, guid: b54da9aa6a1aa2648aa6369a078a28b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: side bag
+    second: {fileID: 2100000, guid: 73ceb840a15b68f49918c0c588c65b02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: upper_arm
+    second: {fileID: 2100000, guid: 20f294fe11ff05948a828d04fec8f672, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u30DE\u30C6\u30EA\u30A2\u30EB"
+    second: {fileID: 2100000, guid: 0914c4b6935e1864c8f92368c573bccc, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
