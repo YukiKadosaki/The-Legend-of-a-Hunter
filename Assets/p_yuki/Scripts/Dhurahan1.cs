@@ -20,6 +20,7 @@ public class Dhurahan1 : Boss
     private WayPoint m_NextWayPoint;//現在の移動先
     private bool m_IsStateChanging = false;//状態の遷移中はtrue
     private Vector3 m_Destination;//目的地
+    private IEnumerator m_MoveLinear;
 
     public DhurahanState BossState {
         get => m_BossState;
@@ -87,7 +88,7 @@ public class Dhurahan1 : Boss
         //音が聞こえたらFindステートへ
         if (other.CompareTag("Speaker"))
         {
-            //Debug.Log("Destination :" + other.transform.position);
+            StopCoroutine(m_MoveLinear);
             Destination = other.transform.position;
             IsStateChanging = true;
             BossState = DhurahanState.Find;
@@ -98,7 +99,8 @@ public class Dhurahan1 : Boss
     {
         while (true)
         {
-            yield return StartCoroutine("MoveLiner", NextWayPoint.transform.localPosition);
+            m_MoveLinear = MoveLiner(NextWayPoint.transform.localPosition);
+            yield return StartCoroutine(m_MoveLinear);
 
 
             //目的地へ到達したら、次の目的地へ

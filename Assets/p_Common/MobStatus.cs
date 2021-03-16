@@ -145,7 +145,7 @@ public abstract class MobStatus : MonoBehaviour
         }
 
         PlayerPrefs.Save();
-        Debug.Log(_name.ToString() + " : " + PlayerPrefs.GetInt("Bee"));
+
 
     }
 
