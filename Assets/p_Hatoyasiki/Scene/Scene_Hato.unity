@@ -127,12 +127,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1777797272}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &267506746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5064844731443609228, guid: 31ee11fced0f62d44945d8be63118279,
-    type: 3}
-  m_PrefabInstance: {fileID: 2047861145}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &292518946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,7 +1569,7 @@ PrefabInstance:
     - target: {fileID: 6910488674390245673, guid: f5ebd13a3073c474db3bc7021e3aed6f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6910488674390245673, guid: f5ebd13a3073c474db3bc7021e3aed6f,
         type: 3}
@@ -2293,7 +2287,7 @@ MonoBehaviour:
   m_maxHp: 100
   m_defaultAtk: 20
   m_defaultMoveSpeed: 6
-  player: {fileID: 267506746}
+  _name: 0
 --- !u!54 &2011332052
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2386,6 +2380,26 @@ PrefabInstance:
         type: 3}
       propertyPath: cameraMoveTime
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424169038837180478, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_defaultMoveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424169038837180478, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_maxHp
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025689248812331832, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025689248812331832, guid: 31ee11fced0f62d44945d8be63118279,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ee11fced0f62d44945d8be63118279, type: 3}
