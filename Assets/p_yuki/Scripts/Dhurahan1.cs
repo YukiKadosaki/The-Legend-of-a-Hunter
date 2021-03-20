@@ -16,6 +16,8 @@ public class Dhurahan1 : Boss
 
     [Header("開始地点のウェイポイント")]
     [SerializeField] private WayPoint m_StartWayPoint;
+    [Header("視界")]
+    [SerializeField] private Collider m_View;
     private DhurahanState m_BossState = DhurahanState.Search; //ボスの状態
     private WayPoint m_NextWayPoint;//現在の移動先
     private bool m_IsStateChanging = false;//状態の遷移中はtrue
@@ -45,6 +47,7 @@ public class Dhurahan1 : Boss
         set { m_Destination = value; }
     }
 
+    //public Collider View
 
 
 

@@ -46,7 +46,7 @@ public abstract class MobStatus : MonoBehaviour
     private float m_Hp;//現在のhp
     [SerializeField] private float m_defaultAtk;//初期攻撃力
     private float m_Atk;//現在の攻撃力
-    [SerializeField] private float m_defaultMoveSpeed;//初期速度
+    [SerializeField] private float m_defaultMoveSpeed = 5;//初期速度
     private float m_MoveSpeed;//現在の移動速度
     protected Animator _animator;
     protected StateEnum _state = StateEnum.Normal; // Mob状態
@@ -146,6 +146,7 @@ public abstract class MobStatus : MonoBehaviour
 
         PlayerPrefs.Save();
 
+        _animator.SetTrigger("Die");
 
     }
 
@@ -158,12 +159,11 @@ public abstract class MobStatus : MonoBehaviour
         if (_state == StateEnum.Die) return;
 
         Hp -= damage;
-        if (Hp > 0) return;
-
-        _state = StateEnum.Die;
-        //_animator.SetTrigger("Die");
-
-        OnDie();
+        if (Hp <= 0)
+        {
+            _state = StateEnum.Die;
+            OnDie();
+        }
     }
 
     /// <summary>

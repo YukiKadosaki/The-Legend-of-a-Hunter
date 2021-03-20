@@ -22,6 +22,10 @@ public class Player : MobStatus
     private float const_distance;
     private bool isMovingCamera = false;
     private Slider slider;
+    private bool canSecondAttack;                     //2段目の攻撃ができるかどうか
+    private bool havingSword = false;                 //剣を持っているかどうか
+    private bool frozen = false;                      //移動が可能かどうか
+    private bool secondAttackChecking = false;        //2段目の攻撃の入力を受け付けるかどうか
 
     protected override void Start(){
         base.Start();
@@ -44,7 +48,45 @@ public class Player : MobStatus
     void Update(){
         slider.value = Hp;
 
-        MoveLikeZelda();
+        if (!frozen)
+        {
+            MoveLikeZelda();
+        }
+
+        //攻撃、抜刀
+        if (Input.GetKeyDown(KeyCode.J)){
+            if (havingSword)
+            {
+                //Attackステートならスキップ
+                if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+                {
+                    _animator.SetTrigger("Attack");
+                }
+                if (secondAttackChecking)
+                {
+                    _animator.SetTrigger("Attack2");
+                }
+            }
+            else
+            {
+                _animator.SetTrigger("DrawSword");
+                havingSword = true;
+            }
+        }
+
+        //納刀、アイテム拾い
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (havingSword)
+            {
+                _animator.SetTrigger("SwordBack");
+                havingSword = false;
+            }
+            else
+            {
+                _animator.SetTrigger("PickUp");
+            }
+        }
 
         if(Input.GetKeyDown(KeyCode.K)){
             if(!isMovingCamera){
@@ -53,6 +95,8 @@ public class Player : MobStatus
             }
         }
     }
+
+    
 
     void MoveLikeZelda(){
         // 無効入力をスルー
@@ -125,6 +169,20 @@ public class Player : MobStatus
                 camera.transform.position = dummyCameraVec3;
             }
         }
+
+        //移動アニメーションのチェック
+        CheckMoveAnimation();
+    }
+    void CheckMoveAnimation()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            _animator.SetBool("Move", true);
+        }
+        else
+        {
+            _animator.SetBool("Move", false);
+        }
     }
 
     private IEnumerator MoveCamera(){
@@ -171,5 +229,29 @@ public class Player : MobStatus
         return targetObj;
     }
 
+
+    //移動できるようにする。アニメーションから呼ぶ
+    public void PlayerFrost()
+    {
+        frozen = true;
+    }
+
+    //移動できないようにする。アニメーションから呼ぶ
+    public void PlayerDefrost()
+    {
+        frozen = false;
+    }
+
+    //2段目の攻撃を受け付ける。アニメーションから呼ぶ
+    public void OnReceiveAttack2()
+    {
+        secondAttackChecking = true;
+    }
+
+    //2段目の攻撃を受け付けない。アニメーションから呼ぶ
+    public void OffReceiveAttack2()
+    {
+        secondAttackChecking = false;
+    }
 }
 
