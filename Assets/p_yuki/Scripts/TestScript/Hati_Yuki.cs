@@ -25,6 +25,7 @@ public class Hati_Yuki : MobStatus
         else if(4 <= time)
         {
             time = 0;
+            Damage(4);
         }
         else
         {
@@ -34,5 +35,11 @@ public class Hati_Yuki : MobStatus
         time += Time.deltaTime;
         
 
+    }
+
+    protected override void OnDie()
+    {
+        base.OnDie();
+        Destroy(this.gameObject);
     }
 }
