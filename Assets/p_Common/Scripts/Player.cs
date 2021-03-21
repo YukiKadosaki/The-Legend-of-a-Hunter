@@ -253,5 +253,10 @@ public class Player : MobStatus
     {
         secondAttackChecking = false;
     }
+    //一段目の攻撃のトリガーをリセットする
+    public void ResetAttack1()
+    {
+        _animator.ResetTrigger("Attack");
+    }
 }
 

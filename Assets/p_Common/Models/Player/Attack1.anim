@@ -9196,7 +9196,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.6666666
+    m_StopTime: 1.75
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -47134,7 +47134,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.6666666
+  - time: 1.625
+    functionName: ResetAttack1
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 596ab9f11c4a25b4d94bf363c1ce6721,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.75
     functionName: PlayerDefrost
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 596ab9f11c4a25b4d94bf363c1ce6721,

@@ -54488,6 +54488,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.041666668
+    functionName: ResetAttack1
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 596ab9f11c4a25b4d94bf363c1ce6721,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.25
     functionName: PlayerFrost
     data: 
