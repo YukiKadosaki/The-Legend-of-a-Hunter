@@ -12,9 +12,9 @@ public class Dragon : Boss
     private float distance;  //プレイヤーと敵の距離
     private float rotSpeed = 20;  //回転攻撃の速度
 
-    private float currentTime;
+    private float currentTime = 0;
     private float MoveTime;
-    private bool Switch, Switch1;
+    private bool Switch, Switch1, Switch2, Switch3;
     private ParticleSystem FlameStream;
 
     void Start()
@@ -28,6 +28,8 @@ public class Dragon : Boss
 
         Switch = true;
         Switch1 = false;
+        Switch2 = false;
+        Switch3 = false;
 
         FlameStream = GetComponent<ParticleSystem>();
 
@@ -63,21 +65,23 @@ public class Dragon : Boss
             else
             {
                 Switch = false;
-                Switch1 = true;
+                Switch1 = false;
+                Switch2 = false;
+                Switch3 = true;
                 //Invoke("Fire", 2f);
             }                
         }
 
         if(Switch == false && Switch1 == true)
         {
-            Debug.Log("Turn Mode");
-            distance = 0;
-            StartCoroutine("Stop");  //コルーチン"Stop"を起動
+            //Debug.Log("Turn Mode");
+            //distance = 0;
+            //StartCoroutine("Stop");  //コルーチン"Stop"を起動
 
             //Invoke("Turn");
-            StartCoroutine("Turn");
+            //StartCoroutine("Turn");
             //currentTime = 0;
-            /*if(currentTime <= 10.0)
+            if(currentTime <= 10.0)
             {
                 Debug.Log("Time = " + currentTime);
                 transform.Rotate(new Vector3(0, this.rotSpeed, 0)); //回転させる
@@ -88,10 +92,59 @@ public class Dragon : Boss
                 currentTime = 0;
                 Switch = true;
                 Switch1 = false;
-            }*/
+            }
 
         }
 
+        if (Switch == false && Switch1 == false && Switch2 == true)
+        {
+            Debug.Log("Attack Mode");
+            PlayerPosition = player.transform.position;
+            EnemyPosition = this.transform.position;
+            distance = Vector3.Distance(PlayerPosition, transform.position);
+
+            //this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
+
+            this.transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed);
+
+            /*if (distance > 2.0)
+            {
+                float step = MoveSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, PlayerPosition, step);
+            }
+            else
+            {
+                Switch = true;
+                Switch1 = false;
+                Switch2 = false;
+                //Invoke("Fire", 2f);
+            }*/
+        }
+
+        if (Switch == false && Switch1 == false && Switch2 == false && Switch3 == true)
+        {
+            Debug.Log("Fire Mode");
+            //PlayerPosition = player.transform.position;
+            //EnemyPosition = this.transform.position;
+            //distance = Vector3.Distance(PlayerPosition, transform.position);
+
+            //this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
+
+            this.transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed);
+
+            /*if (distance > 2.0)
+            {
+                float step = MoveSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, PlayerPosition, step);
+            }
+            else
+            {
+                Switch = true;
+                Switch1 = false;
+                Switch2 = false;
+                //Invoke("Fire", 2f);
+            }*/
+        }
         //StartCoroutine("Move");
         //}
     }
@@ -146,23 +199,33 @@ public class Dragon : Boss
         distance = 0;     
         StartCoroutine("Stop");  //コルーチン"Stop"を起動
         //for(currentTime = 0; currentTime <= 5; currentTime++)
-        for(MoveTime = 0f; MoveTime <= 10f; MoveTime += Time.deltaTime)
-        {
-            //transform.Rotate(new Vector3(0, this.rotSpeed, 0)); //回転させる
-            transform.Rotate(new Vector3(0, this.rotSpeed*Time.deltaTime, 0));
-            
-            //Debug.Log("Time" + MoveTime);
-        }
-
-        //currentTime = 0;
+        //for(MoveTime = 0; MoveTime <= 10; MoveTime += Time.deltaTime)
+        
         MoveTime = 0;
-        Switch = true;
-        Switch1 = false;
+
+        if(MoveTime <= 100)
+        {
+            transform.Rotate(new Vector3(0, this.rotSpeed, 0)); //回転させる
+            MoveTime++;
+            //transform.Rotate(new Vector3(0, this.rotSpeed*Time.deltaTime, 0));
+        }
+        else
+        {
+            MoveTime = 0;
+            Switch = true;
+            Switch1 = false;
+            //Invoke("Update");
+            yield break;
+        }
+        //currentTime = 0;
+        //MoveTime = 0;
+        //Switch = true;
+        //Switch1 = false;
         //Invoke("Update");
         //CancelInvoke();
         //StartCoroutine("Stop");
         //StartCoroutine("Attack");
-        yield break;
+        //yield break;
         //Attack();
         //}
     }
