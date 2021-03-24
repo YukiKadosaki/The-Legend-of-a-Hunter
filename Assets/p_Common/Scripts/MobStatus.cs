@@ -46,7 +46,7 @@ public abstract class MobStatus : MonoBehaviour
     private float m_Hp;//現在のhp
     [SerializeField] private float m_defaultAtk;//初期攻撃力
     private float m_Atk;//現在の攻撃力
-    [SerializeField] private float m_defaultMoveSpeed = 5;//初期速度
+    [SerializeField] protected float m_defaultMoveSpeed = 5;//初期速度
     private float m_MoveSpeed;//現在の移動速度
     protected Animator _animator;
     protected StateEnum _state = StateEnum.Normal; // Mob状態
@@ -154,7 +154,7 @@ public abstract class MobStatus : MonoBehaviour
     /// 指定値のダメージを受けます。
     /// </summary>
     /// <param name="damage"></param>
-    public void Damage(int damage)
+    virtual public void Damage(int damage)
     {
         if (_state == StateEnum.Die) return;
 

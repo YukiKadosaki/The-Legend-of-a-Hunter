@@ -1,0 +1,208 @@
+fileFormatVersion: 2
+guid: 4a9348173ed13064da9225c0f907518e
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: 453350418248776828
+    second: metarigAction.002
+  - first:
+      74: 2687469277181743518
+    second: "body|\u30C0\u30C3\u30B7\u30E5"
+  - first:
+      74: -3970069138052852678
+    second: "body|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -8820067824844943763
+    second: "body|\u8D70\u308B"
+  - first:
+      74: -3250006891235444352
+    second: "neck|\u56DE\u907F \u3000\u53F3"
+  - first:
+      74: -4928065609208251344
+    second: "neck|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: 9033748109519452841
+    second: "neck|\u8D70\u308B"
+  - first:
+      74: 2119728182461742815
+    second: "belt.002|\u653B\u64831"
+  - first:
+      74: -6427150733052536370
+    second: "belt.002|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -2574442929153445637
+    second: "belt.002|\u8D70\u308B"
+  - first:
+      74: -5442302609178019336
+    second: "clothes.002|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: 1778051484209966302
+    second: "clothes.002|\u8D70\u308B"
+  - first:
+      74: 3066099166140170731
+    second: "Pouch|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -4015794536691849574
+    second: "Pouch|\u898B\u6E21\u3059"
+  - first:
+      74: -6326774425995257528
+    second: "Pouch|\u8D70\u308B"
+  - first:
+      74: -7531456058074232998
+    second: "metarig|\u30A2\u30A4\u30C6\u30E0"
+  - first:
+      74: -6734548369948387518
+    second: "metarig|\u30C0\u30C3\u30B7\u30E5"
+  - first:
+      74: 1309855524981513374
+    second: "metarig|\u30C0\u30E1\u30FC\u30B8 1"
+  - first:
+      74: -3317741331395031271
+    second: "metarig|\u30C0\u30E1\u30FC\u30B8 2"
+  - first:
+      74: -1777646850918322146
+    second: "metarig|\u56DE\u907F \u3000\u53F3"
+  - first:
+      74: -8610237111264763084
+    second: "metarig|\u56DE\u907F \u5DE6"
+  - first:
+      74: -4231109103583330753
+    second: "metarig|\u5F85\u6A5F"
+  - first:
+      74: 6978652609184574581
+    second: "metarig|\u629C\u5200"
+  - first:
+      74: -7416678488571136349
+    second: "metarig|\u653B\u64831"
+  - first:
+      74: 133429079760038135
+    second: "metarig|\u653B\u64832"
+  - first:
+      74: 2447712777845750839
+    second: "metarig|\u6B69\u884C_\u5927\u5263"
+  - first:
+      74: 7944952434917986456
+    second: "metarig|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -9025148030530768206
+    second: "metarig|\u6B69\u884C_\u624B\u3076\u3089"
+  - first:
+      74: 8560490687986565178
+    second: "metarig|\u7D0D\u5200"
+  - first:
+      74: 712838795453695130
+    second: "metarig|\u7D0D\u5200\u56DE\u907F_\u53F3"
+  - first:
+      74: -6779397619028682761
+    second: "metarig|\u7D0D\u5200\u56DE\u907F_\u5DE6"
+  - first:
+      74: -4832030997346800063
+    second: "metarig|\u7D0D\u5200\u5F85\u6A5F"
+  - first:
+      74: 3914391841773520846
+    second: "metarig|\u898B\u6E21\u3059"
+  - first:
+      74: 7690941237555572507
+    second: "metarig|\u8D70\u308B"
+  - first:
+      74: -8029632506119446622
+    second: "\u7ACB\u65B9\u4F53|\u6B69\u884C_\u5927\u5263"
+  - first:
+      74: -7976306359239796621
+    second: "\u7ACB\u65B9\u4F53|\u6B69\u884C_\u5927\u5263.001"
+  - first:
+      74: -9073000520770639513
+    second: "\u7ACB\u65B9\u4F53|\u8D70\u308B"
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
