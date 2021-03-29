@@ -352,20 +352,37 @@ public class Player : MobStatus
         if(key == KeyCode.A)
         {
             direction = Quaternion.AngleAxis(-90, Vector3.up) * direction;
+
+            //実際に動かす
+            for (int i = 0; i < flame; i++)
+            {
+                if (!TouchingWallLeft)
+                {
+                    m_Transform.localPosition += direction * avoidDistance / flame;
+                    this.camera.transform.position += direction * avoidDistance / flame;
+                    dummyCameraVec3 = this.camera.transform.position;
+                }
+                yield return null;
+            }
         }
         //右回避
         else if(key == KeyCode.D)
         {
             direction = Quaternion.AngleAxis(90, Vector3.up) * direction;
+
+            //実際に動かす
+            for (int i = 0; i < flame; i++)
+            {
+                if (!TouchingWallRight)
+                {
+                    m_Transform.localPosition += direction * avoidDistance / flame;
+                    this.camera.transform.position += direction * avoidDistance / flame;
+                    dummyCameraVec3 = this.camera.transform.position;
+                }
+                yield return null;
+            }
         }
 
-        //実際に動かす
-        for(int i = 0;i < flame; i++)
-        {
-            m_Transform.localPosition += direction * avoidDistance / flame;
-            this.camera.transform.position += direction * avoidDistance / flame;
-            yield return null;
-        }
 
         //回避の予約入力を消す
         _animator.ResetTrigger("AvoidLeft");
