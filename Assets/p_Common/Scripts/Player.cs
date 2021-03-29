@@ -28,11 +28,13 @@ public class Player : MobStatus
     private bool kLooking = false;                    //K注目中かどうか
     private bool secondAttackChecking = false;        //2段目の攻撃の入力を受け付けるかどうか
     private Vector3 beforePosition;                   //前フレームの座標　速度計算に使う
+    private BoxCollider m_Collider;                     //自分のコライダー
     int time = 0;//後でけす
 
     protected override void Start(){
         base.Start();
         m_Transform = this.transform;
+        m_Collider = this.GetComponent<BoxCollider>();
 
         dummyCameraVec3 = camera.transform.position;
         playerVec2 = new Vector2(m_Transform.position.x, m_Transform.position.z);
@@ -274,6 +276,8 @@ public class Player : MobStatus
         
         if(Input.GetKey(KeyCode.K) && !frozen)
         {
+
+            _animator.SetBool("Move", false);
             if (Input.GetKeyDown(KeyCode.A))
             {
                 _animator.SetTrigger("AvoidLeft");
@@ -335,8 +339,8 @@ public class Player : MobStatus
     {
         Debug.Log("START");
 
-        int flame = 40;//回転のフレーム数
-        float avoidDistance = 3.5f;//回避する長さ
+        int flame = 25;//回転のフレーム数
+        float avoidDistance = 3f;//回避する長さ
         Vector3 direction;//回転する方向 
 
         direction = m_Transform.localPosition - this.camera.transform.localPosition;
@@ -356,8 +360,8 @@ public class Player : MobStatus
         //実際に動かす
         for(int i = 0;i < flame; i++)
         {
-            Debug.Log("Move");
             m_Transform.localPosition += direction * avoidDistance / flame;
+            this.camera.transform.position += direction * avoidDistance / flame;
             yield return null;
         }
 
