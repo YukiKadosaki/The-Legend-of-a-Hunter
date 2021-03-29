@@ -28,13 +28,15 @@ public class Player : MobStatus
     private bool kLooking = false;                    //K注目中かどうか
     private bool secondAttackChecking = false;        //2段目の攻撃の入力を受け付けるかどうか
     private Vector3 beforePosition;                   //前フレームの座標　速度計算に使う
-    private BoxCollider m_Collider;                     //自分のコライダー
+    [System.NonSerialized]
+    public bool TouchingWallLeft = false;             //体の左が壁に触っているかどうか WallChecker.csが判定する
+    [System.NonSerialized]
+    public bool TouchingWallRight = false;            //体の右が壁に触っているかどうか WallChecker.csが判定する
     int time = 0;//後でけす
 
     protected override void Start(){
         base.Start();
         m_Transform = this.transform;
-        m_Collider = this.GetComponent<BoxCollider>();
 
         dummyCameraVec3 = camera.transform.position;
         playerVec2 = new Vector2(m_Transform.position.x, m_Transform.position.z);
