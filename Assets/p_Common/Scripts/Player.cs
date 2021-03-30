@@ -326,6 +326,11 @@ public class Player : MobStatus
     public override void Damage(int damage)
     {
         base.Damage(damage);
+        if(_state == StateEnum.Die)
+        {
+            return;
+        }
+
         int random = Random.Range(0, 7);
         if(random == 2)
         {
@@ -388,6 +393,14 @@ public class Player : MobStatus
         _animator.ResetTrigger("AvoidLeft");
         _animator.ResetTrigger("AvoidRight");
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Boss") && !frozen)
+        {
+            Damage(1);
+        }
     }
 
 }
