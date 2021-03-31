@@ -5205,7 +5205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHp: 10
-  m_defaultAtk: 10
+  m_defaultAtk: 0
   m_defaultMoveSpeed: 10
   _name: 3
   m_StartWayPoint: {fileID: 1669094433}
@@ -6139,7 +6139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHp: 10
-  m_defaultAtk: 10
+  m_defaultAtk: 0
   m_defaultMoveSpeed: 10
   _name: 1
 --- !u!114 &1370597506
@@ -6326,6 +6326,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e9164e00a4d5db48a745b14934ecaa9, type: 3}
+--- !u!1 &1390038857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1390038858}
+  - component: {fileID: 1390038859}
+  m_Layer: 9
+  m_Name: AttackHitDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1390038858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390038857}
+  m_LocalRotation: {x: 0.12336459, y: -0.75575054, z: 0.6427894, w: -0.021072244}
+  m_LocalPosition: {x: 0.017989652, y: 0.0202633, z: -0.01018932}
+  m_LocalScale: {x: 0.04844779, y: 0.07061831, z: 0.048447795}
+  m_Children: []
+  m_Father: {fileID: 3730367254345527842}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1390038859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390038857}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08, y: 0.01212441, z: 0.30782694}
+  m_Center: {x: 0.45366457, y: -0.12718773, z: 0.17341949}
 --- !u!1001 &1396982517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7088,7 +7132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHp: 100
-  m_defaultAtk: 10
+  m_defaultAtk: 0
   m_defaultMoveSpeed: 5
   _name: 0
   camera: {fileID: 413078155}
@@ -11804,7 +11848,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.0068262564, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1390038858}
   m_Father: {fileID: 2959807382855562181}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

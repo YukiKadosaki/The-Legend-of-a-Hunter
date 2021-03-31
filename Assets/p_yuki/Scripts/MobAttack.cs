@@ -54,7 +54,7 @@ public class MobAttack : MonoBehaviour
         if (null == targetMob) return;
 
         // プレイヤーにダメージを与える
-        targetMob.Damage(1);
+        targetMob.Damage();
     }
 
     /// <summary>

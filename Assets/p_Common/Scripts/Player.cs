@@ -323,9 +323,9 @@ public class Player : MobStatus
         _animator.ResetTrigger("Attack");
     }
     //ダメージのアニメーション処理
-    public override void Damage(int damage)
+    public override void Damage()
     {
-        base.Damage(damage);
+        base.Damage();
         if(_state == StateEnum.Die)
         {
             return;
