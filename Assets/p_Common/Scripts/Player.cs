@@ -17,7 +17,7 @@ public class Player : MobStatus
     private Vector2 cameraVec2;
     private Vector2 criteriaVec2;
     private Vector2 moveVec2;
-    private Vector3 moveVec3;
+    private Vector3 moveVec3 = Vector3.forward;
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
