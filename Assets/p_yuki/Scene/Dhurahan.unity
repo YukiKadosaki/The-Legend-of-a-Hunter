@@ -2180,7 +2180,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 100
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -7087,7 +7087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596ab9f11c4a25b4d94bf363c1ce6721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 10
+  m_maxHp: 100
   m_defaultAtk: 10
   m_defaultMoveSpeed: 5
   _name: 0
