@@ -54504,6 +54504,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.16666667
+    functionName: OnAttackStart
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c9bf98b4ad0e91e4581de677d78b20f1,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.75
+    functionName: OnAttackFinished
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 338ddddc356d7744280f1a99f889ab8a,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.875
     functionName: PlayerDefrost
     data: 

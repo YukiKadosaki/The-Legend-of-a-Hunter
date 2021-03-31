@@ -47126,6 +47126,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.9583333
+    functionName: OnAttackStart
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c9bf98b4ad0e91e4581de677d78b20f1,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.5833334
+    functionName: OnAttackFinished
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c9bf98b4ad0e91e4581de677d78b20f1,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.5833334
     functionName: OffReceiveAttack2
     data: 

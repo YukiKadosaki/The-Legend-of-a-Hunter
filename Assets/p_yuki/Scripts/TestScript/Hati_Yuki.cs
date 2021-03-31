@@ -18,6 +18,7 @@ public class Hati_Yuki : MobStatus
     // Update is called once per frame
     void Update()
     {
+        /*
         if(2 <= time && time <= 4)
         {
             _anim.SetBool("Attack", true);
@@ -31,7 +32,7 @@ public class Hati_Yuki : MobStatus
         {
             _anim.SetBool("Attack", false);
         }
-
+        */
         time += Time.deltaTime;
         
 

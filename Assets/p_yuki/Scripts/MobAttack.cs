@@ -50,11 +50,14 @@ public class MobAttack : MonoBehaviour
     /// <param name="collider"></param>
     public void OnHitAttack(Collider collider)
     {
+
         var targetMob = collider.GetComponent<MobStatus>();
         if (null == targetMob) return;
 
+
+
         // プレイヤーにダメージを与える
-        targetMob.Damage();
+        targetMob.Damage(_status.Atk);
     }
 
     /// <summary>

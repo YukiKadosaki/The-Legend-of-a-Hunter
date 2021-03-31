@@ -209,7 +209,6 @@ public class Player : MobStatus
         speed = Vector3.SqrMagnitude(m_Transform.localPosition - beforePosition);
         beforePosition = m_Transform.localPosition;
 
-        Debug.Log("Speed : " + speed);
         //走っている
         if (speed > delta * 0.001f)
         {
@@ -323,9 +322,9 @@ public class Player : MobStatus
         _animator.ResetTrigger("Attack");
     }
     //ダメージのアニメーション処理
-    public override void Damage()
+    public override void Damage(int damage)
     {
-        base.Damage();
+        base.Damage(damage);
         if(_state == StateEnum.Die)
         {
             return;

@@ -154,11 +154,11 @@ public abstract class MobStatus : MonoBehaviour
     /// 指定値のダメージを受けます。
     /// </summary>
     /// <param name="damage"></param>
-    virtual public void Damage()
+    virtual public void Damage(int damage)
     {
         if (_state == StateEnum.Die) return;
 
-        Hp -= Atk;
+        Hp -= damage;
         if (Hp <= 0)
         {
             _state = StateEnum.Die;

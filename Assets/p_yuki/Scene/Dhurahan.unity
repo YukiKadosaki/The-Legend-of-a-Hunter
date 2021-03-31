@@ -2174,9 +2174,9 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1566764547}
-        m_MethodName: Damage
-        m_Mode: 3
+      - m_Target: {fileID: 1370597506}
+        m_MethodName: OnHitAttack
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5477,17 +5477,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 03e74af66ad748f4680dfd271dfe141a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 03e74af66ad748f4680dfd271dfe141a,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 03e74af66ad748f4680dfd271dfe141a,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8422540009445736664, guid: 03e74af66ad748f4680dfd271dfe141a,
         type: 3}
@@ -6138,10 +6138,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c79d68331accd141bf6a1ad486c265f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 10
+  m_maxHp: 30
   m_defaultAtk: 0
   m_defaultMoveSpeed: 10
   _name: 1
+--- !u!65 &1370597505
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370597502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.7247286, z: 3.1912737}
+  m_Center: {x: -0, y: 0.7158966, z: -1.5599632}
 --- !u!114 &1370597506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6336,6 +6349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390038858}
   - component: {fileID: 1390038859}
+  - component: {fileID: 1390038860}
   m_Layer: 9
   m_Name: AttackHitDetector
   m_TagString: Untagged
@@ -6365,11 +6379,40 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390038857}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.08, y: 0.01212441, z: 0.30782694}
   m_Center: {x: 0.45366457, y: -0.12718773, z: 0.17341949}
+--- !u!114 &1390038860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390038857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6b60654aa43d946bc192356d126c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 919132148440486739}
+        m_MethodName: OnHitAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1396982517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7132,7 +7175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHp: 100
-  m_defaultAtk: 0
+  m_defaultAtk: 5
   m_defaultMoveSpeed: 5
   _name: 0
   camera: {fileID: 413078155}
@@ -9730,6 +9773,7 @@ GameObject:
   - component: {fileID: 1566764547}
   - component: {fileID: 919132148440486737}
   - component: {fileID: 919132148440486738}
+  - component: {fileID: 919132148440486739}
   m_Layer: 9
   m_Name: Player2
   m_TagString: Player
@@ -9769,6 +9813,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.2, y: 14, z: 3.6}
   m_Center: {x: 0, y: 7, z: 0}
+--- !u!114 &919132148440486739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148440486736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bf98b4ad0e91e4581de677d78b20f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  attackCollider: {fileID: 1390038859}
 --- !u!4 &943661055807066424
 Transform:
   m_ObjectHideFlags: 0
