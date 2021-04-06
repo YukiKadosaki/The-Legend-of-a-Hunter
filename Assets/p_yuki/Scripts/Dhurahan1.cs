@@ -105,9 +105,9 @@ public class Dhurahan1 : Boss
             m_MoveLinear = MoveLiner(NextWayPoint.transform.localPosition);
             yield return StartCoroutine(m_MoveLinear);
 
-
+            
             //目的地へ到達したら、次の目的地へ
-            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.transform.localPosition) <= delta * 10)
+            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.transform.localPosition) <= delta * 30)
             {
                 //見つけたウェイポイントを一時的に凍らせる
                 NextWayPoint.FreezeAndDefrost();

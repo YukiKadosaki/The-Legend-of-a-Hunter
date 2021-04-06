@@ -27,6 +27,7 @@ public abstract class Boss : MobStatus
             this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
 
             yield return null;
+            Debug.Log(Vector3.Distance(this.transform.localPosition, destination));
             if(Vector3.Distance(this.transform.localPosition, destination) <= delta){
                 yield break;
             }

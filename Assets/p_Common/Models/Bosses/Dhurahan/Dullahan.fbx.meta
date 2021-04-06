@@ -15,7 +15,22 @@ ModelImporter:
   - first:
       74: 1023992570608409904
     second: rig|Walk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fire
+    second: {fileID: 2100000, guid: d2c37ab8f172d574f9390bf77a7ee90a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BOSS
+    second: {fileID: 2100000, guid: e153aa86c9b76ff45911b3744da2f507, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sword.001
+    second: {fileID: 2100000, guid: 9b9a42e3c0fa99c42b220a4f7d1c9c5f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
