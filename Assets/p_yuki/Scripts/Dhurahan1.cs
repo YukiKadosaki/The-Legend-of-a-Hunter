@@ -23,6 +23,7 @@ public class Dhurahan1 : Boss
     private bool m_IsStateChanging = false;//状態の遷移中はtrue
     private Vector3 m_Destination;//目的地
     private IEnumerator m_MoveLinear;
+    protected new const float delta = 2;
 
     public DhurahanState BossState {
         get => m_BossState;
