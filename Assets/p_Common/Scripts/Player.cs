@@ -44,7 +44,7 @@ public class Player : MobStatus
         criteriaVec2 = playerVec2 - cameraVec2;
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
-        camera.transform.LookAt(m_Transform);
+        camera.transform.LookAt(m_Transform.localPosition + Vector3.up);
 
         GameObject canvasObject = Instantiate(Canvas, Vector3.zero, Quaternion.identity);
 
@@ -188,7 +188,7 @@ public class Player : MobStatus
             dummyCameraVec3 = new Vector3(cameraVec2.x, dummyCameraVec3.y, cameraVec2.y);
 
             // 向きの修正
-            camera.transform.LookAt(m_Transform);
+            camera.transform.LookAt(m_Transform.localPosition + Vector3.up);
             m_Transform.LookAt(m_Transform.position + moveVec3);
 
             // 障害物の捜査
@@ -225,7 +225,7 @@ public class Player : MobStatus
         Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
         for(int i = 0; i < cameraMoveTime; i++){
             camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
-            camera.transform.LookAt(m_Transform); 
+            camera.transform.LookAt(m_Transform.localPosition + Vector3.up); 
             dummyCameraVec3 = camera.transform.position;
             // 障害物の捜査
             Vector3 playerVec3 = m_Transform.position;
