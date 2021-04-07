@@ -6,7 +6,7 @@ public class WayPoint : WP
 {
     private WayPoint[] m_NextPoints;
     private bool m_Freezed = false;//一度通った点をしばらくの間通らないようにさせるため、
-    private const float FREEZE_TIME = 5f;
+    private float m_FreezeTime = 8f;
 
     public bool Freezed
     {
@@ -59,7 +59,7 @@ public class WayPoint : WP
     public void FreezeAndDefrost()
     {
         Freeze();
-        Invoke("Defrost", FREEZE_TIME);
+        Invoke("Defrost", m_FreezeTime);
     }
 
     //ウェイポイントを凍らせる
@@ -74,5 +74,10 @@ public class WayPoint : WP
     {
         Freezed = false;
         this.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+    }
+
+    public void ChangeFreezeTime(float time)
+    {
+        m_FreezeTime = time;
     }
 }

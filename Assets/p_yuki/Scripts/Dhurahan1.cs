@@ -18,12 +18,15 @@ public class Dhurahan1 : Boss
     [SerializeField] private WayPoint m_StartWayPoint;
     [Header("視界")]
     [SerializeField] private Collider m_View;
+    private Transform m_Transform;
     private DhurahanState m_BossState = DhurahanState.Search; //ボスの状態
     private WayPoint m_NextWayPoint;//現在の移動先
+    private WayPoint[] m_WayPoints;
     private bool m_IsStateChanging = false;//状態の遷移中はtrue
     private Vector3 m_Destination;//目的地
     private IEnumerator m_MoveLinear;
     protected new const float delta = 2;
+    private Vector3 m_beforePosition;
 
     public DhurahanState BossState {
         get => m_BossState;
@@ -57,6 +60,13 @@ public class Dhurahan1 : Boss
     {
         base.Start();
         NextWayPoint = m_StartWayPoint;
+        m_Transform = transform;
+        m_beforePosition = m_Transform.localPosition;
+        _animator.SetFloat("Speed", MoveSpeed);
+
+        GetWaypoints();
+        SpeedChange(5);//仮
+
 
 
         //プレイヤーを捜索
@@ -85,6 +95,8 @@ public class Dhurahan1 : Boss
             IsStateChanging = false;
         }
 
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -108,7 +120,7 @@ public class Dhurahan1 : Boss
 
             
             //目的地へ到達したら、次の目的地へ
-            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.transform.localPosition) <= delta * 30)
+            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.m_Transform.localPosition) <= delta * 30)
             {
                 //見つけたウェイポイントを一時的に凍らせる
                 NextWayPoint.FreezeAndDefrost();
@@ -127,4 +139,46 @@ public class Dhurahan1 : Boss
         NextWayPoint = point.ReturnWayPoint(random);
     }
 
+    public override IEnumerator MoveLiner(Vector3 destination)
+    {
+
+        //自分の現在地から目的地までの方向
+        Vector3 direction = (destination - this.m_Transform.localPosition);
+        while (true)
+        {
+            direction.y = 0;
+
+            this.m_Transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
+            m_Transform.LookAt(m_Transform.localPosition + direction);
+
+            yield return null;
+            Debug.Log(Vector3.Distance(this.m_Transform.localPosition, destination));
+            if (Vector3.Distance(this.m_Transform.localPosition, destination) <= delta)
+            {
+                yield break;
+            }
+        }
+    }
+
+    private void GetWaypoints()
+    {
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("WP");
+        m_WayPoints = new WayPoint[obj.Length];
+        int i = 0;
+        foreach (GameObject o in obj)
+        {
+            m_WayPoints[i] = o.GetComponent<WayPoint>();
+            i++;
+        }
+    }
+
+    private void SpeedChange(float speed)
+    {
+        MoveSpeed = speed;
+        foreach(WayPoint p in m_WayPoints)
+        {
+            //50は定数
+            p.ChangeFreezeTime(50 / speed);
+        }
+    }
 }
