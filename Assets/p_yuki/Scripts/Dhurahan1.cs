@@ -65,7 +65,7 @@ public class Dhurahan1 : Boss
         _animator.SetFloat("Speed", MoveSpeed);
 
         GetWaypoints();
-        SpeedChange(5);//仮
+        SpeedChange(2);//仮
 
 
 
@@ -152,7 +152,7 @@ public class Dhurahan1 : Boss
             m_Transform.LookAt(m_Transform.localPosition + direction);
 
             yield return null;
-            Debug.Log(Vector3.Distance(this.m_Transform.localPosition, destination));
+
             if (Vector3.Distance(this.m_Transform.localPosition, destination) <= delta)
             {
                 yield break;
