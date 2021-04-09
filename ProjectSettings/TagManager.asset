@@ -7,6 +7,8 @@ TagManager:
   - WP
   - Speaker
   - Boss
+  - Arm
+  - Foot
   layers:
   - Default
   - TransparentFX
