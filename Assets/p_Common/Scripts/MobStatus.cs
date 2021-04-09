@@ -12,6 +12,7 @@ public abstract class MobStatus : MonoBehaviour
     {
         Normal, // 通常
         Attack, // 攻撃中
+        Animation, // アニメーション再生中
         Die // 死亡
     }
 
@@ -105,7 +106,6 @@ public abstract class MobStatus : MonoBehaviour
         }
     }
 
-    
 
     protected virtual void Start()
     {

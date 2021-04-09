@@ -8,6 +8,10 @@ public abstract class Boss : MobStatus
 {
     private List<GameObject> m_RouteList;
     private bool isRunning = false;
+    public void StopRunning(){
+        StopCoroutine("MoveToDestination");
+        isRunning = false;
+    }
 
     public List<GameObject> RouteList{
         get => m_RouteList;

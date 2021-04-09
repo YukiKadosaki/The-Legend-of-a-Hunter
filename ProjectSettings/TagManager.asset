@@ -8,6 +8,8 @@ TagManager:
   - Speaker
   - Boss
   - Wall
+  - Arm
+  - Foot
   layers:
   - Default
   - TransparentFX
