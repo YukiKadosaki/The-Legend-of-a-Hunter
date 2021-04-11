@@ -1,28 +1,34 @@
-﻿using System.Collections;
+﻿//デュラハンの子オブジェクト
+//Dhurahan1と関連
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class View : MonoBehaviour
 {
-    private GameObject m_player;
+    private Rigidbody m_player;
+    private Dhurahan1 m_Dullahan;
 
     private void Start()
     {
-        m_player = GameObject.FindGameObjectWithTag("Player");
+        m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        m_Dullahan = transform.root.GetComponent<Dhurahan1>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (m_Dullahan.BossState == Dhurahan1.DhurahanState.Search)
         {
-            Debug.Log("Player：" + other.name);
-            
-            Ray ray = new Ray(this.transform.position, m_player.transform.localPosition - this.transform.position);
-            RaycastHit hit;
-            Debug.DrawRay(this.transform.position, m_player.transform.localPosition - this.transform.position , Color.red);
-            if(Physics.Raycast(ray, out hit))
+            if (other.CompareTag("Player"))
             {
-                Debug.Log(hit.collider.name);
+                Ray ray = new Ray(this.transform.position, m_player.transform.localPosition - this.transform.position);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
+                {
+                    //デュラハンがプレイヤーを追いかけ続ける
+                    m_Dullahan.FindPlayer(m_player);
+                }
             }
         }
     }

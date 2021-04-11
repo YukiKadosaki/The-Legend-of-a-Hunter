@@ -1,4 +1,5 @@
 ﻿//Speakerと関連
+//Viewと関連
 //Updateで状態遷移を制御
 
 using System.Collections;
@@ -11,7 +12,9 @@ public class Dhurahan1 : Boss
     public enum DhurahanState
     {
         Search,
+        Listen,
         Find,
+        Attack
     }
 
     [Header("開始地点のウェイポイント")]
@@ -86,7 +89,7 @@ public class Dhurahan1 : Boss
                 //プレイヤーを捜索
                 StartCoroutine(SearchMove());
             }
-            else if(BossState == DhurahanState.Find)
+            else if(BossState == DhurahanState.Listen)
             {
                 //目的地へ移動
                 StartCoroutine("MoveToDestination", Destination);
@@ -107,7 +110,7 @@ public class Dhurahan1 : Boss
             StopCoroutine(m_MoveLinear);
             Destination = other.transform.position;
             IsStateChanging = true;
-            BossState = DhurahanState.Find;
+            BossState = DhurahanState.Listen;
         }
     }
 
@@ -160,6 +163,26 @@ public class Dhurahan1 : Boss
         }
     }
 
+    //Findステートになっているはず。
+    //特定のオブジェクトを追いかけ続ける
+    private IEnumerator SeekObjectAndCountTime(Rigidbody obj, int seekTime)
+    {
+        float time = 0;
+        while (time <= seekTime)
+        {
+            if (!isRunning)
+            {
+                StartCoroutine(MoveToDestination(obj.position));
+            }
+            Debug.Log("time:" + time);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        BossState = DhurahanState.Search;
+        SpeedChange(m_defaultMoveSpeed);
+
+    }
+
     private void GetWaypoints()
     {
         GameObject[] obj = GameObject.FindGameObjectsWithTag("WP");
@@ -181,4 +204,14 @@ public class Dhurahan1 : Boss
             p.ChangeFreezeTime(50 / speed);
         }
     }
+
+    //Viewがプレイヤーを検知すると起動する
+    //移動速度が変わる
+    public void FindPlayer(Rigidbody player)
+    {
+        BossState = DhurahanState.Find;
+        StartCoroutine(SeekObjectAndCountTime(player, 8));
+        SpeedChange(4f);
+    }
+
 }

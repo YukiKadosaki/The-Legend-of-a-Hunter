@@ -6,8 +6,8 @@ using System.Linq;
 //abstract（抽象）クラスです。各ボスに継承して使ってください
 public abstract class Boss : MobStatus
 {
-    private List<GameObject> m_RouteList;
-    private bool isRunning = false;
+    private List<GameObject> m_RouteList = new List<GameObject>();
+    protected bool isRunning = false;
 
     public List<GameObject> RouteList{
         get => m_RouteList;
