@@ -17,11 +17,22 @@ public class Player : MobStatus
     private Vector2 cameraVec2;
     private Vector2 criteriaVec2;
     private Vector2 moveVec2;
-    private Vector3 moveVec3;
+    private Vector3 moveVec3 = Vector3.forward;
     private Vector3 dummyCameraVec3;
     private float const_distance;
     private bool isMovingCamera = false;
     private Slider slider;
+    private bool canSecondAttack;                     //2段目の攻撃ができるかどうか
+    private bool havingSword = false;                 //剣を持っているかどうか
+    private bool frozen = false;                      //移動が可能かどうか
+    private bool kLooking = false;                    //K注目中かどうか
+    private bool secondAttackChecking = false;        //2段目の攻撃の入力を受け付けるかどうか
+    private Vector3 beforePosition;                   //前フレームの座標　速度計算に使う
+    [System.NonSerialized]
+    public bool TouchingWallLeft = false;             //体の左が壁に触っているかどうか WallChecker.csが判定する
+    [System.NonSerialized]
+    public bool TouchingWallRight = false;            //体の右が壁に触っているかどうか WallChecker.csが判定する
+    int time = 0;//後でけす
 
     protected override void Start(){
         base.Start();
@@ -33,18 +44,80 @@ public class Player : MobStatus
         criteriaVec2 = playerVec2 - cameraVec2;
         const_distance = criteriaVec2.magnitude;
         moveVec2 = Vector2.zero;
-        camera.transform.LookAt(m_Transform);
+        camera.transform.LookAt(m_Transform.localPosition + Vector3.up);
 
         GameObject canvasObject = Instantiate(Canvas, Vector3.zero, Quaternion.identity);
 
         slider = canvasObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
         slider.maxValue = Hp;
+
+        beforePosition = m_Transform.localPosition;
     }
 
     void Update(){
         slider.value = Hp;
 
-        MoveLikeZelda();
+        if (!frozen && !kLooking)
+        {
+            MoveLikeZelda();
+        }
+
+
+        //移動アニメーションのチェック
+        CheckMoveAnimation();
+
+        //攻撃、抜刀
+        if (Input.GetKeyDown(KeyCode.J)){
+            if (havingSword)
+            {
+                //Attackステートならスキップ
+                if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+                {
+                    _animator.SetTrigger("Attack");
+                }
+                if (secondAttackChecking)
+                {
+                    _animator.SetTrigger("Attack2");
+                }
+            }
+            else
+            {
+                //抜刀
+                _animator.SetTrigger("DrawSword");
+                havingSword = true;
+                MoveSpeed = m_defaultMoveSpeed * 0.7f;
+            }
+        }
+
+        //納刀、アイテム拾い
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (havingSword)
+            {
+                //納刀
+                _animator.SetTrigger("SwordBack");
+                havingSword = false;
+                MoveSpeed = m_defaultMoveSpeed;
+
+            }
+            else
+            {
+                _animator.SetTrigger("PickUp");
+            }
+        }
+
+        //後で消す
+        /*time += 1;
+        if((int)time % 150 == 0)
+        {
+            Damage(1);
+        }
+        */
+
+        //回避のプログラム
+        KLookAndAvoid();
+
+
 
         if(Input.GetKeyDown(KeyCode.K)){
             if(!isMovingCamera){
@@ -52,7 +125,10 @@ public class Player : MobStatus
                 isMovingCamera = true;
             }
         }
+
     }
+
+    
 
     void MoveLikeZelda(){
         // 無効入力をスルー
@@ -112,7 +188,7 @@ public class Player : MobStatus
             dummyCameraVec3 = new Vector3(cameraVec2.x, dummyCameraVec3.y, cameraVec2.y);
 
             // 向きの修正
-            camera.transform.LookAt(m_Transform);
+            camera.transform.LookAt(m_Transform.localPosition + Vector3.up);
             m_Transform.LookAt(m_Transform.position + moveVec3);
 
             // 障害物の捜査
@@ -125,6 +201,23 @@ public class Player : MobStatus
                 camera.transform.position = dummyCameraVec3;
             }
         }
+
+    }
+    void CheckMoveAnimation()
+    {
+        double speed;
+        speed = Vector3.SqrMagnitude(m_Transform.localPosition - beforePosition);
+        beforePosition = m_Transform.localPosition;
+
+        //走っている
+        if (speed > delta * 0.001f)
+        {
+            _animator.SetBool("Move", true);
+        }
+        else
+        {
+            _animator.SetBool("Move", false);
+        }
     }
 
     private IEnumerator MoveCamera(){
@@ -132,7 +225,7 @@ public class Player : MobStatus
         Vector3 MoveCamVec3 = newCameraVector3 - camera.transform.position;
         for(int i = 0; i < cameraMoveTime; i++){
             camera.transform.position += new Vector3(MoveCamVec3.x, 0, MoveCamVec3.z) / cameraMoveTime;
-            camera.transform.LookAt(m_Transform); 
+            camera.transform.LookAt(m_Transform.localPosition + Vector3.up); 
             dummyCameraVec3 = camera.transform.position;
             // 障害物の捜査
             Vector3 playerVec3 = m_Transform.position;
@@ -169,6 +262,144 @@ public class Player : MobStatus
         }
         //最も近かったオブジェクトを返す
         return targetObj;
+    }
+
+    private void KLookAndAvoid()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            kLooking = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.K))
+        {
+            kLooking = false;
+        }
+        
+        if(Input.GetKey(KeyCode.K) && !frozen)
+        {
+
+            _animator.SetBool("Move", false);
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                _animator.SetTrigger("AvoidLeft");
+                StartCoroutine(Avoid(KeyCode.A));
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                _animator.SetTrigger("AvoidRight");
+                StartCoroutine(Avoid(KeyCode.D));
+            }
+        }
+    }
+
+
+    //移動できるようにする。アニメーションから呼ぶ
+    public void PlayerFrost()
+    {
+        frozen = true;
+    }
+
+    //移動できないようにする。アニメーションから呼ぶ
+    public void PlayerDefrost()
+    {
+        frozen = false;
+    }
+
+    //2段目の攻撃を受け付ける。アニメーションから呼ぶ
+    public void OnReceiveAttack2()
+    {
+        secondAttackChecking = true;
+    }
+
+    //2段目の攻撃を受け付けない。アニメーションから呼ぶ
+    public void OffReceiveAttack2()
+    {
+        secondAttackChecking = false;
+    }
+    //一段目の攻撃のトリガーをリセットする
+    public void ResetAttack1()
+    {
+        _animator.ResetTrigger("Attack");
+    }
+    //ダメージのアニメーション処理
+    public override void Damage(int damage)
+    {
+        base.Damage(damage);
+        if(_state == StateEnum.Die)
+        {
+            return;
+        }
+
+        int random = Random.Range(0, 7);
+        if(random == 2)
+        {
+            _animator.SetTrigger("BigDamage");
+        }
+        else
+        {
+            _animator.SetTrigger("Damage");
+        }
+    }
+
+    private IEnumerator Avoid(KeyCode key)
+    {
+        Debug.Log("START");
+
+        int flame = 25;//回転のフレーム数
+        float avoidDistance = 3f;//回避する長さ
+        Vector3 direction;//回転する方向 
+
+        direction = m_Transform.localPosition - this.camera.transform.localPosition;
+        direction = new Vector3(direction.x, 0, direction.z).normalized;
+
+        //左回避
+        if(key == KeyCode.A)
+        {
+            direction = Quaternion.AngleAxis(-90, Vector3.up) * direction;
+
+            //実際に動かす
+            for (int i = 0; i < flame; i++)
+            {
+                if (!TouchingWallLeft)
+                {
+                    m_Transform.localPosition += direction * avoidDistance / flame;
+                    this.camera.transform.position += direction * avoidDistance / flame;
+                    dummyCameraVec3 = this.camera.transform.position;
+                }
+                yield return null;
+            }
+        }
+        //右回避
+        else if(key == KeyCode.D)
+        {
+            direction = Quaternion.AngleAxis(90, Vector3.up) * direction;
+
+            //実際に動かす
+            for (int i = 0; i < flame; i++)
+            {
+                if (!TouchingWallRight)
+                {
+                    m_Transform.localPosition += direction * avoidDistance / flame;
+                    this.camera.transform.position += direction * avoidDistance / flame;
+                    dummyCameraVec3 = this.camera.transform.position;
+                }
+                yield return null;
+            }
+        }
+
+
+        //回避の予約入力を消す
+        _animator.ResetTrigger("AvoidLeft");
+        _animator.ResetTrigger("AvoidRight");
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Boss") && !frozen)
+        {
+            Damage(1);
+        }
     }
 
 }
