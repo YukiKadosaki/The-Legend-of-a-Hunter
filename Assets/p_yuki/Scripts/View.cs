@@ -18,16 +18,31 @@ public class View : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (m_Dullahan.BossState == Dhurahan1.DhurahanState.Search)
+        if (other.CompareTag("Player"))
         {
-            if (other.CompareTag("Player"))
+            Vector3 origin = this.transform.root.position;
+            origin.y += 5;
+            Vector3 direction = m_player.transform.localPosition - origin;
+
+
+            Ray ray = new Ray(origin, direction);
+            RaycastHit hit;
+
+            if (m_Dullahan.BossState == Dhurahan1.DhurahanState.Search)
             {
-                Ray ray = new Ray(this.transform.position, m_player.transform.localPosition - this.transform.position);
-                RaycastHit hit;
                 if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
                 {
+                    Debug.DrawRay(origin, direction);
                     //デュラハンがプレイヤーを追いかけ続ける
                     m_Dullahan.FindPlayer(m_player);
+                }
+            }
+            else if(m_Dullahan.BossState == Dhurahan1.DhurahanState.Find)
+            {
+                if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
+                {
+                    Debug.Log(hit.collider.name);
+                    m_Dullahan.AddSeekTime();
                 }
             }
         }

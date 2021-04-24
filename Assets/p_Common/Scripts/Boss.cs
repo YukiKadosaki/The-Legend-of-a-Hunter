@@ -49,12 +49,16 @@ public abstract class Boss : MobStatus
             Vector3 destination = RouteList[0].transform.position;
             Vector3 moveDist = this.transform.position - destination;
             moveDist.y = 0;
+
+
             while (moveDist.magnitude >= delta) {
                 //自分の現在地から目的地までの方向
-                Vector3 direction = (destination - this.transform.localPosition);
+                Vector3 direction = (destination - this.transform.position);
                 direction.y = 0;
-                this.transform.localPosition += Time.deltaTime * MoveSpeed * direction.normalized;
-                this.transform.LookAt(this.transform.position+direction);
+                this.transform.position += Time.deltaTime * MoveSpeed * direction.normalized;
+                Debug.Log("MoveSpeed:" + MoveSpeed);
+                Debug.Log("x：" + Time.deltaTime * MoveSpeed * direction.normalized);
+                this.transform.LookAt(this.transform.position + direction);
                 yield return null;
                 moveDist = this.transform.position - destination;
                 moveDist.y = 0;
@@ -159,7 +163,7 @@ public abstract class Boss : MobStatus
         }
     }
 
-    GameObject serchPointTag(Vector3 objPos,string tagName){
+    protected GameObject serchPointTag(Vector3 objPos,string tagName){
         float tmpDis = 0;           //距離用一時変数
         float nearDis = 0;          //最も近いオブジェクトの距離
         GameObject targetObj = null; //オブジェクト
