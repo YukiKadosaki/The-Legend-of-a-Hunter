@@ -16,7 +16,8 @@ public class Dragon : Boss
     private float MoveTime;
     private bool Switch, Switch1, Switch2, Switch3;
     private ParticleSystem FlameStream;
-    [SerializeField] ParticleSystem particle;
+    [SerializeField] ParticleSystem particle, particle1;
+    int index;
     float time;
 
     void Start()
@@ -42,16 +43,18 @@ public class Dragon : Boss
     void Update()
     {
         //InvokeRepeating("Move", 2f, 10f);   //2秒後に関数Moveを実行し、3秒間隔で続ける
-        //Rigidbody rb = this.transform.GetComponent<Rigidbody>();
-        
+
         //if(Switch == true)
         //{
-            //EnemyPosition += new Vector3(0.1f, 0f, 0f);
+        //EnemyPosition += new Vector3(0.1f, 0f, 0f);
         //}
+
+        //ドラゴンの座標調節
+        
 
         if (Switch == true && Switch1 == false && Switch2 == false && Switch3 == false)
         {
-            Debug.Log("Move Mode");
+            //Debug.Log("Move Mode");
             PlayerPosition = player.transform.position;
             EnemyPosition = this.transform.position;
             distance = Vector3.Distance(PlayerPosition, transform.position);
@@ -75,12 +78,13 @@ public class Dragon : Boss
 
         if(Switch == false && Switch1 == true && Switch2 == false && Switch3 == false)
         {
-            Debug.Log("Turn Mode");
+            //Debug.Log("Turn Mode");
             //StartCoroutine("Stop");  //コルーチン"Stop"を起動
 
             //Invoke("Turn");
             //StartCoroutine("Turn");
-           
+
+            index = Random.Range(0, 2); //0か1の乱数を生成
             time += Time.deltaTime;
             if (time >= 2 && time < 3)
             {
@@ -89,11 +93,24 @@ public class Dragon : Boss
 
             if (time >= 3)
             {
-                time = 0;               
-                Switch = false;
-                Switch1 = false;
-                Switch2 = true;
-                Switch3 = false;
+                time = 0;
+
+                if (index == 0)
+                {
+                    Switch = false;
+                    Switch1 = false;
+                    Switch2 = true;
+                    Switch3 = false;
+                }
+                else
+                {
+                    Switch = false;
+                    Switch1 = false;
+                    Switch2 = false;
+                    Switch3 = true;
+                }
+                            
+                
             }
         }
 
@@ -119,27 +136,14 @@ public class Dragon : Boss
                 this.transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed);
             }
 
-            if (time >= 5)
+            if (time >= 6)
             {
                 time = 0;
-                Switch = false;
-                Switch1 = false;
-                Switch2 = false;
-                Switch3 = true;
-            }
-
-            /*if (distance > 2.0)
-            {
-                float step = MoveSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, PlayerPosition, step);
-            }
-            else
-            {
                 Switch = true;
                 Switch1 = false;
                 Switch2 = false;
-                //Invoke("Fire", 2f);
-            }*/
+                Switch3 = false;
+            }
         }
 
         if (Switch == false && Switch1 == false && Switch2 == false && Switch3 == true)
@@ -149,18 +153,20 @@ public class Dragon : Boss
             time += Time.deltaTime;
             if(time >= 0 && time < 3)
             {
+                particle.Play();
                 this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
             }
 
-            if(time >=3 && time < 9)
+            if(time >=3 && time < 8)
             {
-                particle.Play();
+                particle.Stop();
+                particle1.Play();
             }
 
             if (time >= 9)
             {
                 time = 0;
-                particle.Stop();
+                particle1.Stop();
                 Switch = true;
                 Switch1 = false;
                 Switch2 = false;
