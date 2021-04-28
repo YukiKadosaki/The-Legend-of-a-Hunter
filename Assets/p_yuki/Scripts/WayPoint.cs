@@ -21,6 +21,7 @@ public class WayPoint : WP
     //WPクラスをWayPointクラスに合わせるための変換
     public override void Start()
     {
+        this.GetComponent<MeshRenderer>().enabled = false;
         base.Start();
         m_NextPoints = new WayPoint[neighborWP.Length];
         for (int i = 0;i < neighborWP.Length;i++)
