@@ -65,10 +65,12 @@ public class Robot : Boss {
             StopRunning();
             _state = StateEnum.Attack;
         }
-        if(IsMovable){
+        if(_state == StateEnum.Normal){
+            _animator.SetBool("isWalk", true);
             StartCoroutine("MoveToDestination", player.transform.position);
         }
-        if(IsAttackable){
+        if(_state == StateEnum.Attack){
+            _animator.SetBool("isWalk", false);
             switch (nowStatus) {
                 case RobotStatus.FullBody:
                     break;
@@ -113,10 +115,10 @@ public class Robot : Boss {
     }
 
     void OnCollisionEnter(Collision col) {
-        // if (col.gameObject.tag == "Player"){
-        //     Hp -= 30;
-        //     Debug.Log(Hp);
-        // }
+        if (col.gameObject.tag == "Player"){
+            Hp -= 5;
+            Debug.Log(Hp);
+        }
     }
 
     void SetCammeraPosition(){
