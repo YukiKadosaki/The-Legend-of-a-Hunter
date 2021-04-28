@@ -4031,7 +4031,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &556878381
 MonoBehaviour:
@@ -12082,6 +12082,11 @@ PrefabInstance:
     - target: {fileID: 2804636801782418129, guid: 1096706e0da092147bc1a63d40ffa838,
         type: 3}
       propertyPath: m_maxHp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804636801782418129, guid: 1096706e0da092147bc1a63d40ffa838,
+        type: 3}
+      propertyPath: cameraMoveTime
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2804636801782418130, guid: 1096706e0da092147bc1a63d40ffa838,

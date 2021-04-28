@@ -54,6 +54,7 @@ public class Player : MobStatus
         beforePosition = m_Transform.localPosition;
     }
 
+
     void Update(){
         slider.value = Hp;
 
@@ -210,7 +211,7 @@ public class Player : MobStatus
         beforePosition = m_Transform.localPosition;
 
         //走っている
-        if (speed > delta * 0.001f)
+        if (speed > delta * 0.00001f)
         {
             _animator.SetBool("Move", true);
         }
@@ -394,13 +395,6 @@ public class Player : MobStatus
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Boss") && !frozen)
-        {
-            Damage(1);
-        }
-    }
 
 }
 

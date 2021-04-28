@@ -98,6 +98,8 @@ public class Dhurahan1 : Boss
             if (BossState == DhurahanState.Search)
             {
                 //プレイヤーを捜索
+                _animator.SetBool("Run", false);
+
                 StartCoroutine(SearchMove());
             }
             else if (BossState == DhurahanState.Listen)
@@ -107,6 +109,7 @@ public class Dhurahan1 : Boss
             }
             else if (BossState == DhurahanState.Find)
             {
+                _animator.SetBool("Run", true);
                 StartCoroutine(SeekObjectAndCountTime(SeekingObject));
                 SpeedChange(6f);
             }
@@ -116,6 +119,13 @@ public class Dhurahan1 : Boss
             }
 
             IsStateChanging = false;
+        }
+        else
+        {
+            if(BossState == DhurahanState.Attack)
+            {
+                GoToSearchState();
+            }
         }
 
 
@@ -274,6 +284,7 @@ public class Dhurahan1 : Boss
     ////////////////////////////////////////////Find
     private IEnumerator SeekObjectAndCountTime(Rigidbody obj)
     {
+        RouteList.Clear();
         Coroutine moveToDestination = null;
         float time = 0;
 
@@ -290,7 +301,6 @@ public class Dhurahan1 : Boss
         
 
         //タイムアップ後処理
-        //RouteList.Clear();
         
         if (null != moveToDestination)
         {
@@ -319,6 +329,7 @@ public class Dhurahan1 : Boss
         lookDir.y = 0;
         m_Transform.LookAt(m_Transform.position + lookDir);
         _animator.SetTrigger("Attack");
+        GoToSearchState();
     }
 
 
