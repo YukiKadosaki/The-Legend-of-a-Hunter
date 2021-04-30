@@ -115,17 +115,17 @@ public class Robot : Boss {
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.tag == "Player"){
-            Hp -= 5;
-            Debug.Log(Hp);
-        }
+        // if (col.gameObject.tag == "Player"){
+        //     Hp -= 5;
+        //     Debug.Log(Hp);
+        // }
     }
 
     void SetCammeraPosition(){
-        Vector3 toPlayerVec3 = player.transform.position - this.transform.position;
-        Vector2 toPlayerNomVec2 = new Vector2(toPlayerVec3.x, toPlayerVec3.z).normalized;
-        Vector2 camVec2 = new Vector2(transform.position.x, transform.position.z) + toPlayerNomVec2 * 10f;
-        camera.transform.position = new Vector3(camVec2.x, camera.transform.position.y, camVec2.y);
-        camera.transform.LookAt( new Vector3(transform.position.x, camera.transform.position.y, transform.position.z) );
+        // Vector3 toPlayerVec3 = player.transform.position - this.transform.position;
+        // Vector2 toPlayerNomVec2 = new Vector2(toPlayerVec3.x, toPlayerVec3.z).normalized;
+        // Vector2 camVec2 = new Vector2(transform.position.x, transform.position.z) + toPlayerNomVec2 * 10f;
+        // camera.transform.position = new Vector3(camVec2.x, camera.transform.position.y, camVec2.y);
+        // camera.transform.LookAt( new Vector3(transform.position.x, camera.transform.position.y, transform.position.z) );
     }
 }
