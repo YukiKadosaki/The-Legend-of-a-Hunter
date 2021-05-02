@@ -63,7 +63,7 @@ public abstract class Boss : MobStatus
                 moveDist = this.transform.position - destination;
                 moveDist.y = 0;
             }
-            if (null == RouteList[0])
+            if (null != RouteList[0])
             {
                 RouteList.Remove(RouteList[0]);
             }

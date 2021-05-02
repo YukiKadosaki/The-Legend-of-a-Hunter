@@ -284,6 +284,7 @@ public class Dhurahan1 : Boss
     ////////////////////////////////////////////Find
     private IEnumerator SeekObjectAndCountTime(Rigidbody obj)
     {
+
         //RouteList.Clear();
         Coroutine moveToDestination = null;
         float time = 0;
@@ -292,13 +293,12 @@ public class Dhurahan1 : Boss
         {
             if (!isRunning)
             {
-                Debug.Log("RunStart");
                 moveToDestination = StartCoroutine(MoveToDestination(obj.position));
             }
             time += Time.deltaTime;
             yield return null;
         }
-        
+
 
         //タイムアップ後処理
         
