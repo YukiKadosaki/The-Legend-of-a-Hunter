@@ -231,7 +231,7 @@ public class Player : MobStatus
             // 障害物の捜査
             Vector3 playerVec3 = m_Transform.position;
             RaycastHit hit;
-            int layerMask = ~(1 << 9);
+            int layerMask = ~(1 << 9 );
             if(Physics.Raycast(playerVec3, dummyCameraVec3-playerVec3, out hit, (dummyCameraVec3-playerVec3).magnitude, layerMask)){
                 camera.transform.position = new Vector3(hit.point.x, camera.transform.position.y, hit.point.z);
             }else{

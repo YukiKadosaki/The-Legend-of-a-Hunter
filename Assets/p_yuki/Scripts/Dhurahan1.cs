@@ -284,7 +284,7 @@ public class Dhurahan1 : Boss
     ////////////////////////////////////////////Find
     private IEnumerator SeekObjectAndCountTime(Rigidbody obj)
     {
-        RouteList.Clear();
+        //RouteList.Clear();
         Coroutine moveToDestination = null;
         float time = 0;
 
