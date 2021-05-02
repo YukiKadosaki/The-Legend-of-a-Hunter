@@ -31,6 +31,7 @@ public class Dhurahan1 : Boss
     private Rigidbody m_SeekingObject = null;
     private const float defaultSeekTime = 15;
     private double m_SeekTime;
+    private AudioSource m_audio;
 
     public DhurahanState BossState {
         get => m_BossState;
@@ -77,6 +78,7 @@ public class Dhurahan1 : Boss
         m_beforePosition = m_Transform.localPosition;
         SeekTime = defaultSeekTime;
         _animator.SetFloat("Speed", MoveSpeed);
+        m_audio = this.GetComponent<AudioSource>();
         //WayPointのフリーズ時間計算などのためにデュラハンがWayPointの情報を得る必要がある
         GetWaypoints();
         SpeedChange(m_defaultMoveSpeed);
@@ -130,6 +132,7 @@ public class Dhurahan1 : Boss
 
 
 
+
     }
 
     /// <summary>
@@ -155,6 +158,11 @@ public class Dhurahan1 : Boss
             //50は定数
             p.ChangeFreezeTime(50 / speed);
         }
+    }
+
+    private void WalkSound()
+    {
+
     }
 
     /// <summary>
