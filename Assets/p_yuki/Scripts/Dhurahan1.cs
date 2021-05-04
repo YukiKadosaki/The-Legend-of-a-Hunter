@@ -32,6 +32,10 @@ public class Dhurahan1 : Boss
     private const float defaultSeekTime = 15;
     private double m_SeekTime;
     private AudioSource m_audio;
+    private AudioClip[] m_clips;
+    private float m_soundTriggerTime = 1;
+    private float m_soundCountTime = 0;
+
 
     public DhurahanState BossState {
         get => m_BossState;
@@ -66,6 +70,28 @@ public class Dhurahan1 : Boss
         set { m_SeekTime = value; }
     }
 
+    public float SoundTriggerTime
+    {
+        get => m_soundTriggerTime;
+        set 
+        { 
+            m_soundTriggerTime = value;
+            if (m_soundTriggerTime < 0)
+            {
+                Debug.LogError("TimeError");
+            }
+        }
+    }
+
+    public float SoundCountTime
+    {
+        get => m_soundCountTime;
+        set
+        { 
+            m_soundCountTime = value;
+        }
+    }
+
     //public Collider View
 
 
@@ -79,6 +105,7 @@ public class Dhurahan1 : Boss
         SeekTime = defaultSeekTime;
         _animator.SetFloat("Speed", MoveSpeed);
         m_audio = this.GetComponent<AudioSource>();
+        m_clips = Resources.LoadAll<AudioClip>("Jari");
         //WayPointのフリーズ時間計算などのためにデュラハンがWayPointの情報を得る必要がある
         GetWaypoints();
         SpeedChange(m_defaultMoveSpeed);
@@ -92,6 +119,11 @@ public class Dhurahan1 : Boss
     // Update is called once per frame
     void Update()
     {
+
+        //歩くスピードにあった足音を鳴らす
+        WalkSound();
+
+
 
         //状態遷移中
         if (IsStateChanging)
@@ -158,11 +190,28 @@ public class Dhurahan1 : Boss
             //50は定数
             p.ChangeFreezeTime(50 / speed);
         }
+        SoundTriggerTime = 2 / MoveSpeed;
     }
 
+    //歩くスピードによって鳴らす足音の間隔を変える
     private void WalkSound()
     {
-
+        //SoundTriggerTimeはSpeedChangeメソッドで変化する
+        if (m_BossState != DhurahanState.Attack)
+        {
+            SoundCountTime += Time.deltaTime;
+            if (SoundCountTime > SoundTriggerTime)
+            {
+                int rand = UnityEngine.Random.Range(0, 17);
+                m_audio.clip = m_clips[rand];
+                m_audio.Play();
+                SoundCountTime = 0;
+            }
+        }
+        else
+        {
+            SoundCountTime = -1;
+        }
     }
 
     /// <summary>
@@ -223,9 +272,8 @@ public class Dhurahan1 : Boss
         while (true)
         {
             m_MoveLinear = this.MoveLiner(NextWayPoint.transform.localPosition);
-            Debug.Log("SartMoveLinear");
             yield return StartCoroutine(m_MoveLinear);
-            Debug.Log("EndMoveLinear");
+
             
             //目的地へ到達したら、次の目的地へ
             if (Vector3.Distance(NextWayPoint.transform.localPosition, this.m_Transform.localPosition) <= delta * 30)
@@ -280,8 +328,6 @@ public class Dhurahan1 : Boss
 
             if (Vector3.Distance(this.m_Transform.position, destination) <= delta || time >= 10)
             {
-
-                Debug.Log("WalkEnd");
                 yield break;
             }
         }
