@@ -1,0 +1,277 @@
+fileFormatVersion: 2
+guid: 744c4259e26509c418def11cbcb4cfa8
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: DemonDog_
+    100004: DemonDog_ Head
+    100006: DemonDog_ L Calf
+    100008: DemonDog_ L Clavicle
+    100010: DemonDog_ L Finger0
+    100012: DemonDog_ L Finger1
+    100014: DemonDog_ L Finger2
+    100016: DemonDog_ L Finger3
+    100018: DemonDog_ L Finger4
+    100020: DemonDog_ L Foot
+    100022: DemonDog_ L Forearm
+    100024: DemonDog_ L Hand
+    100026: DemonDog_ L HorseLink
+    100028: DemonDog_ L Thigh
+    100030: DemonDog_ L Toe0
+    100032: DemonDog_ L Toe1
+    100034: DemonDog_ L Toe2
+    100036: DemonDog_ L Toe3
+    100038: DemonDog_ L Toe4
+    100040: DemonDog_ L UpperArm
+    100042: DemonDog_ Neck
+    100044: DemonDog_ Pelvis
+    100046: DemonDog_ Ponytail1
+    100048: DemonDog_ R Calf
+    100050: DemonDog_ R Clavicle
+    100052: DemonDog_ R Finger0
+    100054: DemonDog_ R Finger1
+    100056: DemonDog_ R Finger2
+    100058: DemonDog_ R Finger3
+    100060: DemonDog_ R Finger4
+    100062: DemonDog_ R Foot
+    100064: DemonDog_ R Forearm
+    100066: DemonDog_ R Hand
+    100068: DemonDog_ R HorseLink
+    100070: DemonDog_ R Thigh
+    100072: DemonDog_ R Toe0
+    100074: DemonDog_ R Toe1
+    100076: DemonDog_ R Toe2
+    100078: DemonDog_ R Toe3
+    100080: DemonDog_ R Toe4
+    100082: DemonDog_ R UpperArm
+    100084: DemonDog_ Spine
+    100086: DemonDog_ Spine1
+    100088: DemonDog_ Spine2
+    100090: DemonDog_ Tail
+    100092: DemonDog_ Tail1
+    100094: DemonDog_ Tail2
+    100096: DemonDog_ Tail3
+    100098: DemonDog_ Tail4
+    100100: DemonDog_ Tail5
+    100102: DemonDog_ Tail6
+    100104: DemonDog_ Tail7
+    100106: DemonDog_ Tail8
+    100108: DemonDog_Collar
+    100110: DemonDog_EarL
+    100112: DemonDog_EarR
+    100114: DemonDog_SpikeL_1
+    100116: DemonDog_SpikeL_10
+    100118: DemonDog_SpikeL_11
+    100120: DemonDog_SpikeL_12
+    100122: DemonDog_SpikeL_2
+    100124: DemonDog_SpikeL_3
+    100126: DemonDog_SpikeL_4
+    100128: DemonDog_SpikeL_5
+    100130: DemonDog_SpikeL_6
+    100132: DemonDog_SpikeL_7
+    100134: DemonDog_SpikeL_8
+    100136: DemonDog_SpikeL_9
+    100138: DemonDog_SpikeR_1
+    100140: DemonDog_SpikeR_10
+    100142: DemonDog_SpikeR_11
+    100144: DemonDog_SpikeR_12
+    100146: DemonDog_SpikeR_2
+    100148: DemonDog_SpikeR_3
+    100150: DemonDog_SpikeR_4
+    100152: DemonDog_SpikeR_5
+    100154: DemonDog_SpikeR_6
+    100156: DemonDog_SpikeR_7
+    100158: DemonDog_SpikeR_8
+    100160: DemonDog_SpikeR_9
+    100162: nub
+    100164: root
+    100166: SK_Collar
+    100168: SK_DemonDog
+    400000: //RootNode
+    400002: DemonDog_
+    400004: DemonDog_ Head
+    400006: DemonDog_ L Calf
+    400008: DemonDog_ L Clavicle
+    400010: DemonDog_ L Finger0
+    400012: DemonDog_ L Finger1
+    400014: DemonDog_ L Finger2
+    400016: DemonDog_ L Finger3
+    400018: DemonDog_ L Finger4
+    400020: DemonDog_ L Foot
+    400022: DemonDog_ L Forearm
+    400024: DemonDog_ L Hand
+    400026: DemonDog_ L HorseLink
+    400028: DemonDog_ L Thigh
+    400030: DemonDog_ L Toe0
+    400032: DemonDog_ L Toe1
+    400034: DemonDog_ L Toe2
+    400036: DemonDog_ L Toe3
+    400038: DemonDog_ L Toe4
+    400040: DemonDog_ L UpperArm
+    400042: DemonDog_ Neck
+    400044: DemonDog_ Pelvis
+    400046: DemonDog_ Ponytail1
+    400048: DemonDog_ R Calf
+    400050: DemonDog_ R Clavicle
+    400052: DemonDog_ R Finger0
+    400054: DemonDog_ R Finger1
+    400056: DemonDog_ R Finger2
+    400058: DemonDog_ R Finger3
+    400060: DemonDog_ R Finger4
+    400062: DemonDog_ R Foot
+    400064: DemonDog_ R Forearm
+    400066: DemonDog_ R Hand
+    400068: DemonDog_ R HorseLink
+    400070: DemonDog_ R Thigh
+    400072: DemonDog_ R Toe0
+    400074: DemonDog_ R Toe1
+    400076: DemonDog_ R Toe2
+    400078: DemonDog_ R Toe3
+    400080: DemonDog_ R Toe4
+    400082: DemonDog_ R UpperArm
+    400084: DemonDog_ Spine
+    400086: DemonDog_ Spine1
+    400088: DemonDog_ Spine2
+    400090: DemonDog_ Tail
+    400092: DemonDog_ Tail1
+    400094: DemonDog_ Tail2
+    400096: DemonDog_ Tail3
+    400098: DemonDog_ Tail4
+    400100: DemonDog_ Tail5
+    400102: DemonDog_ Tail6
+    400104: DemonDog_ Tail7
+    400106: DemonDog_ Tail8
+    400108: DemonDog_Collar
+    400110: DemonDog_EarL
+    400112: DemonDog_EarR
+    400114: DemonDog_SpikeL_1
+    400116: DemonDog_SpikeL_10
+    400118: DemonDog_SpikeL_11
+    400120: DemonDog_SpikeL_12
+    400122: DemonDog_SpikeL_2
+    400124: DemonDog_SpikeL_3
+    400126: DemonDog_SpikeL_4
+    400128: DemonDog_SpikeL_5
+    400130: DemonDog_SpikeL_6
+    400132: DemonDog_SpikeL_7
+    400134: DemonDog_SpikeL_8
+    400136: DemonDog_SpikeL_9
+    400138: DemonDog_SpikeR_1
+    400140: DemonDog_SpikeR_10
+    400142: DemonDog_SpikeR_11
+    400144: DemonDog_SpikeR_12
+    400146: DemonDog_SpikeR_2
+    400148: DemonDog_SpikeR_3
+    400150: DemonDog_SpikeR_4
+    400152: DemonDog_SpikeR_5
+    400154: DemonDog_SpikeR_6
+    400156: DemonDog_SpikeR_7
+    400158: DemonDog_SpikeR_8
+    400160: DemonDog_SpikeR_9
+    400162: nub
+    400164: root
+    400166: SK_Collar
+    400168: SK_DemonDog
+    4300000: SK_DemonDog
+    4300002: SK_Collar
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: SK_Collar
+    13700002: SK_DemonDog
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Collar
+    second: {fileID: 2100000, guid: 5dc7b43c721384b42b43f20f27be69a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_DemonDog
+    second: {fileID: 2100000, guid: 212aae3d2a0d82d44ad63d7fc620cd1d, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -37,7 +37,7 @@ public abstract class MobStatus : MonoBehaviour
 
 
     //定数
-    protected const float delta = 1;
+    protected const float delta = 2;
 
     //メンバ変数にはm_をつけてます
     //アクセサにはm_は付いていません

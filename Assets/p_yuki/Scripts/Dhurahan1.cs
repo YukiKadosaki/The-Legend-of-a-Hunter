@@ -1,4 +1,5 @@
 ﻿//Speakerと関連
+//Viewと関連
 //Updateで状態遷移を制御
 
 using System.Collections;
@@ -11,18 +12,30 @@ public class Dhurahan1 : Boss
     public enum DhurahanState
     {
         Search,
+        Listen,
         Find,
+        Attack
     }
 
-    [Header("開始地点のウェイポイント")]
-    [SerializeField] private WayPoint m_StartWayPoint;
     [Header("視界")]
     [SerializeField] private Collider m_View;
+    private Transform m_Transform;
     private DhurahanState m_BossState = DhurahanState.Search; //ボスの状態
     private WayPoint m_NextWayPoint;//現在の移動先
+    private WayPoint[] m_WayPoints;
     private bool m_IsStateChanging = false;//状態の遷移中はtrue
     private Vector3 m_Destination;//目的地
     private IEnumerator m_MoveLinear;
+    protected new const float delta = 2;
+    private Vector3 m_beforePosition;
+    private Rigidbody m_SeekingObject = null;
+    private const float defaultSeekTime = 15;
+    private double m_SeekTime;
+    private AudioSource m_audio;
+    private AudioClip[] m_clips;
+    private float m_soundTriggerTime = 1;
+    private float m_soundCountTime = 0;
+
 
     public DhurahanState BossState {
         get => m_BossState;
@@ -46,6 +59,38 @@ public class Dhurahan1 : Boss
         get => m_Destination;
         set { m_Destination = value; }
     }
+    public Rigidbody SeekingObject
+    {
+        get => m_SeekingObject;
+        set { m_SeekingObject = value; }
+    }
+    public double SeekTime
+    {
+        get => m_SeekTime;
+        set { m_SeekTime = value; }
+    }
+
+    public float SoundTriggerTime
+    {
+        get => m_soundTriggerTime;
+        set 
+        { 
+            m_soundTriggerTime = value;
+            if (m_soundTriggerTime < 0)
+            {
+                Debug.LogError("TimeError");
+            }
+        }
+    }
+
+    public float SoundCountTime
+    {
+        get => m_soundCountTime;
+        set
+        { 
+            m_soundCountTime = value;
+        }
+    }
 
     //public Collider View
 
@@ -55,7 +100,16 @@ public class Dhurahan1 : Boss
     protected override void Start()
     {
         base.Start();
-        NextWayPoint = m_StartWayPoint;
+        m_Transform = transform;
+        m_beforePosition = m_Transform.localPosition;
+        SeekTime = defaultSeekTime;
+        _animator.SetFloat("Speed", MoveSpeed);
+        m_audio = this.GetComponent<AudioSource>();
+        m_clips = Resources.LoadAll<AudioClip>("Jari");
+        //WayPointのフリーズ時間計算などのためにデュラハンがWayPointの情報を得る必要がある
+        GetWaypoints();
+        SpeedChange(m_defaultMoveSpeed);
+
 
 
         //プレイヤーを捜索
@@ -66,6 +120,11 @@ public class Dhurahan1 : Boss
     void Update()
     {
 
+        //歩くスピードにあった足音を鳴らす
+        WalkSound();
+
+
+
         //状態遷移中
         if (IsStateChanging)
         {
@@ -73,19 +132,94 @@ public class Dhurahan1 : Boss
             if (BossState == DhurahanState.Search)
             {
                 //プレイヤーを捜索
+                _animator.SetBool("Run", false);
+
                 StartCoroutine(SearchMove());
             }
-            else if(BossState == DhurahanState.Find)
+            else if (BossState == DhurahanState.Listen)
             {
                 //目的地へ移動
                 StartCoroutine("MoveToDestination", Destination);
             }
+            else if (BossState == DhurahanState.Find)
+            {
+                _animator.SetBool("Run", true);
+                StartCoroutine(SeekObjectAndCountTime(SeekingObject));
+                SpeedChange(6f);
+            }
+            else if(BossState == DhurahanState.Attack)
+            {
+                Attack(SeekingObject);
+            }
 
             IsStateChanging = false;
         }
+        else
+        {
+            if(BossState == DhurahanState.Attack)
+            {
+                GoToSearchState();
+            }
+        }
+
+
+
 
     }
 
+    /// <summary>
+    /// 初期化、いつでも使う
+    /// </summary>
+    private void GetWaypoints()
+    {
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("WP");
+        m_WayPoints = new WayPoint[obj.Length];
+        int i = 0;
+        foreach (GameObject o in obj)
+        {
+            m_WayPoints[i] = o.GetComponent<WayPoint>();
+            i++;
+        }
+    }
+
+    private void SpeedChange(float speed)
+    {
+        MoveSpeed = speed;
+        foreach (WayPoint p in m_WayPoints)
+        {
+            //50は定数
+            p.ChangeFreezeTime(50 / speed);
+        }
+        SoundTriggerTime = 2 / MoveSpeed;
+    }
+
+    //歩くスピードによって鳴らす足音の間隔を変える
+    private void WalkSound()
+    {
+        //SoundTriggerTimeはSpeedChangeメソッドで変化する
+        if (m_BossState != DhurahanState.Attack)
+        {
+            SoundCountTime += Time.deltaTime;
+            if (SoundCountTime > SoundTriggerTime)
+            {
+                int rand = UnityEngine.Random.Range(0, 17);
+                m_audio.clip = m_clips[rand];
+                m_audio.Play();
+                SoundCountTime = 0;
+            }
+        }
+        else
+        {
+            SoundCountTime = -1;
+        }
+    }
+
+    /// <summary>
+    /// ステート遷移系
+    /// </summary>
+    /// <param name="other"></param>
+
+    //////////////////////////////////////////Listen
     private void OnTriggerEnter(Collider other)
     {
         //音が聞こえたらFindステートへ
@@ -94,20 +228,55 @@ public class Dhurahan1 : Boss
             StopCoroutine(m_MoveLinear);
             Destination = other.transform.position;
             IsStateChanging = true;
-            BossState = DhurahanState.Find;
+            BossState = DhurahanState.Listen;
         }
     }
 
+    ///////////////////////////////////////////Search
+    private void GoToSearchState()
+    {
+        IsStateChanging = true;
+        BossState = DhurahanState.Search;
+    }
+
+
+    //Viewがプレイヤーを検知すると起動する
+    //移動速度が変わる
+    //////////////////////////////////////////Find
+    public void FindPlayer(Rigidbody player)
+    {
+        IsStateChanging = true;
+        BossState = DhurahanState.Find;
+        SeekingObject = player;
+    }
+
+    //AttackRangeがプレイヤーを検知すると起動する
+    /////////////////////////////////////////Attack
+    public void GoToAttackState()
+    {
+        IsStateChanging = true;
+        m_BossState = DhurahanState.Attack;
+    }
+
+
+    /// <summary>
+    /// 各ステートに対応するコルーチンや関数
+    /// </summary>
+    /// <returns></returns>
+
+    ///////////////////////////////////////////Search
     private IEnumerator SearchMove()
     {
+        GameObject point = base.serchPointTag(m_Transform.localPosition, "WP");
+        NextWayPoint = point.GetComponent<WayPoint>();
         while (true)
         {
-            m_MoveLinear = MoveLiner(NextWayPoint.transform.localPosition);
+            m_MoveLinear = this.MoveLiner(NextWayPoint.transform.localPosition);
             yield return StartCoroutine(m_MoveLinear);
 
-
+            
             //目的地へ到達したら、次の目的地へ
-            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.transform.localPosition) <= delta * 10)
+            if (Vector3.Distance(NextWayPoint.transform.localPosition, this.m_Transform.localPosition) <= delta * 30)
             {
                 //見つけたウェイポイントを一時的に凍らせる
                 NextWayPoint.FreezeAndDefrost();
@@ -120,10 +289,102 @@ public class Dhurahan1 : Boss
         }
     }
 
+    ///////////////////////////////////////////Search
     private void ChooseNextPoint(WayPoint point)
     {
         int random = Random.Range(0, point.ReturnNextPointNum());
         NextWayPoint = point.ReturnWayPoint(random);
     }
+
+    ///////////////////////////////////////////Search
+    public override IEnumerator MoveLiner(Vector3 destination)
+    {
+
+        //自分の現在地から目的地までの方向
+        Vector3 direction = (destination - this.m_Transform.position);
+        int count = 0;
+        float time = 0;
+
+        while (true)
+        {
+            //3回に一回目的地を見直す
+            if (count%3 == 0)
+            {
+                direction = (destination - this.m_Transform.position);
+                count = 0;
+            }
+            else
+            {
+                count++;
+            }
+            direction.y = 0;
+
+            this.m_Transform.position += Time.deltaTime * MoveSpeed * direction.normalized;
+            m_Transform.LookAt(m_Transform.localPosition + direction);
+            time += Time.deltaTime;
+
+            yield return null;
+            
+
+            if (Vector3.Distance(this.m_Transform.position, destination) <= delta || time >= 10)
+            {
+                yield break;
+            }
+        }
+    }
+
+
+    //特定のオブジェクトを追いかけ続ける
+    ////////////////////////////////////////////Find
+    private IEnumerator SeekObjectAndCountTime(Rigidbody obj)
+    {
+
+        //RouteList.Clear();
+        Coroutine moveToDestination = null;
+        float time = 0;
+
+        while (time <= SeekTime)
+        {
+            if (!isRunning)
+            {
+                moveToDestination = StartCoroutine(MoveToDestination(obj.position));
+            }
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+
+        //タイムアップ後処理
+        
+        if (null != moveToDestination)
+        {
+            StopCoroutine(moveToDestination);
+        }
+        isRunning = false;
+        SeekTime = defaultSeekTime;
+        SpeedChange(m_defaultMoveSpeed);
+        //プレイヤーを捜索
+        GoToSearchState();
+        
+    }
+
+    //追いかける時間を延長する
+    ////////////////////////////////////////////Find
+    public void AddSeekTime()
+    {
+        SeekTime += Time.deltaTime;
+    }
+
+    //攻撃アニメーション
+    ////////////////////////////////////////////Attack
+    private void Attack(Rigidbody obj)
+    {
+        Vector3 lookDir = obj.position - m_Transform.position;
+        lookDir.y = 0;
+        m_Transform.LookAt(m_Transform.position + lookDir);
+        _animator.SetTrigger("Attack");
+        GoToSearchState();
+    }
+
 
 }
