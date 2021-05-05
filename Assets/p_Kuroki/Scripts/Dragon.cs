@@ -17,8 +17,9 @@ public class Dragon : Boss
     private bool Switch, Switch1, Switch2, Switch3;
     private ParticleSystem FlameStream;
     [SerializeField] ParticleSystem particle, particle1;
+    private Animator animator; 
     int index;
-    float time;
+    float time, yzahyo;
 
     void Start()
     {             
@@ -34,6 +35,7 @@ public class Dragon : Boss
         Switch2 = false;
         Switch3 = false;
 
+        animator = GetComponent<Animator>();
         FlameStream = GetComponent<ParticleSystem>();
 
         //Invoke("Turn", 2f);
@@ -43,14 +45,14 @@ public class Dragon : Boss
     void Update()
     {
         //InvokeRepeating("Move", 2f, 10f);   //2秒後に関数Moveを実行し、3秒間隔で続ける
-
-        //if(Switch == true)
-        //{
-        //EnemyPosition += new Vector3(0.1f, 0f, 0f);
-        //}
-
+       
         //ドラゴンの座標調節
-        
+        yzahyo = EnemyPosition.y;
+        //Debug.Log("zahyo = " + EnemyPosition.y);
+        if(yzahyo < 1.0f)
+        {
+            EnemyPosition.y = 1.0f;
+        }
 
         if (Switch == true && Switch1 == false && Switch2 == false && Switch3 == false)
         {
@@ -60,14 +62,16 @@ public class Dragon : Boss
             distance = Vector3.Distance(PlayerPosition, transform.position);
 
             this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
+            animator.SetBool("walk", true);
 
-            if (distance > 2.0)
+            if (distance > 5.0)
             {
                 float step = MoveSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, PlayerPosition, step);
             }
             else
             {
+                animator.SetBool("walk", false);
                 Switch = false;
                 Switch1 = true;
                 Switch2 = false;
@@ -86,12 +90,12 @@ public class Dragon : Boss
 
             index = Random.Range(0, 2); //0か1の乱数を生成
             time += Time.deltaTime;
-            if (time >= 2 && time < 3)
+            if (time >= 2 && time < 4)
             {
                 transform.Rotate(new Vector3(0, this.rotSpeed, 0)); //回転させる
             }
 
-            if (time >= 3)
+            if (time >= 4)
             {
                 time = 0;
 
@@ -128,16 +132,20 @@ public class Dragon : Boss
             time += Time.deltaTime;
             if (time >= 0 && time < 3)
             {
-                this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる               
+                this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
+                animator.SetBool("taiki", true);
             }
 
             if(time >= 3 && time < 5)
             {
+                animator.SetBool("taiki", false);
+                animator.SetBool("walk", true);
                 this.transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed);
             }
 
             if (time >= 6)
             {
+                animator.SetBool("walk", false);
                 time = 0;
                 Switch = true;
                 Switch1 = false;
@@ -155,11 +163,12 @@ public class Dragon : Boss
             {
                 particle.Play();
                 this.transform.LookAt(player.transform);  //オブジェクトをプレイヤーの位置に向かせる
+                animator.SetBool("bless", true);
             }
 
             if(time >=3 && time < 8)
             {
-                particle.Stop();
+                particle.Stop();                
                 particle1.Play();
             }
 
@@ -167,6 +176,7 @@ public class Dragon : Boss
             {
                 time = 0;
                 particle1.Stop();
+                animator.SetBool("bless", false);
                 Switch = true;
                 Switch1 = false;
                 Switch2 = false;
