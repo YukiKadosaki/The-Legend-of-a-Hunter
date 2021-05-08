@@ -109,7 +109,7 @@ public class Robot : Boss {
     }
 
     void BecomeDie(){
-        Debug.Log("Destroy");
+        Destroy(this.gameObject);
         // GameObject.Destroy(GameObject.FindGameObjectWithTag("Robot"));
         OnDie();
     }
