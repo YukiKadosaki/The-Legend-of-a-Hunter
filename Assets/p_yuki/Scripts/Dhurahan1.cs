@@ -345,7 +345,7 @@ public class Dhurahan1 : Boss
 
         while (time <= SeekTime)
         {
-            if (!isRunning)
+            if (!IsRunning)
             {
                 moveToDestination = StartCoroutine(MoveToDestination(obj.position));
             }
@@ -360,7 +360,7 @@ public class Dhurahan1 : Boss
         {
             StopCoroutine(moveToDestination);
         }
-        isRunning = false;
+        IsRunning = false;
         SeekTime = defaultSeekTime;
         SpeedChange(m_defaultMoveSpeed);
         //プレイヤーを捜索
