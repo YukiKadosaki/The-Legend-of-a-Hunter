@@ -38,7 +38,9 @@ public class Player : MobStatus
         base.Start();
         m_Transform = this.transform;
 
-        dummyCameraVec3 = camera.transform.position;
+        dummyCameraVec3 = new Vector3(1, 2f, -5) + this.m_Transform.position;
+        camera.transform.position = dummyCameraVec3;
+
         playerVec2 = new Vector2(m_Transform.position.x, m_Transform.position.z);
         cameraVec2 = new Vector2(dummyCameraVec3.x, dummyCameraVec3.z);
         criteriaVec2 = playerVec2 - cameraVec2;
@@ -186,7 +188,7 @@ public class Player : MobStatus
 
             // 移動した2次元ベクトルをプレイヤーとカメラの3次元座標に代入
             m_Transform.position = new Vector3(playerVec2.x, m_Transform.position.y, playerVec2.y);
-            dummyCameraVec3 = new Vector3(cameraVec2.x, dummyCameraVec3.y, cameraVec2.y);
+            dummyCameraVec3 = new Vector3(cameraVec2.x, m_Transform.position.y + 2, cameraVec2.y);
 
             // 向きの修正
             camera.transform.LookAt(m_Transform.localPosition + Vector3.up);
