@@ -23,6 +23,7 @@ public class Dragon : Boss
 
     void Start()
     {
+        base.Start();
         //自機のオブジェクトを見つける
         player = GameObject.FindGameObjectWithTag("Player");
         Debug.Log("target = " + player.name);
