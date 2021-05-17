@@ -22,9 +22,9 @@ public class Dragon : Boss
     float time, yzahyo;
 
     void Start()
-    {             
+    {
         //自機のオブジェクトを見つける
-        player = GameObject.Find("PlayerSample");
+        player = GameObject.FindGameObjectWithTag("Player");
         Debug.Log("target = " + player.name);
 
         PlayerPosition = player.transform.position;
