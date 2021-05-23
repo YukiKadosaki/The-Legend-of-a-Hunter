@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class NewGameYuki : MonoBehaviour
 {
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            NewGame();
+        }
+    }
     public void NewGame()
     {
         PlayerPrefs.SetInt("Bee", 0);
