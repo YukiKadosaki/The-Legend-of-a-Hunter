@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7ce9eb425a56eff4582b90c39864208f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Klee One
+  fontNames:
+  - Klee One
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1cd26579da459e94a810630fd537d9aa, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

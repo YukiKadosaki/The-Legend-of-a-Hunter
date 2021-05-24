@@ -11,6 +11,7 @@ public class NewGameYuki : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             NewGame();
+            GameObject.Find("Player");
         }
     }
     public void NewGame()
