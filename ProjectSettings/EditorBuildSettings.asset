@@ -20,4 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/p_yuki/Scene/Dhurahan.unity
     guid: d2900b94db14de345818fc7d88ad77c4
+  - enabled: 1
+    path: Assets/p_Dan_/Scene/Scene_Dan.unity
+    guid: 8095447443f6047419e742dbf616cc47
+  - enabled: 1
+    path: Assets/p_Hatoyasiki/Scene/Scene_Hato.unity
+    guid: 1f676107712af28478abf230f6acce8e
+  - enabled: 1
+    path: Assets/p_Kuroki/Scene/Scene_Kuroki.unity
+    guid: 33ee4b59884f51a4eb79bc5261f64b80
+  - enabled: 1
+    path: Assets/p_yuki/Scene/TrueDullahanScene.unity
+    guid: ac9be308eb908a34ab12a6805c10ceb8
   m_configObjects: {}
