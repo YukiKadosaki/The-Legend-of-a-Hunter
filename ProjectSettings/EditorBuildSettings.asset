@@ -32,4 +32,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/p_yuki/Scene/TrueDullahanScene.unity
     guid: ac9be308eb908a34ab12a6805c10ceb8
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Exibit/Dragon_E.unity
+    guid: b76b6a7353e92fe448e678323c0c36e8
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Exibit/Bee_E.unity
+    guid: 0459e968ef78bf247b138422298e972d
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Exibit/Dullahan_E.unity
+    guid: 928f17ec3f736554585b8669e8e09757
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Exibit/Robot_E.unity
+    guid: 10d71615dba785348ac7e7dbc5bcacd5
+  - enabled: 1
+    path: Assets/p_yuki/Scene/Exibit/Player_E.unity
+    guid: 0f5d01003cc5e024fa8823d663ff737e
   m_configObjects: {}

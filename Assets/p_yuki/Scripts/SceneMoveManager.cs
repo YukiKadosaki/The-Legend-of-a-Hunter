@@ -9,7 +9,7 @@ public class SceneMoveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Alpha0))
+        if (Input.GetKey(KeyCode.Escape))
         {
             SceneManager.LoadScene("Title");
         }
@@ -35,7 +35,23 @@ public class SceneMoveManager : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Alpha6))
         {
-            SceneManager.LoadScene("Scene_Dan");
+            SceneManager.LoadScene("Robot_E");
+        }
+        else if (Input.GetKey(KeyCode.Alpha7))
+        {
+            SceneManager.LoadScene("Bee_E");
+        }
+        else if (Input.GetKey(KeyCode.Alpha8))
+        {
+            SceneManager.LoadScene("Dragon_E");
+        }
+        else if (Input.GetKey(KeyCode.Alpha9))
+        {
+            SceneManager.LoadScene("Dullahan_E");
+        }
+        else if (Input.GetKey(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene("Player_E");
         }
 
     }

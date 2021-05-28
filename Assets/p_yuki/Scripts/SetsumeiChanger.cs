@@ -40,7 +40,7 @@ public class SetsumeiChanger : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         StartCoroutine(SecndShow());
     }
 
@@ -61,7 +61,7 @@ public class SetsumeiChanger : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         StartCoroutine(FirstShow());
     }
 }
